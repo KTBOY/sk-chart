@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payments · 折纸图表效果对比</title>
+<style>
+  :root{
+    --card-bg:#FAFAFA;
+    --ink:#14161F;
+    --ink-soft:#9AA1AC;
+    --divider:#E9EBEF;
+    --dim:#C4CAD3;
+    --dim-num:#C9CED6;
+    --blue:#2E6BE8;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter","Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+    background:radial-gradient(120% 120% at 50% 0%, #F4F6F9 0%, #E9EDF2 60%, #E4E9EF 100%);
+    display:flex;align-items:center;justify-content:center;
+    padding:32px 16px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .shell{width:min(960px,100%)}
+
+  /* ------------------------------ tabs ------------------------------ */
+  .tabs{
+    position:relative;display:flex;width:min(400px,100%);margin:0 auto 24px;
+    background:#fff;border:1px solid #E7EAF0;border-radius:14px;padding:5px;
+    box-shadow:0 12px 28px -20px rgba(20,35,70,.4);
+  }
+  .tab{
+    position:relative;z-index:1;flex:1;border:0;background:transparent;
+    padding:10px 0;border-radius:10px;cursor:pointer;
+    font-family:inherit;font-size:14px;font-weight:600;letter-spacing:.5px;color:#7A828F;
+    transition:color .3s ease .06s;
+  }
+  .tab:hover{color:#39414E}
+  .tab.active{color:#fff;transition:color .26s ease .15s}
+  .glider{
+    position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/3);
+    background:linear-gradient(135deg,#4B8BF5,#2563EB);border-radius:10px;
+    box-shadow:0 8px 18px -8px rgba(37,99,235,.65);
+    transition:transform .42s cubic-bezier(.3,.75,.25,1);
+  }
+
+  /* ------------------------------ panels ------------------------------ */
+  .stage{position:relative;transition:height .42s cubic-bezier(.3,.75,.25,1)}
+  .panel{display:none}
+  .panel.show{display:block;animation:panelIn .45s cubic-bezier(.3,.75,.25,1) both}
+  @keyframes panelIn{
+    from{opacity:0;transform:translateX(var(--from,44px))}
+    to{opacity:1;transform:translateX(0)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .panel.show{animation:none}
+    .glider,.stage{transition:none}
+  }
+  .board{
+    position:relative;background:var(--card-bg);
+    border:1px solid rgba(17,24,39,.05);border-radius:26px;
+    box-shadow:0 30px 70px -30px rgba(20,35,70,.28), 0 2px 6px rgba(20,35,70,.05);
+    overflow:hidden;
+  }
+  #panel-1 .board{padding:18px 14px 14px}
+  .caption{margin:0 10px 8px;text-align:center;font-size:14.5px;font-weight:500;color:#39414F;letter-spacing:.2px}
+  #panel-2 .board{padding:24px 28px 12px}
+  .v2-bar{display:flex;align-items:center;gap:10px}
+  .v2-title{font-size:16.5px;font-weight:700;color:#1C2330}
+  .v2-tag{font-size:12px;font-weight:600;color:#3B82F6;background:#E9F1FE;border-radius:6px;padding:3px 9px}
+  .v2-desc{margin:9px 0 4px;font-size:13px;line-height:1.75;color:#98A1B0}
+
+  /* ------------------------------ chart 1 · 周排课折纸柱 ------------------------------ */
+  #c1 .ylab{font-size:12px;font-weight:500;fill:#B9C1CC;font-variant-numeric:tabular-nums}
+  #c1 .h-day{font-size:12.5px;font-weight:500;fill:#BCC4CF;transition:fill .3s ease}
+  #c1 .h-num{font-size:27px;font-weight:700;letter-spacing:-.5px;fill:#C5CDD9;
+             transition:fill .3s ease;font-variant-numeric:tabular-nums}
+  #c1 .col.active .h-day{fill:#3E4856}
+  #c1 .col.active .h-num{fill:#1A212B}
+  #c1 .xlab{font-size:13px;font-weight:500;fill:#ABB3C0;transition:fill .3s ease}
+  #c1 .col.active .xlab{fill:var(--blue);font-weight:700}
+  #c1 .wash{opacity:0;transition:opacity .32s ease}
+  #c1 .col.active .wash{opacity:1}
+  #c1 .stripes{transition:opacity .32s ease}
+  #c1 .col.active .stripes{opacity:0}
+  #c1 .pill{opacity:0;transition:opacity .32s ease}
+  #c1 .col.active .pill{opacity:1}
+  #c1 .edge{opacity:0;transition:opacity .32s ease}
+  #c1 .col.active .edge{opacity:1}
+  #c1 .hit{fill:transparent;cursor:pointer}
+
+  /* ------------------------------ chart 2 · 硬折明暗双面 ------------------------------ */
+  #c2 .ylab{font-size:12px;font-weight:500;fill:#B9C1CC;font-variant-numeric:tabular-nums}
+  #c2 .v-num{font-size:15px;font-weight:600;fill:#A9B1BE;
+             transition:fill .3s ease;font-variant-numeric:tabular-nums}
+  #c2 .col.active .v-num{fill:var(--blue);font-weight:700}
+  #c2 .xlab{font-size:12.5px;font-weight:500;fill:#ABB3C0;transition:fill .3s ease}
+  #c2 .col.active .xlab{fill:var(--blue);font-weight:700}
+  #c2 .topline{stroke:rgba(125,158,229,.5);stroke-width:1.5;
+               transition:stroke .3s ease,stroke-width .3s ease}
+  #c2 .col.active .topline{stroke:#8ABCF9;stroke-width:2}
+  #c2 .stripes{transition:opacity .3s ease}
+  #c2 .col.active .stripes{opacity:0}
+  #c2 .hit{fill:transparent;cursor:pointer}
+
+  /* ------------------------------ chart 3 · Payments ------------------------------ */
+  .card{
+    position:relative;
+    width:100%;
+    background:var(--card-bg);
+    border:1px solid rgba(17,24,39,.05);
+    border-radius:26px;
+    box-shadow:0 30px 70px -30px rgba(20,35,70,.28), 0 2px 6px rgba(20,35,70,.05);
+    padding:6px 6px 0;
+    overflow:hidden;
+  }
+  svg{display:block;width:100%;height:auto;font-family:inherit}
+  .more{
+    position:absolute;top:22px;right:24px;
+    width:34px;height:34px;border-radius:50%;
+    background:#fff;border:1px solid #E7E9EE;
+    color:#5B6472;font-size:16px;line-height:0;letter-spacing:1px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;box-shadow:0 1px 2px rgba(20,35,70,.05);
+    transition:background .2s,transform .2s;
+  }
+  .more:hover{background:#F5F7FA;transform:translateY(-1px)}
+  .title{font-size:21px;font-weight:700;fill:var(--ink);letter-spacing:-.2px}
+  .axis{font-size:11px;font-weight:500;fill:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .lbl{font-size:11.5px;font-weight:500;fill:var(--dim);transition:fill .3s ease}
+  .num{font-size:27px;font-weight:600;fill:var(--dim-num);letter-spacing:-.6px;
+       font-variant-numeric:tabular-nums;transition:fill .3s ease}
+  .col.active .lbl{fill:#242A36}
+  .col.active .num{fill:#15181F}
+  .stripes{opacity:1;transition:opacity .32s ease}
+  .col.active .stripes{opacity:0}
+  .wash{opacity:0;transition:opacity .32s ease}
+  .col.active .wash{opacity:1}
+  .hit{fill:transparent;cursor:pointer}
+  #tip{transition:transform .34s cubic-bezier(.22,.61,.36,1);pointer-events:none}
+  #tip text{font-size:10.5px;font-weight:400;fill:#79839A;font-variant-numeric:tabular-nums}
+  #tip tspan.b{font-weight:700;fill:#171B26}
+  #tip tspan.s{fill:#C3C8D4}
+</style>
+</head>
+<body>
+  <div class="shell">
+
+    <nav class="tabs" role="tablist" aria-label="效果切换">
+      <span class="glider" id="glider" style="transform:translateX(200%)"></span>
+      <button class="tab" type="button" role="tab" aria-selected="false">效果 1</button>
+      <button class="tab" type="button" role="tab" aria-selected="false">效果 2</button>
+      <button class="tab active" type="button" role="tab" aria-selected="true">效果 3</button>
+    </nav>
+
+    <div class="stage" id="stage">
+
+      <section class="panel" id="panel-1" role="tabpanel">
+        <div class="board">
+          <svg id="c1" viewBox="0 0 900 470" role="img" aria-label="折纸柱状图"></svg>
+          <p class="caption">支付漏斗 · 共 5 个环节 · 悬停切换选中列</p>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-2" role="tabpanel">
+        <div class="board">
+          <div class="v2-bar">
+            <span class="v2-title">① 硬折 · 明暗双面</span>
+            <span class="v2-tag">折痕锐利</span>
+          </div>
+          <p class="v2-desc">折面直立斜切 + 横向明暗渐变（折角深 → 一边缘亮），模拟纸折过去后斜面反光的变化。最接近参考图，改动最小。</p>
+          <svg id="c2" viewBox="0 0 880 372" role="img" aria-label="硬折明暗双面柱状图"></svg>
+        </div>
+      </section>
+
+      <section class="panel show" id="panel-3" role="tabpanel">
+        <div class="card">
+          <svg id="chart" viewBox="0 0 860 386" role="img" aria-label="支付漏斗图"></svg>
+          <button class="more" type="button" aria-label="more">···</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+<script>
+/* ------------------------------ shared helpers ------------------------------ */
+const NS = 'http://www.w3.org/2000/svg';
+const el = (t, a = {}) => {
+  const n = document.createElementNS(NS, t);
+  for (const k in a) n.setAttribute(k, a[k]);
+  return n;
+};
+const putStops = (g, arr) => {
+  for (const [o, c] of arr) g.appendChild(el('stop', { offset:o, 'stop-color':c }));
+  return g;
+};
+
+/* ------------------------------ 统一数据源（以效果 3 为准） ------------------------------ */
+const DATA = [
+  { label:'发起支付', value:65.2 },
+  { label:'授权支付', value:54.8 },
+  { label:'支付成功', value:48.6 },
+  { label:'商户打款', value:38.3 },
+  { label:'完成交易', value:32.9 },
+];
+
+/* ------------------------------ tabs & panels ------------------------------ */
+const tabs = [...document.querySelectorAll('.tab')];
+const panels = [...document.querySelectorAll('.panel')];
+const glider = document.getElementById('glider');
+const stage = document.getElementById('stage');
+let cur = 2, animToken = 0;
+function go(i) {
+  if (i === cur) return;
+  const dir = i > cur ? 1 : -1;
+  tabs.forEach((t, ti) => {
+    t.classList.toggle('active', ti === i);
+    t.setAttribute('aria-selected', ti === i);
+  });
+  glider.style.transform = `translateX(${i * 100}%)`;
+
+  const prev = panels[cur], next = panels[i];
+  const token = ++animToken;
+  const h0 = stage.offsetHeight;
+  prev.classList.remove('show');
+  next.style.setProperty('--from', 46 * dir + 'px');
+  next.classList.add('show');
+  const h1 = next.offsetHeight;
+  if (h0 !== h1) {
+    stage.style.height = h0 + 'px';
+    requestAnimationFrame(() => { stage.style.height = h1 + 'px'; });
+    stage.addEventListener('transitionend', function te(e) {
+      if (e.target !== stage) return;
+      stage.removeEventListener('transitionend', te);
+      if (token === animToken) stage.style.height = '';
+    });
+  }
+  cur = i;
+}
+tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+
+/* ============================== 效果 1 · 折纸柱 ============================== */
+function buildChart1() {
+  const svg = document.getElementById('c1');
+  const P = { left:80, right:868, top:118, bottom:430 };
+  const N = DATA.length;
+  const CW = (P.right - P.left) / N;
+  const AXIS_MAX = 70;                                      /* 轴顶 70k，与效果 3 同量纲 */
+  const Y = v => P.bottom - (P.bottom - P.top) * v / AXIS_MAX;
+  const colX = i => P.left + i * CW;
+  const FOLD_RUN = Math.round(CW * 0.29);
+
+  const defs = el('defs');
+
+  /* 斜纹“横线纸”条纹（不透明底，选中时淡出露出渐变柱体） */
+  const pat = el('pattern', {
+    id:'p1s', width:13, height:13,
+    patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)'
+  });
+  pat.appendChild(el('rect', { width:13, height:13, fill:'#F0F6FE' }));
+  pat.appendChild(el('rect', { width:5.6, height:13, fill:'#A9C7F8' }));
+  defs.appendChild(pat);
+
+  /* 选中柱体渐变 */
+  defs.appendChild(putStops(el('linearGradient', { id:'g1bar', x1:0, y1:0, x2:0, y2:1 }),
+    [[0,'#63A6F6'],[.5,'#3F80EF'],[1,'#2D69E6']]));
+
+  /* 选中列顶部浅蓝衬底 */
+  defs.appendChild(putStops(el('linearGradient', { id:'g1wash', x1:0, y1:0, x2:0, y2:1 }),
+    [[0,'rgba(223,240,254,0)'],[1,'#DFF0FE']]));
+
+  /* 折面渐变：亮 → 折角处蓝 */
+  DATA.forEach((_, i) => {
+    if (!i) return;
+    const g = el('linearGradient', {
+      id:'g1f' + i, gradientUnits:'userSpaceOnUse',
+      x1:colX(i) - FOLD_RUN, y1:0, x2:colX(i), y2:0
+    });
+    putStops(g, [[0,'#DAE4F3'],[1,'#5C8FEC']]);
+    defs.appendChild(g);
+  });
+  svg.appendChild(defs);
+
+  /* y 轴 */
+  const ax = el('g');
+  [60, 40, 20, 0].forEach(v => {
+    const t = el('text', { class:'ylab', x:P.left - 16, y:Y(v) + 4, 'text-anchor':'end' });
+    t.textContent = v + 'k';
+    ax.appendChild(t);
+  });
+  svg.appendChild(ax);
+
+  const layer = el('g');
+  svg.appendChild(layer);
+
+  DATA.forEach((d, i) => {
+    const x = colX(i), yt = Y(d.value), cx = x + CW / 2;
+    const g = el('g', { class:'col', 'data-i':i });
+
+    g.appendChild(el('rect', { class:'wash', x, y:P.top, width:CW, height:yt - P.top, fill:'url(#g1wash)' }));
+    g.appendChild(el('rect', { x, y:yt, width:CW, height:P.bottom - yt, fill:'url(#g1bar)' }));
+    g.appendChild(el('rect', { class:'stripes', x, y:yt, width:CW, height:P.bottom - yt, fill:'url(#p1s)' }));
+
+    if (i > 0) {
+      /* 折角左侧的深色棱边（折过去包住柱体的厚度） */
+      g.appendChild(el('rect', { class:'edge', x, y:yt, width:8, height:P.bottom - yt, fill:'#2B59DE' }));
+
+      /* 纸折面：从上一根柱顶斜切下来 */
+      const run = FOLD_RUN, py = Y(DATA[i - 1].value);
+      g.appendChild(el('polygon', { points:`${x - run},${py} ${x},${py} ${x},${yt}`, fill:`url(#g1f${i})` }));
+      g.appendChild(el('line', { x1:x - run, y1:py, x2:x, y2:yt, stroke:'rgba(255,255,255,.9)', 'stroke-width':1.4 }));
+    }
+
+    /* 选中列浮标 */
+    g.appendChild(el('rect', { class:'pill', x:cx - 23, y:yt - 17, width:46, height:9, rx:4.5, fill:'#3F74E8' }));
+
+    const hd = el('text', { class:'h-day', x:x + 22, y:46 });
+    hd.textContent = d.label;
+    g.appendChild(hd);
+    const hn = el('text', { class:'h-num', x:x + 22, y:82 });
+    hn.textContent = d.value.toFixed(1) + 'k';
+    g.appendChild(hn);
+
+    const xl = el('text', { class:'xlab', x:cx, y:458, 'text-anchor':'middle' });
+    xl.textContent = d.label;
+    g.appendChild(xl);
+
+    g.appendChild(el('rect', { class:'hit', x, y:24, width:CW, height:P.bottom - 24 }));
+    layer.appendChild(g);
+  });
+
+  const cols = [...svg.querySelectorAll('.col')];
+  const set = i => cols.forEach(c => c.classList.toggle('active', +c.dataset.i === i));
+  cols.forEach(c => c.addEventListener('mouseenter', () => set(+c.dataset.i)));
+  svg.addEventListener('mouseleave', () => set(N - 1));
+  set(N - 1);
+}
+
+/* ============================== 效果 2 · 硬折 · 明暗双面 ============================== */
+function buildChart2() {
+  const svg = document.getElementById('c2');
+  const P = { left:66, right:850, top:64, bottom:322 };
+  const N = DATA.length;
+  const CW = (P.right - P.left) / N;
+  const BW = Math.round(CW * 0.625);                /* 柱宽，其余为折面横向跨度 */
+  const AXIS_MAX = 70;                              /* 轴顶 70k，与效果 3 同量纲 */
+  const Y = v => P.bottom - (v / AXIS_MAX) * (P.bottom - P.top);
+  const X = i => P.left + i * CW;
+
+  const defs = el('defs');
+
+  const pat = el('pattern', {
+    id:'p2s', width:9.5, height:9.5,
+    patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)'
+  });
+  pat.appendChild(el('rect', { width:9.5, height:9.5, fill:'#EFF6FE' }));
+  pat.appendChild(el('rect', { width:3.4, height:9.5, fill:'#9FC3F8' }));
+  defs.appendChild(pat);
+
+  defs.appendChild(putStops(el('linearGradient', { id:'g2bar', x1:0, y1:0, x2:0, y2:1 }),
+    [[0,'#5CA1F6'],[.55,'#3B7BEE'],[1,'#2E68E6']]));
+
+  /* 折面横向明暗渐变：折角深 → 一边缘亮 */
+  for (let i = 1; i < N; i++) {
+    const g = el('linearGradient', {
+      id:'g2f' + i, gradientUnits:'userSpaceOnUse',
+      x1:X(i - 1) + BW, y1:0, x2:X(i - 1) + CW, y2:0
+    });
+    putStops(g, [[0,'#2F55D6'],[.5,'#5B86E8'],[1, i === N - 1 ? '#8FB9F5' : '#B7D0F8']]);
+    defs.appendChild(g);
+  }
+  svg.appendChild(defs);
+
+  /* 网格与 y 轴 */
+  const grid = el('g');
+  [60, 40, 20, 0].forEach(v => {
+    const y = Y(v);
+    grid.appendChild(el('line', {
+      x1:P.left, x2:P.right, y1:y, y2:y,
+      stroke: v === 0 ? '#E4E8EF' : '#EEF1F6', 'stroke-width':1
+    }));
+    const t = el('text', { class:'ylab', x:P.left - 14, y:y + 4, 'text-anchor':'end' });
+    t.textContent = v + 'k';
+    grid.appendChild(t);
+  });
+  svg.appendChild(grid);
+
+  const colsLayer = el('g');
+  svg.appendChild(colsLayer);
+  for (let i = 0; i < N; i++) {
+    const x = X(i), yt = Y(DATA[i].value);
+    const g = el('g', { class:'col', 'data-i':i });
+
+    g.appendChild(el('rect', { x, y:yt, width:BW, height:P.bottom - yt, fill:'url(#g2bar)' }));
+    g.appendChild(el('rect', { class:'stripes', x, y:yt, width:BW, height:P.bottom - yt, fill:'url(#p2s)' }));
+    g.appendChild(el('line', { class:'topline', x1:x, x2:x + BW, y1:yt, y2:yt }));
+
+    const vn = el('text', { class:'v-num', x:x + BW / 2, y:yt - 14, 'text-anchor':'middle' });
+    vn.textContent = DATA[i].value.toFixed(1) + 'k';
+    g.appendChild(vn);
+
+    const xl = el('text', { class:'xlab', x:x + BW / 2, y:P.bottom + 27, 'text-anchor':'middle' });
+    xl.textContent = DATA[i].label;
+    g.appendChild(xl);
+
+    g.appendChild(el('rect', { class:'hit', x:X(i), y:P.top - 40, width:CW, height:P.bottom - P.top + 40 }));
+    colsLayer.appendChild(g);
+  }
+
+  /* 硬折面：直立斜切 + 横向明暗渐变，覆盖到基线 */
+  const folds = el('g', { 'pointer-events':'none' });
+  for (let i = 1; i < N; i++) {
+    const x0 = X(i - 1) + BW, x1 = X(i - 1) + CW;
+    const y0 = Y(DATA[i - 1].value), y1 = Y(DATA[i].value);
+    folds.appendChild(el('polygon', {
+      points:`${x0},${y0} ${x1},${y1} ${x1},${P.bottom} ${x0},${P.bottom}`,
+      fill:`url(#g2f${i})`
+    }));
+    folds.appendChild(el('line', { x1:x0, y1:y0, x2:x1, y2:y1, stroke:'rgba(255,255,255,.55)', 'stroke-width':1 }));
+  }
+  svg.appendChild(folds);
+
+  const cols = [...svg.querySelectorAll('.col')];
+  const set = i => cols.forEach(c => c.classList.toggle('active', +c.dataset.i === i));
+  cols.forEach(c => c.addEventListener('mouseenter', () => set(+c.dataset.i)));
+  svg.addEventListener('mouseleave', () => set(N - 1));
+  set(N - 1);
+}
+
+/* ============================== 效果 3 · 支付漏斗（原最终实现） ============================== */
+function buildChart3() {
+  /* ---- geometry (design units, 1:1 with the reference pixels) ---- */
+  const PLOT   = { left:73, right:831, top:64, bottom:360 };
+  const N      = DATA.length;
+  const COL_W  = (PLOT.right - PLOT.left) / N;   // 151.6
+  const FOLD   = 20;                             // horizontal run of the paper fold
+  const BAR_W  = COL_W - FOLD - 1;               // 130.6
+  const STAIR  = { base:330, top:138 };          // staircase anchor: tallest bar
+  const MAX    = Math.max(...DATA.map(d => d.value));
+
+  /* heights scale with value² — reproduces the reference funnel silhouette */
+  const topOf  = v => STAIR.base - Math.pow(v / MAX, 2) * (STAIR.base - STAIR.top);
+  const barX   = i => PLOT.left + i * COL_W + 1;
+  const barTop = i => topOf(DATA[i].value);
+
+  const AXIS = [70,60,50,40,30];
+  const AXIS_Y = [113,147,181,215,249];
+
+  const svg = document.getElementById('chart');
+
+  /* ------------------------------- defs ------------------------------- */
+  const defs = el('defs');
+
+  /* diagonal "lined paper" stripes */
+  const pat = el('pattern', {
+    id:'stripes', width:7.1, height:7.1,
+    patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)'
+  });
+  pat.appendChild(el('rect', { x:0, y:0, width:7.1, height:7.1, fill:'none' }));
+  pat.appendChild(el('rect', { x:0, y:0, width:2.1, height:7.1, fill:'#fff', 'fill-opacity':.93 }));
+  defs.appendChild(pat);
+
+  /* bar body gradient (per bar: own top -> plot bottom) */
+  const barStops = active => active
+    ? [[0,'#2A2FC8'],[.07,'#2A55E2'],[.22,'#2C62EC'],[.42,'#3184F7'],[.62,'#77ABF5'],[.82,'#C5DAF5'],[1,'#EAF1FA']]
+    : [[0,'#2B3AD6'],[.07,'#2C60EC'],[.22,'#2F76F2'],[.42,'#4C93F8'],[.62,'#87B5F6'],[.82,'#CDDDF5'],[1,'#EBF2FA']];
+  DATA.forEach((_, i) => {
+    const g = el('linearGradient', { id:'bar'+i, x1:0, y1:0, x2:0, y2:1 });
+    for (const [o,c] of barStops(i === 2)) g.appendChild(el('stop', { offset:o, 'stop-color':c }));
+    defs.appendChild(g);
+  });
+
+  /* folded flap: lit crease at the top, dissolving into the surface below */
+  DATA.forEach((_, i) => {
+    if (i === N - 1) return;
+    const y0 = barTop(i);
+    const g = el('linearGradient', {
+      id:'fold'+i, gradientUnits:'userSpaceOnUse', x1:0, y1:y0, x2:0, y2:PLOT.bottom
+    });
+    [[0,'#8FB2F8'],[.14,'#A6C2FA'],[.38,'#C6DAFA'],[.68,'#E6EDFB'],[1,'#F4F7FC']]
+      .forEach(([o,c]) => g.appendChild(el('stop', { offset:o, 'stop-color':c })));
+    defs.appendChild(g);
+  });
+
+  /* specular highlight along the crease */
+  const crease = el('linearGradient', { id:'crease', x1:0, y1:0, x2:1, y2:0 });
+  [[0,'rgba(255,255,255,0)'],[.18,'rgba(255,255,255,.62)'],[.55,'rgba(255,255,255,.18)'],[1,'rgba(255,255,255,0)']]
+    .forEach(([o,c]) => crease.appendChild(el('stop', { offset:o, 'stop-color':c })));
+  defs.appendChild(crease);
+
+  /* active column wash */
+  const WASH_TOP = 115;
+  const wash = el('linearGradient', { id:'wash', x1:0, y1:0, x2:0, y2:1 });
+  [[0,'rgba(222,240,254,0)'],[.55,'rgba(222,240,254,.55)'],[1,'rgba(214,238,254,1)']]
+    .forEach(([o,c]) => wash.appendChild(el('stop', { offset:o, 'stop-color':c })));
+  defs.appendChild(wash);
+
+  /* pill handle */
+  const pillG = el('linearGradient', { id:'pill', x1:0, y1:0, x2:0, y2:1 });
+  [[0,'#EFF7FF'],[.45,'#BBD9FF'],[1,'#7FB2FF']].forEach(([o,c]) => pillG.appendChild(el('stop',{offset:o,'stop-color':c})));
+  defs.appendChild(pillG);
+
+  /* soft shadow under the paper */
+  const shadow = el('filter', { id:'soft', x:'-40%', y:'-40%', width:'180%', height:'200%' });
+  shadow.appendChild(el('feDropShadow', { dx:0, dy:3, stdDeviation:5, 'flood-color':'#1B3560', 'flood-opacity':.14 }));
+  defs.appendChild(shadow);
+
+  /* the sheet dissolves instead of hitting a hard baseline */
+  const maskG = el('mask', { id:'fade', maskUnits:'userSpaceOnUse', x:0, y:0, width:860, height:386 });
+  const fadeG = el('linearGradient', { id:'fadeGrad', gradientUnits:'userSpaceOnUse', x1:0, y1:344, x2:0, y2:360 });
+  [[0,'#fff'],[1,'#000']].forEach(([o,c]) => fadeG.appendChild(el('stop',{offset:o,'stop-color':c})));
+  defs.appendChild(fadeG);
+  maskG.appendChild(el('rect', { x:0, y:0, width:860, height:386, fill:'url(#fadeGrad)' }));
+  defs.appendChild(maskG);
+  svg.appendChild(defs);
+
+  /* ---------------------------- static layers ---------------------------- */
+  svg.appendChild(el('text', { class:'title', x:36, y:52 })).textContent = '支付';
+
+  const grid = el('g');
+  AXIS.forEach((v, i) => {
+    const t = el('text', { class:'axis', x:58, y:AXIS_Y[i] + 4, 'text-anchor':'end' });
+    t.textContent = v + 'k';
+    grid.appendChild(t);
+  });
+  for (let i = 0; i <= N; i++) {
+    grid.appendChild(el('line', {
+      x1:PLOT.left + i * COL_W, x2:PLOT.left + i * COL_W,
+      y1:PLOT.top, y2:PLOT.bottom, stroke:'var(--divider)', 'stroke-width':1
+    }));
+  }
+  svg.appendChild(grid);
+
+  /* ------------------------------ columns ------------------------------ */
+  const layer = el('g', { mask:'url(#fade)' });
+  svg.appendChild(layer);
+
+  DATA.forEach((d, i) => {
+    const x = barX(i), y = barTop(i), cx = x + BAR_W / 2;
+    const g = el('g', { class:'col', 'data-i':i });
+
+    g.appendChild(el('rect', {
+      class:'wash', x, y:WASH_TOP, width:BAR_W, height:y - WASH_TOP, fill:'url(#wash)'
+    }));
+
+    g.appendChild(el('rect', { x, y, width:BAR_W, height:PLOT.bottom - y, fill:'url(#bar'+i+')' }));
+    g.appendChild(el('rect', { class:'stripes', x, y, width:BAR_W, height:PLOT.bottom - y, fill:'url(#stripes)' }));
+
+    if (i < N - 1) {
+      const nx = barX(i + 1), ny = barTop(i + 1);
+      const flap = `${x + BAR_W},${y} ${nx + 1},${ny} ${nx + 1},${PLOT.bottom} ${x + BAR_W},${PLOT.bottom}`;
+      g.appendChild(el('polygon', { points:flap, fill:'url(#fold'+i+')' }));
+      g.appendChild(el('polygon', { points:flap, fill:'url(#crease)' }));
+      g.appendChild(el('line', {
+        x1:x + BAR_W, y1:y, x2:nx + 1, y2:ny,
+        stroke:'rgba(255,255,255,.85)', 'stroke-width':1.2
+      }));
+    }
+
+    g.appendChild(el('rect', { x:cx - 13, y:y - 13, width:26, height:7, rx:3.5, fill:'url(#pill)' }));
+    g.appendChild(el('rect', { x:cx - 12, y:y - 7.5, width:24, height:1.4, rx:.7, fill:'#4A78D8', 'fill-opacity':.75 }));
+
+    const lbl = el('text', { class:'lbl', x:x - 5, y:85 });
+    lbl.textContent = d.label;
+    g.appendChild(lbl);
+    const num = el('text', { class:'num', x:x - 5, y:117 });
+    num.textContent = d.value.toFixed(1) + 'k';
+    g.appendChild(num);
+
+    g.appendChild(el('rect', {
+      class:'hit', x:PLOT.left + i * COL_W, y:PLOT.top, width:COL_W, height:PLOT.bottom - PLOT.top
+    }));
+    layer.appendChild(g);
+  });
+
+  /* ------------------------------- tooltip ------------------------------- */
+  const tip = el('g', { id:'tip', filter:'url(#soft)' });
+  const tipRect = el('rect', { x:0, y:0, height:28, rx:9, fill:'#fff', stroke:'rgba(20,35,70,.07)' });
+  const tipText = el('text', { x:0, y:0, 'text-anchor':'middle' });
+  tip.appendChild(tipRect);
+  tip.appendChild(tipText);
+  svg.appendChild(tip);
+
+  function renderTip(i) {
+    const v = DATA[i].value;
+    const conv = i === 0 ? 100 : Math.round(v / DATA[i - 1].value * 100);
+    const parts = [
+      ['b', v.toFixed(1) + 'k'], ['n', ' 笔交易 '], ['s', '|'], ['n', ' 转化率: '],
+      ['b', conv + '%'], ['s', ' |'], ['n', ' 流失: '], ['b', (i === 0 ? '0%' : (conv - 100) + '%')]
+    ];
+    tipText.textContent = '';
+    tipText.setAttribute('x', 0);
+    tipText.setAttribute('y', 0);
+    parts.forEach(([cls, txt]) => {
+      const ts = el('tspan', { class: cls === 'n' ? '' : cls });
+      ts.textContent = txt;
+      tipText.appendChild(ts);
+    });
+    const padX = 12, h = 28, w = tipText.getComputedTextLength() + padX * 2;
+    const ink = tipText.getBBox();
+    tipRect.setAttribute('width', w);
+    tipText.setAttribute('x', w / 2);
+    tipText.setAttribute('y', h / 2 - (ink.y + ink.height / 2));
+    const x = barX(i) + BAR_W * .42;
+    const y = Math.max(barTop(i) - 30, 140);
+    const shift = Math.min(0, PLOT.right - (x + w));
+    tip.setAttribute('transform', `translate(${x + shift},${y})`);
+  }
+
+  /* ------------------------------ interaction ------------------------------ */
+  const cols = [...svg.querySelectorAll('.col')];
+  let active = -1;
+  function setActive(i) {
+    if (i === active) return;
+    active = i;
+    cols.forEach(c => c.classList.toggle('active', +c.dataset.i === i));
+    renderTip(i);
+  }
+  cols.forEach(c => c.addEventListener('mouseenter', () => setActive(+c.dataset.i)));
+  layer.addEventListener('mouseleave', () => setActive(2));
+  tip.style.transition = 'none';
+  setActive(2);
+  requestAnimationFrame(() => { tip.style.transition = ''; });
+}
+
+buildChart1();
+buildChart2();
+buildChart3();
+</script>
+</body>
+</html>

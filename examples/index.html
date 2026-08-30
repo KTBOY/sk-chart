@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sk-chart · FoldBarChart Demo</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter","Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+    background:radial-gradient(120% 120% at 50% 0%, #F4F6F9 0%, #E9EDF2 60%, #E4E9EF 100%);
+    padding:40px 16px 64px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .shell{width:min(960px,100%);margin:0 auto;display:flex;flex-direction:column;gap:28px}
+  h1{margin:0;font-size:26px;letter-spacing:-.4px;color:#14161F}
+  .sub{margin:6px 0 0;font-size:13.5px;color:#9AA1AC;line-height:1.7}
+  .card{
+    position:relative;background:#FAFAFA;
+    border:1px solid rgba(17,24,39,.05);border-radius:26px;
+    box-shadow:0 30px 70px -30px rgba(20,35,70,.28), 0 2px 6px rgba(20,35,70,.05);
+    padding:6px 6px 0;overflow:hidden;
+  }
+  .card.flat{padding:18px 22px 16px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  button{
+    border:1px solid #E7E9EE;background:#fff;color:#39414E;
+    font:inherit;font-size:13px;font-weight:600;
+    padding:8px 16px;border-radius:10px;cursor:pointer;
+    box-shadow:0 1px 2px rgba(20,35,70,.05);
+    transition:background .2s,transform .2s;
+  }
+  button:hover{background:#F5F7FA;transform:translateY(-1px)}
+  .note{margin:10px 2px 0;font-size:12.5px;color:#9AA1AC;line-height:1.7}
+  .log{
+    margin:0;height:110px;overflow:auto;
+    background:#10141C;color:#9FE3B4;border-radius:12px;
+    font:12px/1.9 ui-monospace,Consolas,monospace;
+    padding:10px 14px;white-space:pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>sk-chart · FoldBarChart</h1>
+      <p class="sub">
+        实例 1：原稿数据 + <code>scale.exponent: 2</code> + <code>defaultActive: 2</code>，用于与
+        payments-fold-chart.html 效果 3 像素级对照。<br>
+        实例 2：7 条数据 + 线性映射 + 自定义配色，验证参数化。悬停 / 点击 / 方向键均可交互。
+      </p>
+    </header>
+
+    <section class="card flat">
+      <div class="toolbar">
+        <button id="btn-random" type="button">随机更新数据（实例 1）</button>
+        <button id="btn-restore" type="button">还原原稿数据</button>
+        <button id="btn-toggle" type="button">销毁 / 重建实例 2</button>
+      </div>
+      <div id="chart-1"></div>
+      <p class="note">悬停切换高亮列；移出后回到 defaultActive；点击列会触发 column:click 事件。</p>
+    </section>
+
+    <section class="card flat">
+      <div id="chart-2"></div>
+    </section>
+
+    <section class="card flat">
+      <div class="toolbar"><span style="font-size:13px;font-weight:600;color:#39414E">事件日志</span></div>
+      <pre class="log" id="log"></pre>
+    </section>
+  </div>
+
+<script type="module" src="./main.ts"></script>
+</body>
+</html>

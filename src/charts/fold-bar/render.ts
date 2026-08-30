@@ -1,0 +1,215 @@
+import { createSvgElement, scopedId, urlRef } from '../../core/svg-renderer';
+import { buildScopedCss } from '../../theme/default-theme';
+import type { FoldBarModel } from './defaults';
+import { buildDefs } from './defs-builder';
+import { axisTickYs, gridLineXs, hitRect, pillGeometry, washRect } from './geometry';
+
+export interface TooltipHandle {
+  group: SVGGElement;
+  rect: SVGRectElement;
+  text: SVGTextElement;
+}
+
+export interface FoldBarRenderResult {
+  svg: SVGSVGElement;
+  columns: SVGGElement[];
+  columnsLayer: SVGGElement;
+  tooltip: TooltipHandle;
+}
+
+/** Builds the full SVG scene from a precomputed model. Pure DOM output, no event wiring. */
+export function renderFoldBar(uid: string, model: FoldBarModel): FoldBarRenderResult {
+  const { options, layout, bars, flaps, labels, values } = model;
+  const { style, tokens } = options;
+
+  const svg = createSvgElement('svg', {
+    class: scopedId(uid, 'root'),
+    viewBox: `0 0 ${options.width} ${options.height}`,
+    role: 'img',
+    'aria-label': options.ariaLabel,
+  });
+
+  const styleEl = createSvgElement('style');
+  styleEl.textContent = buildScopedCss(uid, tokens);
+  svg.appendChild(styleEl);
+
+  svg.appendChild(
+    buildDefs({
+      uid,
+      width: options.width,
+      height: options.height,
+      plotBottom: layout.plot.bottom,
+      barCount: values.length,
+      gradientIndex: options.state.defaultActive,
+      flapGradientYs: flaps.map((flap) => (flap ? flap.gradientY : null)),
+      style,
+    }),
+  );
+
+  if (options.title.text) {
+    const title = createSvgElement('text', {
+      class: scopedId(uid, 'title'),
+      x: options.title.x,
+      y: options.title.y,
+    });
+    title.textContent = options.title.text;
+    svg.appendChild(title);
+  }
+
+  // Y axis tick labels + vertical column dividers.
+  const grid = createSvgElement('g');
+  const tickYs = axisTickYs(options.axis.zone, options.axis.ticks.length);
+  options.axis.ticks.forEach((tick, i) => {
+    const label = createSvgElement('text', {
+      class: scopedId(uid, 'axis'),
+      x: layout.plot.left - 15,
+      y: tickYs[i] + 4,
+      'text-anchor': 'end',
+    });
+    label.textContent = options.axis.tickFormat(tick);
+    grid.appendChild(label);
+  });
+  for (const x of gridLineXs(layout)) {
+    grid.appendChild(
+      createSvgElement('line', {
+        x1: x,
+        x2: x,
+        y1: layout.plot.top,
+        y2: layout.plot.bottom,
+        stroke: tokens.grid.stroke,
+        'stroke-width': tokens.grid.strokeWidth,
+      }),
+    );
+  }
+  svg.appendChild(grid);
+
+  // Columns layer: the fade mask dissolves the baseline.
+  const columnsLayer = createSvgElement('g', { mask: urlRef(uid, 'fade'), role: 'list' });
+  svg.appendChild(columnsLayer);
+
+  const columns: SVGGElement[] = [];
+  values.forEach((value, i) => {
+    const bar = bars[i];
+    const col = createSvgElement('g', {
+      class: scopedId(uid, 'col'),
+      'data-i': i,
+      role: 'listitem',
+      'aria-selected': 'false',
+      'aria-label': `${labels[i]} ${options.valueFormat(value)}`,
+    });
+
+    col.appendChild(
+      createSvgElement('rect', {
+        class: scopedId(uid, 'wash'),
+        ...washRect(bar, style.washTop),
+        fill: urlRef(uid, 'wash'),
+      }),
+    );
+
+    col.appendChild(
+      createSvgElement('rect', {
+        x: bar.x,
+        y: bar.y,
+        width: bar.width,
+        height: bar.height,
+        fill: urlRef(uid, `bar${i}`),
+      }),
+    );
+
+    col.appendChild(
+      createSvgElement('rect', {
+        class: scopedId(uid, 'stripes'),
+        x: bar.x,
+        y: bar.y,
+        width: bar.width,
+        height: bar.height,
+        fill: urlRef(uid, 'stripes'),
+      }),
+    );
+
+    const flap = flaps[i];
+    if (flap) {
+      col.appendChild(
+        createSvgElement('polygon', { points: flap.points, fill: urlRef(uid, `fold${i}`) }),
+      );
+      col.appendChild(
+        createSvgElement('polygon', { points: flap.points, fill: urlRef(uid, 'crease') }),
+      );
+      col.appendChild(
+        createSvgElement('line', {
+          x1: flap.crease.x1,
+          y1: flap.crease.y1,
+          x2: flap.crease.x2,
+          y2: flap.crease.y2,
+          stroke: options.fold.creaseColor,
+          'stroke-width': options.fold.creaseWidth,
+        }),
+      );
+    }
+
+    const pill = pillGeometry(bar.centerX, bar.y, style.pill);
+    col.appendChild(
+      createSvgElement('rect', {
+        x: pill.x,
+        y: pill.y,
+        width: pill.width,
+        height: pill.height,
+        rx: pill.rx,
+        fill: urlRef(uid, 'pill'),
+      }),
+    );
+    col.appendChild(
+      createSvgElement('rect', {
+        x: pill.shadowX,
+        y: pill.shadowY,
+        width: pill.shadowWidth,
+        height: pill.shadowHeight,
+        rx: pill.shadowRx,
+        fill: style.pill.shadow.color,
+        'fill-opacity': style.pill.shadow.opacity,
+      }),
+    );
+
+    const label = createSvgElement('text', {
+      class: scopedId(uid, 'lbl'),
+      x: bar.x + style.labelXOffset,
+      y: style.labelY,
+    });
+    label.textContent = labels[i];
+    col.appendChild(label);
+
+    const num = createSvgElement('text', {
+      class: scopedId(uid, 'num'),
+      x: bar.x + style.labelXOffset,
+      y: style.numberY,
+    });
+    num.textContent = options.valueFormat(value);
+    col.appendChild(num);
+
+    col.appendChild(
+      createSvgElement('rect', { class: scopedId(uid, 'hit'), ...hitRect(layout, i) }),
+    );
+
+    columnsLayer.appendChild(col);
+    columns.push(col);
+  });
+
+  const group = createSvgElement('g', {
+    class: scopedId(uid, 'tip'),
+    filter: urlRef(uid, 'soft'),
+  });
+  const rect = createSvgElement('rect', {
+    x: 0,
+    y: 0,
+    height: options.tooltip.height,
+    rx: options.tooltip.radius,
+    fill: tokens.tooltip.bg,
+    stroke: tokens.tooltip.stroke,
+  });
+  const text = createSvgElement('text', { x: 0, y: 0, 'text-anchor': 'middle' });
+  group.appendChild(rect);
+  group.appendChild(text);
+  svg.appendChild(group);
+
+  return { svg, columns, columnsLayer, tooltip: { group, rect, text } };
+}

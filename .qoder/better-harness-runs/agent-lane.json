@@ -1,0 +1,461 @@
+{
+ "status": "available",
+ "data": {
+  "kind": "agent-asset-baseline",
+  "schemaVersion": 1,
+  "status": "complete",
+  "scope": {
+   "provider": "qoder",
+   "workspace": "E:\\work\\gogogogo\\图表",
+   "includeUserHome": true,
+   "includeMemories": false
+  },
+  "envelopes": {
+   "lint": {
+    "status": "available",
+    "data": {
+     "kind": "agent-lint",
+     "profile": "agent-assets-review",
+     "summary": {
+      "entrypoints": 0,
+      "documents": 0,
+      "links": 0,
+      "references": 0,
+      "missingReferences": 0,
+      "findings": 13,
+      "errors": 0,
+      "warnings": 3,
+      "advisories": 10
+     },
+     "assetInventory": {
+      "provider": "qoder",
+      "summary": {
+       "skills": 11,
+       "mcps": 0,
+       "commands": 0,
+       "hooks": 0,
+       "rules": 0,
+       "agents": 0,
+       "customAgents": 0,
+       "builtinAgentOverrides": 0,
+       "plugins": 0
+      }
+     },
+     "findings": {
+      "items": [
+       {
+        "id": "skill-length-hard-cap",
+        "severity": "warning",
+        "assetKind": "skill",
+        "assetName": "create-skill",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/create-skill/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/create-skill/SKILL.md is 501 lines; long skills should move detail into references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-length-hard-cap",
+        "severity": "warning",
+        "assetKind": "skill",
+        "assetName": "docx",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/docx/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/docx/SKILL.md is 853 lines; long skills should move detail into references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-length-hard-cap",
+        "severity": "warning",
+        "assetKind": "skill",
+        "assetName": "plugin-creator",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/plugin-creator/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/plugin-creator/SKILL.md is 729 lines; long skills should move detail into references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "create-skill",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/create-skill/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/create-skill/SKILL.md is 501 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "docx",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/docx/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/docx/SKILL.md is 853 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "find-skills",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/find-skills/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/find-skills/SKILL.md is 430 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "install-skill-dependency",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/install-skill-dependency/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/install-skill-dependency/SKILL.md is 139 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "pdf",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/pdf/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/pdf/SKILL.md is 324 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "plugin-creator",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/plugin-creator/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/plugin-creator/SKILL.md is 729 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "pptx",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/pptx/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/pptx/SKILL.md is 160 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "qoderwork-guidance",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/qoderwork-guidance/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/qoderwork-guidance/SKILL.md is 396 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "vm-error-recovery",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/vm-error-recovery/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/vm-error-recovery/SKILL.md is 374 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       },
+       {
+        "id": "skill-long-without-progressive-references",
+        "severity": "advisory",
+        "assetKind": "skill",
+        "assetName": "xlsx",
+        "scope": "user",
+        "file": "C:/Users/14357/.qoder/skills/xlsx/SKILL.md",
+        "line": 1,
+        "evidence": "C:/Users/14357/.qoder/skills/xlsx/SKILL.md is 233 lines and has no existing local Markdown references.",
+        "sourceLabel": "User",
+        "rubricRef": "Progressive Disclosure"
+       }
+      ],
+      "total": 13,
+      "omitted": 0
+     }
+    }
+   },
+   "inventory": {
+    "status": "available",
+    "data": {
+     "scope": {
+      "platform": "qoder",
+      "includeUserHome": true,
+      "includeMemories": false
+     },
+     "summary": {
+      "projectAssets": 0,
+      "userAssets": 1,
+      "pluginAssets": 6,
+      "sessionSourceHints": 1,
+      "memories": 0,
+      "builtinAgentOverrides": 0
+     },
+     "coverageRows": [
+      {
+       "surface": "Skills",
+       "scopes": [
+        "Global",
+        "Plugin"
+       ],
+       "count": 53,
+       "paths": [
+        "~/.qoder/skills/create-skill/SKILL.md",
+        "~/.qoder/skills/docx/SKILL.md",
+        "~/.qoder/skills/find-skills/SKILL.md",
+        "~/.qoder/skills/install-skill-dependency/SKILL.md",
+        "~/.qoder/skills/pdf/SKILL.md"
+       ]
+      },
+      {
+       "surface": "Hooks",
+       "scopes": [
+        "Plugin"
+       ],
+       "count": 7,
+       "paths": [
+        "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/hooks/hooks.json",
+        "~/.qoder/plugins/cache/qoder-bundler/security-scan/.qoder-plugin/qoder-hooks.json"
+       ]
+      },
+      {
+       "surface": "Commands",
+       "scopes": [
+        "Plugin"
+       ],
+       "count": 5,
+       "paths": [
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/bootstrap.md",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/deploy.md",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/env.md",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/marketplace.md",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/status.md"
+       ]
+      },
+      {
+       "surface": "Custom Agents",
+       "scopes": [
+        "Plugin"
+       ],
+       "count": 3,
+       "paths": [
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/ai-architect.md",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/deployment-expert.md",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/performance-optimizer.md"
+       ]
+      },
+      {
+       "surface": "MCP",
+       "scopes": [
+        "Plugin"
+       ],
+       "count": 2,
+       "paths": [
+        "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/mcp.json",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/.mcp.json"
+       ]
+      },
+      {
+       "surface": "Plugins",
+       "scopes": [
+        "Plugin"
+       ],
+       "count": 5,
+       "paths": [
+        "~/.qoder/plugins/cache/qoder-bundler/better-harness/.qoder-plugin/plugin.json",
+        "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/.qoder-plugin/plugin.json",
+        "~/.qoder/plugins/cache/qoder-bundler/qoder-create-plugin",
+        "~/.qoder/plugins/cache/qoder-bundler/security-scan/.qoder-plugin/plugin.json",
+        "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/.qoder-plugin/plugin.json"
+       ]
+      }
+     ],
+     "ownerRoutes": {
+      "items": [
+       {
+        "kind": "skills",
+        "scope": "user",
+        "name": "create-skill",
+        "owner": "User"
+       },
+       {
+        "kind": "plugins",
+        "scope": "plugin",
+        "name": "Better Harness",
+        "version": "0.1.99",
+        "owner": "Better Harness"
+       },
+       {
+        "kind": "mcps",
+        "scope": "plugin",
+        "name": "qoder-context",
+        "owner": "qoder-context"
+       },
+       {
+        "kind": "hooks",
+        "scope": "plugin",
+        "name": "Post Tool Use Edit|Write|MultiEdit|NotebookEdit",
+        "owner": "security-scan"
+       },
+       {
+        "kind": "commands",
+        "scope": "plugin",
+        "name": "vercel-bootstrap",
+        "owner": "vercel"
+       },
+       {
+        "kind": "agents",
+        "scope": "plugin",
+        "name": "ai-architect",
+        "owner": "vercel"
+       },
+       {
+        "kind": "skills",
+        "scope": "user",
+        "name": "docx",
+        "owner": "User"
+       },
+       {
+        "kind": "plugins",
+        "scope": "plugin",
+        "name": "Qoder Context",
+        "version": "1.0.14.1b153c8",
+        "owner": "Qoder Context"
+       },
+       {
+        "kind": "mcps",
+        "scope": "plugin",
+        "name": "vercel",
+        "owner": "vercel"
+       },
+       {
+        "kind": "hooks",
+        "scope": "plugin",
+        "name": "qoder-context-knowledge-overview",
+        "owner": "qoder-context"
+       },
+       {
+        "kind": "commands",
+        "scope": "plugin",
+        "name": "vercel-deploy",
+        "owner": "vercel"
+       },
+       {
+        "kind": "agents",
+        "scope": "plugin",
+        "name": "deployment-expert",
+        "owner": "vercel"
+       },
+       {
+        "kind": "skills",
+        "scope": "user",
+        "name": "find-skills",
+        "owner": "User"
+       },
+       {
+        "kind": "plugins",
+        "scope": "plugin",
+        "name": "Qoder Create Plugin",
+        "version": "0.1.0",
+        "owner": "Qoder Create Plugin"
+       },
+       {
+        "kind": "hooks",
+        "scope": "plugin",
+        "name": "qoder-context-stop",
+        "owner": "qoder-context"
+       },
+       {
+        "kind": "commands",
+        "scope": "plugin",
+        "name": "vercel-env",
+        "owner": "vercel"
+       }
+      ],
+      "total": 66,
+      "omitted": 50
+     },
+     "memories": {
+      "included": false,
+      "contentPolicy": "raw-memory-content-not-read",
+      "categories": [],
+      "titleCount": 0
+     },
+     "warnings": []
+    }
+   },
+   "integrity": {
+    "status": "available",
+    "data": {
+     "kind": "asset-integrity-review",
+     "profile": "asset-integrity-review",
+     "status": "reviewed",
+     "contentPolicy": "memory-title-and-path-metadata-only",
+     "summary": {
+      "findingCount": 0,
+      "memories": {
+       "titleCount": 0,
+       "reviewedTitleCount": 0,
+       "truncated": false,
+       "exactCollisionGroups": 0,
+       "similarityCandidates": 0
+      },
+      "plugins": {
+       "enabledPluginCount": 5,
+       "nameCollisionGroups": 0,
+       "capabilityOverlapGroups": 0,
+       "familyCandidates": 0
+      },
+      "hooks": {
+       "enabledHookCount": 0,
+       "overRecommendedLimit": false,
+       "exactDuplicateGroups": 0,
+       "fanoutCandidates": 0
+      }
+     },
+     "findings": {
+      "items": [],
+      "total": 0,
+      "omitted": 0
+     }
+    }
+   }
+  },
+  "diagnostics": {
+   "sharedInventorySnapshot": true,
+   "compact": true,
+   "findingLimitPerEnvelope": 16,
+   "ownerRouteLimit": 16
+  }
+ }
+}
