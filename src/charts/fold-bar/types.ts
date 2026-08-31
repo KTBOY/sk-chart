@@ -22,11 +22,47 @@ export interface FoldBarFoldConfig {
 }
 
 export interface FoldBarAxisConfig {
-  /** Explicit tick values, e.g. [70, 60, 50, 40, 30]. */
+  /** Explicit tick values, e.g. [70, 60, 50, 40, 30]. Positions map via barTopOf. */
   ticks?: number[];
   tickFormat?: (value: number) => string;
-  /** Vertical zone [top, bottom] where tick labels are evenly distributed. */
-  zone?: [number, number];
+}
+
+export type XAxisLabelFormatter = (
+  datum: FoldBarDatum,
+  index: number,
+  data: FoldBarDatum[],
+) => string;
+
+export type XAxisBottomFormatter = (
+  datum: FoldBarDatum,
+  index: number,
+  data: FoldBarDatum[],
+) => string | string[];
+
+export interface FoldBarXAxisTitleConfig {
+  text?: string;
+  /** Defaults to the horizontal center of the plot. */
+  x?: number;
+  /** Defaults to the row below the bottom labels. */
+  y?: number;
+}
+
+export interface FoldBarXAxisConfig {
+  /** Formats the header-row category labels; defaults to the xField value. */
+  labelFormat?: XAxisLabelFormatter;
+  /**
+   * Optional semantic row below the plot (e.g. stage index + step conversion).
+   * Returning an array renders one line per entry. Reserves bottom space.
+   */
+  bottomLabels?: XAxisBottomFormatter;
+  /** Axis caption rendered below the bottom labels. Reserves one bottom row. */
+  title?: FoldBarXAxisTitleConfig;
+  /** Baseline under the bar bottoms (below the fade). Default false to keep the dissolving-paper look. */
+  showLine?: boolean;
+  /** Small marks under each column center. Default false. */
+  showTick?: boolean;
+  /** Vertical column dividers. Default true (previous always-on behavior). */
+  showGrid?: boolean;
 }
 
 export type TooltipTone = 'n' | 'b' | 's';
@@ -114,6 +150,7 @@ export interface FoldBarStyleConfig {
   fadeMask?: Partial<{ start: number; end: number }>;
   labelY?: number;
   numberY?: number;
+  /** Nudge of the label and value away from the bar's horizontal center. */
   labelXOffset?: number;
 }
 
@@ -129,6 +166,7 @@ export interface FoldBarChartConfig extends BaseConfig {
   scale?: FoldBarScaleConfig;
   fold?: FoldBarFoldConfig;
   axis?: FoldBarAxisConfig;
+  xAxis?: FoldBarXAxisConfig;
   tooltip?: FoldBarTooltipConfig;
   state?: FoldBarStateConfig;
   title?: FoldBarTitleConfig;

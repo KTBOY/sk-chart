@@ -57,6 +57,15 @@ const TEAL_FOLD = [
   [1, '#F1FAF8'],
 ] as [number, string][];
 
+const TEAL_PILL = {
+  gradient: [
+    [0, '#F1FEFB'],
+    [0.45, '#B5F0E4'],
+    [1, '#34C4AC'],
+  ] as [number, string][],
+  shadow: { color: '#2E8F7F', opacity: 0.75 },
+};
+
 const weekFormatter = (d: FoldBarDatum, i: number, data: FoldBarDatum[]) => {
   const prev = i > 0 ? data[i - 1].value : null;
   const delta = prev ? Math.round(((d.value - prev) / prev) * 100) : 0;
@@ -78,12 +87,35 @@ let chart2: FoldBarChart | null = new FoldBarChart('#chart-2', {
   style: {
     barGradient: { active: TEAL_ACTIVE, normal: TEAL_NORMAL },
     foldGradient: TEAL_FOLD,
+    pill: TEAL_PILL,
+  },
+});
+
+const stageLabels = (d: FoldBarDatum, i: number, data: FoldBarDatum[]): string[] => {
+  const prev = i > 0 ? data[i - 1].value : d.value;
+  const pct = prev > 0 ? Math.round((d.value / prev) * 100) : 0;
+  return [`第 ${i + 1} 阶段`, `${pct}%`];
+};
+
+// Instance 3 — full X axis: baseline + tick marks + bottom semantic rows + axis title.
+const chart3 = new FoldBarChart('#chart-3', {
+  data: PAYMENTS,
+  height: 430, // extra room for the axis band without squeezing the bars
+  scale: { exponent: 2 },
+  title: { text: '支付（含坐标轴）' },
+  ariaLabel: '支付漏斗图（含坐标轴）',
+  xAxis: {
+    showLine: true,
+    showTick: true,
+    bottomLabels: stageLabels,
+    title: { text: '支付阶段 →' },
   },
 });
 
 for (const [name, chart] of [
   ['实例1', chart1],
   ['实例2', chart2],
+  ['实例3', chart3],
 ] as const) {
   chart.on('column:enter', (p) => log(`${name} column:enter #${p.index} ${p.datum.label}`));
   chart.on('column:click', (p) =>
@@ -107,6 +139,13 @@ document.getElementById('btn-restore')!.addEventListener('click', () => {
   log('实例1 update：还原原稿数据');
 });
 
+let bottomAxisOn = false;
+document.getElementById('btn-xaxis')!.addEventListener('click', () => {
+  bottomAxisOn = !bottomAxisOn;
+  chart1.update(bottomAxisOn ? { xAxis: { bottomLabels: stageLabels } } : { xAxis: {} });
+  log(`实例1 ${bottomAxisOn ? '启用' : '关闭'}底部语义轴（阶段序号 + 环节转化率）`);
+});
+
 document.getElementById('btn-toggle')!.addEventListener('click', () => {
   if (chart2) {
     chart2.destroy();
@@ -120,6 +159,7 @@ document.getElementById('btn-toggle')!.addEventListener('click', () => {
       style: {
         barGradient: { active: TEAL_ACTIVE, normal: TEAL_NORMAL },
         foldGradient: TEAL_FOLD,
+        pill: TEAL_PILL,
       },
     });
     log('实例2 重建完成');

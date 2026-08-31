@@ -15,6 +15,29 @@ function host(): HTMLElement {
   return el;
 }
 
+// jsdom ships no SVG text metrics, so measurement silently degrades to zeros
+// there. These stubs emulate a browser well enough to observe centering.
+const ASCENT = 8.4;
+const DESCENT = 2.1;
+const CHAR_WIDTH = 6;
+
+type TextMetrics = SVGElement & {
+  getBBox: () => { x: number; y: number; width: number; height: number };
+  getComputedTextLength: () => number;
+};
+
+function stubTextMetrics(node: SVGElement): void {
+  const inkWidth = () => (node.textContent ?? '').length * CHAR_WIDTH;
+  const metrics = node as TextMetrics;
+  metrics.getComputedTextLength = inkWidth;
+  metrics.getBBox = () => ({
+    x: Number(node.getAttribute('x') ?? 0) - inkWidth() / 2,
+    y: Number(node.getAttribute('y') ?? 0) - ASCENT,
+    width: inkWidth(),
+    height: ASCENT + DESCENT,
+  });
+}
+
 afterEach(() => {
   document.body.innerHTML = '';
 });
@@ -113,6 +136,31 @@ describe('FoldBarChart integration', () => {
     chart.destroy();
   });
 
+  it('centers the label and value over the bar', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA });
+    const texts = [...el.querySelectorAll('g[data-i="0"] text')];
+    expect(texts.map((t) => t.getAttribute('text-anchor'))).toEqual(['middle', 'middle']);
+    // bar.centerX of the first column: 73 + 1 + 130.6 / 2
+    expect(texts.map((t) => Number(t.getAttribute('x')))).toEqual([139.3, 139.3]);
+    chart.destroy();
+  });
+
+  it('keeps the tooltip ink centered in the bubble on every hover', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA });
+    const text = el.querySelector<SVGElement>('svg g[filter] text')!;
+    stubTextMetrics(text);
+    const inkCenter = () =>
+      Number(text.getAttribute('y')) - ASCENT + (ASCENT + DESCENT) / 2;
+
+    for (const index of [0, 1, 2, 3, 4, 0]) {
+      chart.setActive(index);
+      expect(inkCenter()).toBeCloseTo(14, 6); // bubble height 28 / 2
+    }
+    chart.destroy();
+  });
+
   it('scopes styles per instance', () => {
     const a = host();
     const b = host();
@@ -191,6 +239,157 @@ describe('FoldBarChart integration', () => {
     const chart = new FoldBarChart(el, { data: DATA, theme: { number: { fontSize: 20 } } });
     const css = el.querySelector('svg style')!.textContent!;
     expect(css).toContain('font-size:20px');
+    chart.destroy();
+  });
+
+  it('pill gradient and shadow color are overridable via style', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, {
+      data: DATA,
+      style: {
+        pill: {
+          gradient: [
+            [0, '#e8fff9'],
+            [1, '#0e7a6c'],
+          ],
+          shadow: { color: '#0e7a6c', opacity: 0.6 },
+        },
+      },
+    });
+    const svg = el.querySelector('svg')!;
+    const stops = [...svg.querySelectorAll('linearGradient stop')].filter(
+      (s) => s.getAttribute('stop-color') === '#e8fff9' || s.getAttribute('stop-color') === '#0e7a6c',
+    );
+    expect(stops.length).toBe(2);
+    const shadow = [...svg.querySelectorAll('rect')].find(
+      (r) => r.getAttribute('fill') === '#0e7a6c' && r.getAttribute('fill-opacity') === '0.6',
+    );
+    expect(shadow).toBeTruthy();
+    chart.destroy();
+  });
+
+  it('renders nice ticks at truthful scale positions', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA, scale: { exponent: 2 } });
+    const texts = [...el.querySelectorAll('text')];
+    const top = texts.find((t) => t.textContent === '70k')!;
+    const low = texts.find((t) => t.textContent === '30k')!;
+    expect(top).toBeTruthy();
+    // domainMax 70 maps to stairTop 138, label baseline +4
+    expect(Number(top.getAttribute('y'))).toBeCloseTo(142, 2);
+    // 330 - (30/70)^2 * 192 + 4
+    expect(Number(low.getAttribute('y'))).toBeCloseTo(298.7347, 2);
+    expect(texts.filter((t) => /^(\d+)k$/.test(t.textContent ?? '')).length).toBe(5);
+    chart.destroy();
+  });
+
+  it('hides vertical grid lines when xAxis.showGrid is false', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA, xAxis: { showGrid: false } });
+    const vertical = [...el.querySelectorAll('line')].filter(
+      (l) => l.getAttribute('y1') === '64',
+    );
+    expect(vertical.length).toBe(0);
+    chart.destroy();
+  });
+
+  it('draws a baseline and tick marks when showLine/showTick are enabled', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA, xAxis: { showLine: true, showTick: true } });
+    // No text rows, so plot.bottom stays 360 and the axis band sits below the bars.
+    const baseline = [...el.querySelectorAll('line')].find(
+      (l) => l.getAttribute('y1') === '364' && l.getAttribute('y2') === '364',
+    );
+    expect(baseline?.getAttribute('x1')).toBe('73');
+    expect(baseline?.getAttribute('x2')).toBe('831');
+    const marks = [...el.querySelectorAll('line')].filter(
+      (l) => l.getAttribute('y1') === '364' && l.getAttribute('y2') === '368',
+    );
+    expect(marks.length).toBe(6);
+    chart.destroy();
+  });
+
+  it('renders bottom labels in an unmasked, non-interactive axis layer', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, {
+      data: DATA,
+      xAxis: {
+        bottomLabels: (d, i, data) => {
+          const conv = i === 0 ? '100%' : `${Math.round((d.value / data[i - 1].value) * 100)}%`;
+          return [`第 ${i + 1} 阶段`, conv];
+        },
+      },
+    });
+    const layer = el.querySelector('g[pointer-events="none"]')!;
+    expect(layer).toBeTruthy();
+    expect(layer.getAttribute('aria-hidden')).toBe('true');
+    expect(layer.getAttribute('mask')).toBeNull();
+    const texts = [...layer.querySelectorAll('text')];
+    expect(texts.length).toBe(10);
+    const first = texts.slice(0, 2);
+    expect(first.map((t) => t.textContent)).toEqual(['第 1 阶段', '100%']);
+    // centered over the first bar, below the axis band
+    expect(first.map((t) => Number(t.getAttribute('x')))).toEqual([139.3, 139.3]);
+    expect(first.map((t) => Number(t.getAttribute('y')))).toEqual([344, 359]);
+    chart.destroy();
+  });
+
+  it('grows the bottom padding to fit multi-line bottom labels', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, {
+      data: DATA,
+      xAxis: { bottomLabels: (_d, i) => [`第 ${i + 1} 阶段`, '—'] },
+    });
+    // axis band 32 + 2 * (11 + 4) = 62, so plot.bottom = 324
+    const gridLine = [...el.querySelectorAll('line')].find((l) => l.getAttribute('y1') === '64');
+    expect(gridLine?.getAttribute('y2')).toBe('324');
+    chart.destroy();
+  });
+
+  it('omits the x-axis layer by default', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA });
+    expect(el.querySelector('g[pointer-events="none"]')).toBeNull();
+    chart.destroy();
+  });
+
+  it('renders the x-axis title below the bottom labels', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, {
+      data: DATA,
+      xAxis: {
+        bottomLabels: (_d, i) => [`第 ${i + 1} 阶段`, '—'],
+        title: { text: '支付阶段' },
+      },
+    });
+    const layer = el.querySelector('g[pointer-events="none"]')!;
+    const texts = [...layer.querySelectorAll('text')];
+    expect(texts.length).toBe(11);
+    const title = texts[texts.length - 1];
+    expect(title.textContent).toBe('支付阶段');
+    // centered across the plot: (73 + 831) / 2
+    expect(title.getAttribute('x')).toBe('452');
+    // band 32 + 3 rows * 15 = 77, so plot.bottom = 309 and the title sits at
+    // 309 + 26 + 2 * 15, clearly separated from the last label row.
+    expect(title.getAttribute('y')).toBe('365');
+    const gridLine = [...el.querySelectorAll('line')].find((l) => l.getAttribute('y1') === '64');
+    expect(gridLine?.getAttribute('y2')).toBe('309');
+    chart.destroy();
+  });
+
+  it('reserves a single row for a standalone x-axis title', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, {
+      data: DATA,
+      xAxis: { title: { text: '支付阶段' } },
+    });
+    const title = el.querySelector('g[pointer-events="none"] text')!;
+    expect(title.textContent).toBe('支付阶段');
+    expect(title.getAttribute('x')).toBe('452');
+    // band 32 + 1 row * 15 = 47, so plot.bottom = 339 and title y = 339 + 26.
+    expect(title.getAttribute('y')).toBe('365');
+    const gridLine = [...el.querySelectorAll('line')].find((l) => l.getAttribute('y1') === '64');
+    expect(gridLine?.getAttribute('y2')).toBe('339');
     chart.destroy();
   });
 });

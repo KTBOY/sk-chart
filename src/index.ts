@@ -4,8 +4,8 @@ export { ChartBase } from './core/chart-base';
 export type { BaseConfig, ChartEventMap, ColumnEventPayload, ContainerLike } from './core/types';
 
 export { FoldBarChart } from './charts/fold-bar';
-export { defaultTooltipFormatter, defaultValueFormat } from './charts/fold-bar/defaults';
-export type { FoldBarOptions, FoldBarModel } from './charts/fold-bar/defaults';
+export { defaultTooltipFormatter, defaultValueFormat, niceScale } from './charts/fold-bar/defaults';
+export type { FoldBarOptions, FoldBarModel, NiceScale } from './charts/fold-bar/defaults';
 export type {
   FoldBarAxisConfig,
   FoldBarChartConfig,
@@ -16,9 +16,13 @@ export type {
   FoldBarStyleConfig,
   FoldBarTitleConfig,
   FoldBarTooltipConfig,
+  FoldBarXAxisConfig,
+  FoldBarXAxisTitleConfig,
   TooltipFormatter,
   TooltipPart,
   TooltipTone,
+  XAxisBottomFormatter,
+  XAxisLabelFormatter,
 } from './charts/fold-bar/types';
 export type {
   BarGeometry,

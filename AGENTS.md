@@ -35,7 +35,9 @@ npm run build      # tsup → ESM/CJS/d.ts
 - 实例隔离：uid 前缀覆盖 defs id、class 名、scoped CSS
 - update/resize 全量重建（userSpaceOnUse 坐标耦合）；增量 diff 属 M1
 - `scale.exponent` 默认 1（线性），2 还原折纸轮廓；非法值钳制并 warn
+- Y 轴刻度为真映射：原稿效果 3 的刻度是手摆装饰位，实现按 `barTopOf(tickValue)` 定位，差异为有意偏离；刻度由 `niceScale` 生成，`axis.ticks` 可覆盖
+- `xAxis.bottomLabels` 渲染在无渐隐遮罩的独立 `axisLayer`（pointer-events:none），并按行数自动扩底部留白
 
 ## 路线图
 
-M1：ResizeObserver 自适应 / nice ticks / 更新动画 / 主题包；M2：更多图表类型 + React/Vue 封装；M3：文档站 + 视觉回归 CI + npm 发布。
+M1：ResizeObserver 自适应 / 更新动画 / 主题包（已交付：nice ticks 真刻度 Y 轴 + xAxis 配置）；M2：更多图表类型 + React/Vue 封装；M3：文档站 + 视觉回归 CI + npm 发布。

@@ -59,14 +59,18 @@ npm run dev      # Vite，打开 examples/
 | `xField` / `yField` | `string` | `label` / `value` | 数据字段映射 |
 | `width` / `height` | `number` | `860` / `386` | viewBox 设计空间 |
 | `valueFormat` | `(v) => string` | `v => v.toFixed(1)+'k'` | 柱头数值格式 |
-| `padding` | `Partial<{top,right,bottom,left}>` | `64/29/26/73` | 绘图区留白 |
+| `padding` | `Partial<{top,right,bottom,left}>` | `64/29/26/73` | 绘图区留白；启用 `xAxis.bottomLabels` 时底部自动扩高 |
 | `stair` | `{ bottomOffset?, topOffset? }` | `30` / `74` | 柱顶阶梯锚点（value=0 与 max 的柱顶位置） |
 | `scale.exponent` | `number` | `1` | 高度映射幂次；`2` 还原折纸漏斗轮廓 |
 | `fold.run` | `number` | `20` | 折面水平跨度 |
 | `fold.creaseColor/Width` | — | 白 / `1.2` | 折痕高光 |
-| `axis.ticks` | `number[]` | 自动（nice） | y 轴刻度值 |
+| `axis.ticks` | `number[]` | 自动（nice） | y 轴刻度值；位置按 `barTopOf` 真实映射 |
 | `axis.tickFormat` | `(v) => string` | `v => v+'k'` | 刻度文案 |
-| `axis.zone` | `[top, bottom]` | `[113, 249]` | 刻度标签垂直分布区 |
+| `xAxis.labelFormat` | `(d, i, data) => string` | xField 值 | 顶部类目行文案 |
+| `xAxis.bottomLabels` | `(d, i, data) => string \| string[]` | 无 | 底部语义行（如阶段序号 + 环节转化率），渲染在渐隐遮罩之外 |
+| `xAxis.title` | `{ text?, x?, y? }` | 无 | X 轴标题，位于底部语义行之后的下一行，默认水平居中；`x`/`y` 可覆盖 |
+| `xAxis.showLine/showTick` | `boolean` | `false` | 柱底基线 / 列中心刻度线（均在渐隐带下方） |
+| `xAxis.showGrid` | `boolean` | `true` | 竖直分列线 |
 | `tooltip.enabled` | `boolean` | `true` | |
 | `tooltip.formatter` | `(datum, i, data) => TooltipPart[]` | 转化率/流失文案 | 自定义 tooltip 内容 |
 | `tooltip.fixedWidth` | `number` | — | 跳过文字测量（SSR/测试逃生口） |
@@ -98,7 +102,7 @@ npm run build     # tsup → ESM/CJS/d.ts
 
 ## 路线图
 
-- **M1**：ResizeObserver 真实像素自适应、nice ticks、数据更新过渡动画、主题包
+- **M1**（进行中）：ResizeObserver 真实像素自适应、数据更新过渡动画、主题包；已交付：nice ticks 真刻度 Y 轴、xAxis 配置（顶部类目行 + 底部语义行）
 - **M2**：更多图表类型、框架封装（React/Vue）
 - **M3**：文档站、视觉回归 CI、npm 发布
 

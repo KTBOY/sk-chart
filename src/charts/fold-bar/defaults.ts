@@ -11,6 +11,8 @@ import type {
   FoldBarDatum,
   TooltipFormatter,
   TooltipPart,
+  XAxisBottomFormatter,
+  XAxisLabelFormatter,
 } from './types';
 
 export interface FoldBarOptions {
@@ -27,7 +29,16 @@ export interface FoldBarOptions {
   axis: {
     ticks: number[];
     tickFormat: (value: number) => string;
-    zone: [number, number];
+    /** Axis domain maximum; bars normalize against it so ticks map truthfully. */
+    domainMax: number;
+  };
+  xAxis: {
+    labelFormat: XAxisLabelFormatter;
+    bottomLabels?: XAxisBottomFormatter;
+    title: { text: string; x?: number; y?: number };
+    showLine: boolean;
+    showTick: boolean;
+    showGrid: boolean;
   };
   tooltip: {
     enabled: boolean;
@@ -74,17 +85,39 @@ export function defaultTooltipFormatter(
   ];
 }
 
-function defaultTicks(maxValue: number): number[] {
-  if (maxValue <= 0) return [];
-  const axisMax = Math.ceil(maxValue / 10) * 10;
-  const step = axisMax >= 50 ? 10 : Math.max(1, Math.round(axisMax / 5));
-  return Array.from({ length: 5 }, (_, i) => axisMax - i * step);
+export interface NiceScale {
+  /** Nice axis maximum; bars normalize against it. */
+  axisMax: number;
+  step: number;
+  /** Nice tick values in descending order (topmost first), zero excluded. */
+  ticks: number[];
+}
+
+function cleanNumber(value: number): number {
+  return Number(value.toPrecision(12));
+}
+
+/** d3-style nice tick generation: step = multiplier × 10^power, keeping at most targetCount top ticks. */
+export function niceScale(maxValue: number, targetCount = 5): NiceScale {
+  if (!Number.isFinite(maxValue) || maxValue <= 0) return { axisMax: 0, step: 0, ticks: [] };
+  const rawStep = maxValue / targetCount;
+  const power = Math.floor(Math.log10(rawStep));
+  const base = Math.pow(10, power);
+  const error = rawStep / base;
+  const multiplier =
+    error >= Math.sqrt(50) ? 10 : error >= Math.sqrt(10) ? 5 : error >= Math.SQRT2 ? 2 : 1;
+  const step = cleanNumber(multiplier * base);
+  const axisMax = cleanNumber(Math.ceil(maxValue / step - 1e-9) * step);
+  const intervalCount = Math.round(axisMax / step);
+  const ascending = Array.from({ length: intervalCount }, (_, i) => cleanNumber((i + 1) * step));
+  return { axisMax, step, ticks: ascending.slice(-targetCount).reverse() };
 }
 
 export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
   const width = config.width ?? 860;
   const height = config.height ?? 386;
-  const maxValue = config.data.reduce((max, d) => Math.max(max, Number(d.value) || 0), 0);
+  const yField = config.yField ?? 'value';
+  const maxValue = config.data.reduce((max, d) => Math.max(max, Number(d[yField]) || 0), 0);
   const rawExponent = config.scale?.exponent ?? 1;
   let exponent = rawExponent;
   if (!Number.isFinite(exponent) || exponent <= 0) {
@@ -96,14 +129,31 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
     Math.max(requestedActive, -1),
     Math.max(0, config.data.length - 1),
   );
+  const tokens = resolveTokens(config.theme);
+  const nice = niceScale(maxValue);
+  const ticks = config.axis?.ticks ?? nice.ticks;
+  const domainMax = Math.max(nice.axisMax, maxValue, ...ticks);
+  const bottomLabels = config.xAxis?.bottomLabels;
+  const bottomRows = bottomLabels
+    ? config.data.reduce((max, d, i) => {
+        const out = bottomLabels(d, i, config.data);
+        return Math.max(max, Array.isArray(out) ? out.length : 1);
+      }, 0)
+    : 0;
+  const titleText = config.xAxis?.title?.text ?? '';
+  const axisRows = bottomRows + (titleText ? 1 : 0);
+  const rowHeight = tokens.axis.fontSize + 4;
+  // 32 = axis line + tick marks + breathing room under the dissolving bars.
+  const defaultBottom = axisRows > 0 ? Math.max(26, 32 + axisRows * rowHeight) : 26;
+  const xField = config.xField ?? 'label';
   return {
     width,
     height,
-    xField: config.xField ?? 'label',
-    yField: config.yField ?? 'value',
+    xField,
+    yField,
     valueFormat: config.valueFormat ?? defaultValueFormat,
     ariaLabel: config.ariaLabel ?? 'fold bar chart',
-    padding: { top: 64, right: 29, bottom: 26, left: 73, ...config.padding },
+    padding: { top: 64, right: 29, bottom: defaultBottom, left: 73, ...config.padding },
     stair: { bottomOffset: 30, topOffset: 74, ...config.stair },
     scale: { exponent },
     fold: {
@@ -112,9 +162,21 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
       creaseWidth: config.fold?.creaseWidth ?? 1.2,
     },
     axis: {
-      ticks: config.axis?.ticks ?? defaultTicks(maxValue),
+      ticks,
       tickFormat: config.axis?.tickFormat ?? ((v) => `${v}k`),
-      zone: config.axis?.zone ?? [113, 249],
+      domainMax,
+    },
+    xAxis: {
+      labelFormat: config.xAxis?.labelFormat ?? ((d) => String(d[xField] ?? '')),
+      bottomLabels,
+      title: {
+        text: titleText,
+        x: config.xAxis?.title?.x,
+        y: config.xAxis?.title?.y,
+      },
+      showLine: config.xAxis?.showLine ?? false,
+      showTick: config.xAxis?.showTick ?? false,
+      showGrid: config.xAxis?.showGrid ?? true,
     },
     tooltip: {
       enabled: config.tooltip?.enabled ?? true,
@@ -134,7 +196,7 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
       y: config.title?.y ?? 52,
     },
     style: resolveStyle(config.style),
-    tokens: resolveTokens(config.theme),
+    tokens,
   };
 }
 
@@ -145,13 +207,15 @@ export interface FoldBarModel {
   layout: FoldBarLayout;
   bars: BarGeometry[];
   flaps: (FlapGeometry | null)[];
+  /** Fade band that dissolves bar bottoms; derived from plot.bottom unless user-overridden. */
+  fade: { start: number; end: number };
   options: FoldBarOptions;
 }
 
 /** Precomputes all geometry for the current config, shared by rendering and interaction. */
 export function createModel(config: FoldBarChartConfig, options: FoldBarOptions): FoldBarModel {
   const data = config.data;
-  const labels = data.map((d) => String(d[options.xField] ?? ''));
+  const labels = data.map((d, i) => options.xAxis.labelFormat(d, i, data));
   const raw = data.map((d) => Number(d[options.yField]));
   if (raw.some((v) => Number.isNaN(v) || v < 0)) {
     console.warn('sk-chart: FoldBarChart data contains NaN or negative values; they render as zero.');
@@ -166,9 +230,13 @@ export function createModel(config: FoldBarChartConfig, options: FoldBarOptions)
     foldRun: options.fold.run,
     barGap: 1,
     exponent: options.scale.exponent,
+    domainMax: options.axis.domainMax,
     values,
   });
   const bars = values.map((v, i) => barGeometry(layout, i, v));
   const flaps = values.map((_, i) => flapGeometry(layout, i, values));
-  return { data, labels, values, layout, bars, flaps, options };
+  const fade = config.style?.fadeMask
+    ? options.style.fadeMask
+    : { start: layout.plot.bottom - 16, end: layout.plot.bottom };
+  return { data, labels, values, layout, bars, flaps, fade, options };
 }
