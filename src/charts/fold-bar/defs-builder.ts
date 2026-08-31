@@ -11,6 +11,8 @@ export interface DefsContext {
   gradientIndex: number;
   /** Per-flap gradient y range (bar top -> plot bottom), aligned with columns; last is null. */
   flapGradientYs: ([number, number] | null)[];
+  /** Fade band that dissolves bar bottoms; follows plot.bottom unless user-overridden. */
+  fade: { start: number; end: number };
   style: ResolvedFoldBarStyle;
 }
 
@@ -124,9 +126,9 @@ export function buildDefs(ctx: DefsContext): SVGDefsElement {
         id: scopedId(uid, 'fadeGrad'),
         gradientUnits: 'userSpaceOnUse',
         x1: 0,
-        y1: style.fadeMask.start,
+        y1: ctx.fade.start,
         x2: 0,
-        y2: style.fadeMask.end,
+        y2: ctx.fade.end,
       }),
       [
         [0, '#fff'],

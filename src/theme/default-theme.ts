@@ -105,7 +105,7 @@ const DEFAULT_STYLE: ResolvedFoldBarStyle = {
   fadeMask: { start: 344, end: 360 },
   labelY: 85,
   numberY: 117,
-  labelXOffset: -5,
+  labelXOffset: 0,
 };
 
 export const DEFAULT_THEME_TOKENS: FoldBarThemeTokens = {

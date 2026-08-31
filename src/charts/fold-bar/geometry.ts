@@ -21,6 +21,8 @@ export interface FoldBarLayoutInput {
   barGap: number;
   /** Power applied to normalized values when mapping to bar height. */
   exponent: number;
+  /** Axis domain maximum; bars normalize against it so ticks map truthfully. */
+  domainMax: number;
   values: number[];
 }
 
@@ -40,9 +42,12 @@ export interface FoldBarLayout {
   barWidth: number;
   /** Bar top y when value is 0. */
   stairBase: number;
-  /** Bar top y of the maximum value. */
+  /** Bar top y of the domain maximum (top tick). */
   stairTop: number;
+  /** Maximum data value. */
   maxValue: number;
+  /** Axis domain maximum the bars normalize against. */
+  domainMax: number;
   barTopOf: (value: number) => number;
 }
 
@@ -57,11 +62,12 @@ export function computeLayout(input: FoldBarLayoutInput): FoldBarLayout {
   const stairBase = bottom - input.stairBottomOffset;
   const stairTop = top + input.stairTopOffset;
   const maxValue = count > 0 ? Math.max(...input.values) : 0;
+  const domainMax = Math.max(input.domainMax, maxValue);
   const span = stairBase - stairTop;
 
   const barTopOf = (value: number): number => {
-    if (maxValue <= 0) return stairBase;
-    const t = Math.pow(Math.max(0, value / maxValue), input.exponent);
+    if (domainMax <= 0) return stairBase;
+    const t = Math.pow(Math.max(0, value / domainMax), input.exponent);
     return stairBase - t * span;
   };
 
@@ -73,6 +79,7 @@ export function computeLayout(input: FoldBarLayoutInput): FoldBarLayout {
     stairBase,
     stairTop,
     maxValue,
+    domainMax,
     barTopOf,
   };
 }
@@ -170,14 +177,6 @@ export function pillGeometry(
   };
 }
 
-/** Evenly spaced tick label y positions inside a vertical zone. */
-export function axisTickYs(zone: [number, number], count: number): number[] {
-  if (count <= 0) return [];
-  if (count === 1) return [zone[0]];
-  const step = (zone[1] - zone[0]) / (count - 1);
-  return Array.from({ length: count }, (_, i) => zone[0] + i * step);
-}
-
 /** Vertical grid line x positions: one per column boundary. */
 export function gridLineXs(layout: FoldBarLayout): number[] {
   return Array.from({ length: layout.count + 1 }, (_, i) => layout.plot.left + i * layout.colWidth);
@@ -200,8 +199,10 @@ export function tooltipPlacement(
 ): { x: number; y: number } {
   const rawX = bar.x + bar.width * options.anchorRatio;
   const y = Math.max(bar.y + options.offsetY, options.minY);
-  const shift = Math.min(0, layout.plot.right - (rawX + tipWidth));
-  return { x: rawX + shift, y };
+  const { left, right } = layout.plot;
+  // A tooltip wider than the plot is pinned to its left edge.
+  const x = Math.min(Math.max(rawX, left), Math.max(left, right - tipWidth));
+  return { x, y };
 }
 
 export interface RectGeometry {

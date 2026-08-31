@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { niceScale } from '../../../src/charts/fold-bar/defaults';
 import {
-  axisTickYs,
   barGeometry,
   computeLayout,
   flapGeometry,
@@ -26,6 +26,7 @@ const input: FoldBarLayoutInput = {
   foldRun: 20,
   barGap: 1,
   exponent: 2,
+  domainMax: 70,
   values: VALUES,
 };
 
@@ -54,24 +55,31 @@ describe('computeLayout', () => {
     expect(layout.stairBase).toBe(330);
     expect(layout.stairTop).toBe(138);
     expect(layout.maxValue).toBe(65.2);
+    expect(layout.domainMax).toBe(70);
   });
 
   it('maps values to bar tops with the power formula (topOf)', () => {
     const layout = computeLayout(input);
-    expect(layout.barTopOf(65.2)).toBeCloseTo(138, 6);
+    // 330 - (65.2 / 70)^2 * 192
+    expect(layout.barTopOf(65.2)).toBeCloseTo(163.4286, 2);
     expect(layout.barTopOf(0)).toBeCloseTo(330, 6);
-    // 330 - (32.9 / 65.2)^2 * 192
-    expect(layout.barTopOf(32.9)).toBeCloseTo(281.11, 1);
+    // 330 - (32.9 / 70)^2 * 192
+    expect(layout.barTopOf(32.9)).toBeCloseTo(287.5872, 1);
+  });
+
+  it('maps the domain maximum to the top stair (top tick)', () => {
+    const layout = computeLayout(input);
+    expect(layout.barTopOf(70)).toBeCloseTo(138, 6);
   });
 
   it('falls back to a linear mapping when exponent is 1', () => {
     const layout = computeLayout({ ...input, exponent: 1 });
-    // 330 - (32.9 / 65.2) * 192
-    expect(layout.barTopOf(32.9)).toBeCloseTo(233.12, 1);
+    // 330 - (32.9 / 70) * 192
+    expect(layout.barTopOf(32.9)).toBeCloseTo(239.76, 1);
   });
 
   it('handles empty data without NaN', () => {
-    const layout = computeLayout({ ...input, values: [] });
+    const layout = computeLayout({ ...input, values: [], domainMax: 0 });
     expect(layout.count).toBe(0);
     expect(layout.colWidth).toBe(0);
     expect(layout.barTopOf(10)).toBe(layout.stairBase);
@@ -84,9 +92,9 @@ describe('barGeometry', () => {
     const bar = barGeometry(layout, 0, VALUES[0]);
     expect(bar.colStart).toBeCloseTo(73, 6);
     expect(bar.x).toBeCloseTo(74, 6);
-    expect(bar.y).toBeCloseTo(138, 6);
+    expect(bar.y).toBeCloseTo(163.4286, 2);
     expect(bar.width).toBeCloseTo(130.6, 6);
-    expect(bar.height).toBeCloseTo(222, 6);
+    expect(bar.height).toBeCloseTo(196.5714, 2);
     expect(bar.centerX).toBeCloseTo(139.3, 6);
   });
 
@@ -94,7 +102,7 @@ describe('barGeometry', () => {
     const layout = computeLayout(input);
     const bar = barGeometry(layout, 4, VALUES[4]);
     expect(bar.x).toBeCloseTo(680.4, 6);
-    expect(bar.y).toBeCloseTo(281.11, 1);
+    expect(bar.y).toBeCloseTo(287.5872, 1);
   });
 });
 
@@ -104,9 +112,9 @@ describe('flapGeometry', () => {
     const flap = flapGeometry(layout, 0, VALUES);
     expect(flap).not.toBeNull();
     expect(flap!.crease.x1).toBeCloseTo(204.6, 6);
-    expect(flap!.crease.y1).toBeCloseTo(138, 6);
+    expect(flap!.crease.y1).toBeCloseTo(163.4286, 2);
     expect(flap!.crease.x2).toBeCloseTo(226.6, 6);
-    expect(flap!.crease.y2).toBeCloseTo(194.37, 1);
+    expect(flap!.crease.y2).toBeCloseTo(212.3299, 1);
     expect(flap!.gradientY).toEqual([flap!.crease.y1, 360]);
     expect(flap!.points).toContain('226.6,360');
   });
@@ -128,14 +136,26 @@ describe('pillGeometry', () => {
   });
 });
 
-describe('axisTickYs', () => {
-  it('reproduces the prototype tick positions from the axis zone', () => {
-    expect(axisTickYs([113, 249], 5)).toEqual([113, 147, 181, 215, 249]);
+describe('niceScale', () => {
+  it('reproduces the prototype tick set for the payments funnel max', () => {
+    expect(niceScale(65.2)).toEqual({ axisMax: 70, step: 10, ticks: [70, 60, 50, 40, 30] });
   });
 
-  it('handles single and zero counts', () => {
-    expect(axisTickYs([113, 249], 1)).toEqual([113]);
-    expect(axisTickYs([113, 249], 0)).toEqual([]);
+  it('picks d3-style 1/2/5 multipliers', () => {
+    expect(niceScale(12).step).toBe(2);
+    expect(niceScale(4).step).toBe(1);
+    expect(niceScale(45).step).toBe(10);
+  });
+
+  it('keeps at most the top five ticks and excludes zero', () => {
+    expect(niceScale(100).ticks).toEqual([100, 80, 60, 40, 20]);
+    expect(niceScale(100).axisMax).toBe(100);
+  });
+
+  it('returns empty for non-positive or non-finite input', () => {
+    expect(niceScale(0)).toEqual({ axisMax: 0, step: 0, ticks: [] });
+    expect(niceScale(-5)).toEqual({ axisMax: 0, step: 0, ticks: [] });
+    expect(niceScale(NaN)).toEqual({ axisMax: 0, step: 0, ticks: [] });
   });
 });
 
@@ -158,7 +178,7 @@ describe('tooltipPlacement', () => {
     const bar = barGeometry(layout, 0, VALUES[0]);
     const pos = tooltipPlacement(layout, bar, 200, options);
     expect(pos.x).toBeCloseTo(128.852, 6);
-    expect(pos.y).toBe(140); // bar top 138 - 30 < 140
+    expect(pos.y).toBe(140); // bar top 163.43 - 30 < 140
   });
 
   it('clamps against the plot right edge', () => {
@@ -166,7 +186,14 @@ describe('tooltipPlacement', () => {
     const bar = barGeometry(layout, 4, VALUES[4]);
     const pos = tooltipPlacement(layout, bar, 300, options);
     expect(pos.x).toBeCloseTo(531, 1);
-    expect(pos.y).toBeCloseTo(251.11, 1);
+    expect(pos.y).toBeCloseTo(257.5872, 1);
+  });
+
+  it('pins a tooltip wider than the plot to the plot left edge', () => {
+    const layout = computeLayout(input);
+    const bar = barGeometry(layout, 4, VALUES[4]);
+    const pos = tooltipPlacement(layout, bar, 900, options);
+    expect(pos.x).toBe(layout.plot.left);
   });
 });
 
@@ -187,7 +214,7 @@ describe('hitRect / washRect', () => {
     expect(rect.x).toBeCloseTo(74, 6);
     expect(rect.y).toBe(115);
     expect(rect.width).toBeCloseTo(130.6, 6);
-    expect(rect.height).toBeCloseTo(23, 6);
+    expect(rect.height).toBeCloseTo(48.4286, 2);
   });
 
   it('never produces a negative wash height', () => {

@@ -27,8 +27,14 @@ export interface InteractionHandle {
   destroy(): void;
 }
 
-/** Text metrics used to size and center the tooltip. Safe under jsdom (returns zeros). */
+/**
+ * Text metrics used to size and center the tooltip. Safe under jsdom (returns zeros).
+ * x/y are cleared first: getBBox reports the ink at the baseline written by the previous
+ * render, and reusing it as the centering offset makes the text drift on every hover.
+ */
 export function measureTooltipText(text: SVGTextElement): { width: number; centerY: number } {
+  text.setAttribute('x', '0');
+  text.setAttribute('y', '0');
   let width = 0;
   let centerY = 0;
   if (typeof text.getComputedTextLength === 'function') {
