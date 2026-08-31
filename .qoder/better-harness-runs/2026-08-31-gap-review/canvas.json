@@ -1,0 +1,5449 @@
+{
+  "schemaVersion": 2,
+  "summary": {
+    "evidenceMode": "session-rich",
+    "evidenceBoundary": {
+      "manifest": {
+        "schemaVersion": 2,
+        "sourceFingerprint": "8c6625e8a62f5c71",
+        "adapterVersion": "qoder-task-loop-source-v2",
+        "platform": "qoder",
+        "selection": {
+          "strategy": "all-eligible",
+          "eligibleCount": 9,
+          "analyzedCount": 9,
+          "confidence": "High"
+        }
+      },
+      "episodeCoverage": {
+        "episodeCount": 242,
+        "editedEpisodeCount": 220,
+        "closedEpisodeCount": 0,
+        "recoveredEpisodeCount": 0
+      },
+      "deliveryEvidenceLevels": [],
+      "sourceGaps": []
+    },
+    "semanticFacets": {
+      "schemaVersion": 1,
+      "status": "supplementary",
+      "entries": [
+        {
+          "id": "session-insight:source-coverage",
+          "kind": "redacted-summary",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "source-coverage",
+            "High"
+          ],
+          "summary": "Analyzed 9 of 9 sessions; 2/6 enabled source roots exist. Use this as the current workspace evidence boundary for final insight cards.",
+          "evidenceRefs": [],
+          "modelVersion": "session-insights-v1"
+        },
+        {
+          "id": "session-insight:validation-behavior",
+          "kind": "redacted-summary",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "validation-behavior",
+            "High"
+          ],
+          "summary": "Observed validation command category: lint (16). Use observed validation as execution evidence, not just configured command availability.",
+          "evidenceRefs": [
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-2-1",
+              "type": "assistant",
+              "line": 213
+            },
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-2-2",
+              "type": "assistant",
+              "line": 218
+            },
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-2-3",
+              "type": "assistant",
+              "line": 363
+            }
+          ],
+          "modelVersion": "session-insights-v1"
+        },
+        {
+          "id": "session-insight:post-edit-validation",
+          "kind": "rework-correction",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "post-edit-validation",
+            "High"
+          ],
+          "summary": "Observed 220 edit event(s), but no later validation command in the analyzed sample. Route this lead to Harness session-evidence review to inspect the affected Task Episodes and later relevant validation before any finding.",
+          "evidenceRefs": [
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-3-1",
+              "type": "user",
+              "line": 1089
+            }
+          ],
+          "modelVersion": "session-insights-v1"
+        },
+        {
+          "id": "session-insight:execution-friction",
+          "kind": "friction-taxonomy",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "execution-friction",
+            "High"
+          ],
+          "summary": "Observed friction category: failed-event (37). Open bounded sessions behind this category before turning it into a user-facing recommendation.",
+          "evidenceRefs": [
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-4-1",
+              "type": "user",
+              "line": 21
+            },
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-4-2",
+              "type": "user",
+              "line": 27
+            },
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-4-3",
+              "type": "user",
+              "line": 535
+            }
+          ],
+          "modelVersion": "session-insights-v1"
+        },
+        {
+          "id": "session-insight:tool-mix",
+          "kind": "redacted-summary",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "tool-mix",
+            "High"
+          ],
+          "summary": "Most observed tool: Edit (144). Use this as workflow evidence, then inspect bounded sessions before claiming user intent.",
+          "evidenceRefs": [
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-5-1",
+              "type": "assistant",
+              "line": 266
+            }
+          ],
+          "modelVersion": "session-insights-v1"
+        },
+        {
+          "id": "session-insight:session-complexity",
+          "kind": "redacted-summary",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "session-complexity",
+            "High"
+          ],
+          "summary": "Observed 3 active long session(s); longest active estimate: 1h 13m. Review task family, outcome, and friction before deciding whether this duration reflects a problem or any decomposition, tool, delegation, or model change is needed.",
+          "evidenceRefs": [
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-6-1",
+              "type": "workspace-directories",
+              "line": 1
+            }
+          ],
+          "modelVersion": "session-insights-v1"
+        },
+        {
+          "id": "session-insight:session-usage-efficiency",
+          "kind": "redacted-summary",
+          "episodeRef": null,
+          "status": "candidate",
+          "labels": [
+            "session-usage-efficiency",
+            "High"
+          ],
+          "summary": "本次分析覆盖 9 个会话，其中 3 个达到活跃长会话阈值，最长约 73 分钟。 这些活动证据只描述投入；当前 token 或 credit 证据不足，不能据此推断模型偏好、质量或节省。",
+          "evidenceRefs": [
+            {
+              "kind": "global-project-jsonl",
+              "id": "session-insight-7-1",
+              "type": "workspace-directories",
+              "line": 1
+            }
+          ],
+          "modelVersion": "session-insights-v1"
+        }
+      ]
+    },
+    "learningCapture": {
+      "schemaVersion": 1,
+      "state": "N/A",
+      "summary": "暂不适用——需要两个可比的观察窗口和一次改进对比。",
+      "interventions": []
+    },
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Rules"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Rules",
+          "scopes": [
+            "Project"
+          ],
+          "count": 1,
+          "paths": [
+            "AGENTS.md"
+          ]
+        },
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Global",
+            "Plugin"
+          ],
+          "count": 53,
+          "paths": [
+            "~/.qoder/skills/create-skill/SKILL.md",
+            "~/.qoder/skills/docx/SKILL.md",
+            "~/.qoder/skills/find-skills/SKILL.md",
+            "~/.qoder/skills/install-skill-dependency/SKILL.md",
+            "~/.qoder/skills/pdf/SKILL.md",
+            "~/.qoder/skills/plugin-creator/SKILL.md",
+            "~/.qoder/skills/pptx/SKILL.md",
+            "~/.qoder/skills/qoderwork-guidance/SKILL.md",
+            "~/.agents/skills/tabbit/SKILL.md",
+            "~/.qoder/skills/vm-error-recovery/SKILL.md",
+            "~/.qoder/skills/xlsx/SKILL.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/skills/ai-gateway/SKILL.md"
+          ]
+        },
+        {
+          "surface": "Hooks",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 7,
+          "paths": [
+            "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/hooks/hooks.json",
+            "~/.qoder/plugins/cache/qoder-bundler/security-scan/.qoder-plugin/qoder-hooks.json"
+          ]
+        },
+        {
+          "surface": "Commands",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 5,
+          "paths": [
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/bootstrap.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/deploy.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/env.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/marketplace.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/status.md"
+          ]
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 3,
+          "paths": [
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/ai-architect.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/deployment-expert.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/performance-optimizer.md"
+          ]
+        },
+        {
+          "surface": "MCP",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 2,
+          "paths": [
+            "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/mcp.json",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/.mcp.json"
+          ]
+        },
+        {
+          "surface": "Plugins",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 5,
+          "paths": [
+            "~/.qoder/plugins/cache/qoder-bundler/better-harness/.qoder-plugin/plugin.json",
+            "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/.qoder-plugin/plugin.json",
+            "~/.qoder/plugins/cache/qoder-bundler/qoder-create-plugin",
+            "~/.qoder/plugins/cache/qoder-bundler/security-scan/.qoder-plugin/plugin.json",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/.qoder-plugin/plugin.json"
+          ]
+        },
+        {
+          "surface": "Workflows",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Memories",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        }
+      ],
+      "repositorySourceRows": [],
+      "memoryDetails": {
+        "contentPolicy": "metadata-only",
+        "scanState": "scanned-empty",
+        "scopeCounts": [],
+        "integrity": {
+          "status": "reviewed",
+          "titleCount": 0,
+          "reviewedTitleCount": 0,
+          "truncated": false,
+          "exactCollisionGroups": 0,
+          "similarityCandidates": 0
+        }
+      }
+    },
+    "usageActivity": {
+      "schemaVersion": 2,
+      "dateBasis": "UTC",
+      "measurementBasis": "session-starts-active-estimate-model-active-session-days-skill-invocations-and-loads",
+      "truncated": false,
+      "dates": [
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-05",
+        "2026-08-06",
+        "2026-08-07",
+        "2026-08-08",
+        "2026-08-09",
+        "2026-08-10",
+        "2026-08-11",
+        "2026-08-12",
+        "2026-08-13",
+        "2026-08-14",
+        "2026-08-15",
+        "2026-08-16",
+        "2026-08-17",
+        "2026-08-18",
+        "2026-08-19",
+        "2026-08-20",
+        "2026-08-21",
+        "2026-08-22",
+        "2026-08-23",
+        "2026-08-24",
+        "2026-08-25",
+        "2026-08-26",
+        "2026-08-27",
+        "2026-08-28",
+        "2026-08-29",
+        "2026-08-30"
+      ],
+      "sessions": {
+        "total": 9,
+        "starts": [
+          1,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ],
+        "activeMinutes": [
+          5.6,
+          22.5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11.9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          189.6
+        ]
+      },
+      "models": [],
+      "skills": [
+        {
+          "name": "create-skill",
+          "total": 2,
+          "daily": [
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "better-harness",
+          "total": 1,
+          "daily": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "usageEfficiency": {
+      "schemaVersion": 2,
+      "selection": {
+        "strategy": "all-eligible",
+        "eligibleSessionCount": 9,
+        "analyzedSessionCount": 9,
+        "complete": true
+      },
+      "roles": {
+        "userThreadCandidateCount": 7,
+        "childAgentCandidateCount": 2
+      },
+      "longSessions": {
+        "activeCount": 3,
+        "wallOnlyCount": 0,
+        "longestActiveMinutes": 72.5,
+        "activeRatio": 0.3333,
+        "estimate": {
+          "method": "capped-event-gap",
+          "activeThresholdMinutes": 45,
+          "gapCapMinutes": 5,
+          "idleGapMinutes": 30
+        },
+        "samples": [
+          {
+            "alias": "S1",
+            "role": "user-thread-candidate",
+            "activeMinutes": 72.5,
+            "failureCount": 11,
+            "toolTrace": {
+              "schemaVersion": 2,
+              "totalCalls": 228,
+              "shownCalls": 228,
+              "truncated": false,
+              "calls": [
+                {
+                  "id": "T1",
+                  "step": 1,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3651,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T2",
+                  "step": 2,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 24075,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T3",
+                  "step": 3,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 12251,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T4",
+                  "step": 4,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 12579,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T5",
+                  "step": 5,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2132,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T6",
+                  "step": 6,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4575,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T7",
+                  "step": 7,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 6513,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T8",
+                  "step": 8,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 310,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T9",
+                  "step": 9,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T10",
+                  "step": 10,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 256053,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T11",
+                  "step": 11,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 103,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T12",
+                  "step": 12,
+                  "toolName": "Agent",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107753,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T13",
+                  "step": 13,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 261,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T14",
+                  "step": 14,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 105,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T15",
+                  "step": 15,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 183,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T16",
+                  "step": 16,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 285,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T17",
+                  "step": 17,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 394,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T18",
+                  "step": 18,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 503,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T19",
+                  "step": 19,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 611,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T20",
+                  "step": 20,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 719,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T21",
+                  "step": 21,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 826,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T22",
+                  "step": 22,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 935,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T23",
+                  "step": 23,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1044,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T24",
+                  "step": 24,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1153,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T25",
+                  "step": 25,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1262,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T26",
+                  "step": 26,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1371,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T27",
+                  "step": 27,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T28",
+                  "step": 28,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3583,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T29",
+                  "step": 29,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 331,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T30",
+                  "step": 30,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3231,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T31",
+                  "step": 31,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3332,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T32",
+                  "step": 32,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3441,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T33",
+                  "step": 33,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3542,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T34",
+                  "step": 34,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3655,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T35",
+                  "step": 35,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3766,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T36",
+                  "step": 36,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3875,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T37",
+                  "step": 37,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3983,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T38",
+                  "step": 38,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 247317,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T39",
+                  "step": 39,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3283,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T40",
+                  "step": 40,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10629,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T41",
+                  "step": 41,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1442,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T42",
+                  "step": 42,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1546,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T43",
+                  "step": 43,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1661,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T44",
+                  "step": 44,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1771,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T45",
+                  "step": 45,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1882,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T46",
+                  "step": 46,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 390,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T47",
+                  "step": 47,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1051,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T48",
+                  "step": 48,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1161,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T49",
+                  "step": 49,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1267,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T50",
+                  "step": 50,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 244,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T51",
+                  "step": 51,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 187,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T52",
+                  "step": 52,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5024,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T53",
+                  "step": 53,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 111,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T54",
+                  "step": 54,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 219,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T55",
+                  "step": 55,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 327,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T56",
+                  "step": 56,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 437,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T57",
+                  "step": 57,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 665,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T58",
+                  "step": 58,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 771,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T59",
+                  "step": 59,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 376,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T60",
+                  "step": 60,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 341,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T61",
+                  "step": 61,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 197,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T62",
+                  "step": 62,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 350,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T63",
+                  "step": 63,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1104,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T64",
+                  "step": 64,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1206,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T65",
+                  "step": 65,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1311,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T66",
+                  "step": 66,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 607,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T67",
+                  "step": 67,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 717,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T68",
+                  "step": 68,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 192,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T69",
+                  "step": 69,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 9212,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T70",
+                  "step": 70,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 745,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T71",
+                  "step": 71,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 849,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T72",
+                  "step": 72,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 950,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T73",
+                  "step": 73,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 605,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T74",
+                  "step": 74,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 711,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T75",
+                  "step": 75,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 8611,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T76",
+                  "step": 76,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 102,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T77",
+                  "step": 77,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 209,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T78",
+                  "step": 78,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 317,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T79",
+                  "step": 79,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 429,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T80",
+                  "step": 80,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 537,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T81",
+                  "step": 81,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 749,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T82",
+                  "step": 82,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 859,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T83",
+                  "step": 83,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1957,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T84",
+                  "step": 84,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T85",
+                  "step": 85,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 109,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T86",
+                  "step": 86,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1925,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T87",
+                  "step": 87,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5534,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T88",
+                  "step": 88,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 291,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T89",
+                  "step": 89,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 7215,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T90",
+                  "step": 90,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 913,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T91",
+                  "step": 91,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1029,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T92",
+                  "step": 92,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 548,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T93",
+                  "step": 93,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 656,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T94",
+                  "step": 94,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 229,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T95",
+                  "step": 95,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 332,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T96",
+                  "step": 96,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5686,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T97",
+                  "step": 97,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5217,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T98",
+                  "step": 98,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 6453,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T99",
+                  "step": 99,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 795,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T100",
+                  "step": 100,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 206,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T101",
+                  "step": 101,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 316,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T102",
+                  "step": 102,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 425,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T103",
+                  "step": 103,
+                  "toolName": "Write",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 534,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T104",
+                  "step": 104,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 114,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T105",
+                  "step": 105,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 411,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T106",
+                  "step": 106,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 358,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T107",
+                  "step": 107,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 13133,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T108",
+                  "step": 108,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 488,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T109",
+                  "step": 109,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 600,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T110",
+                  "step": 110,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 270,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T111",
+                  "step": 111,
+                  "toolName": "Read",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 109,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T112",
+                  "step": 112,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 319,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T113",
+                  "step": 113,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T114",
+                  "step": 114,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 211,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T115",
+                  "step": 115,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 99166,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T116",
+                  "step": 116,
+                  "toolName": "Agent",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 99274,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T117",
+                  "step": 117,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 176,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T118",
+                  "step": 118,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T119",
+                  "step": 119,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 110,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T120",
+                  "step": 120,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 215,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T121",
+                  "step": 121,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 322,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T122",
+                  "step": 122,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 430,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T123",
+                  "step": 123,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 537,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T124",
+                  "step": 124,
+                  "toolName": "TaskCreate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 645,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T125",
+                  "step": 125,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 21997,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T126",
+                  "step": 126,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 22113,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T127",
+                  "step": 127,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 5849,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T128",
+                  "step": 128,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2091,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T129",
+                  "step": 129,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2150,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T130",
+                  "step": 130,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2110,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T131",
+                  "step": 131,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 108,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T132",
+                  "step": 132,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 217,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T133",
+                  "step": 133,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 325,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T134",
+                  "step": 134,
+                  "toolName": "Agent",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1670,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T135",
+                  "step": 135,
+                  "toolName": "Agent",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1780,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T136",
+                  "step": 136,
+                  "toolName": "Agent",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1887,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T137",
+                  "step": 137,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 607,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T138",
+                  "step": 138,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5443,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T139",
+                  "step": 139,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5379,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T140",
+                  "step": 140,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 291,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T141",
+                  "step": 141,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5378,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T142",
+                  "step": 142,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4828,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T143",
+                  "step": 143,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4933,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T144",
+                  "step": 144,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 8313,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T145",
+                  "step": 145,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 142,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T146",
+                  "step": 146,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 254,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T147",
+                  "step": 147,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 360,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T148",
+                  "step": 148,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3369,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T149",
+                  "step": 149,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 342,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T150",
+                  "step": 150,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2644,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T151",
+                  "step": 151,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 812,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T152",
+                  "step": 152,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 920,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T153",
+                  "step": 153,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1023,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T154",
+                  "step": 154,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3288,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T155",
+                  "step": 155,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3389,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T156",
+                  "step": 156,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3491,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T157",
+                  "step": 157,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3592,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T158",
+                  "step": 158,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3702,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T159",
+                  "step": 159,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3804,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T160",
+                  "step": 160,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3913,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T161",
+                  "step": 161,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4023,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T162",
+                  "step": 162,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4130,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T163",
+                  "step": 163,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4231,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T164",
+                  "step": 164,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4344,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T165",
+                  "step": 165,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2389,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T166",
+                  "step": 166,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2501,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T167",
+                  "step": 167,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1467,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T168",
+                  "step": 168,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1580,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T169",
+                  "step": 169,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1682,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T170",
+                  "step": 170,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1794,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T171",
+                  "step": 171,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1899,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T172",
+                  "step": 172,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2439,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T173",
+                  "step": 173,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2451,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T174",
+                  "step": 174,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2014,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T175",
+                  "step": 175,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 279,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T176",
+                  "step": 176,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 387,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T177",
+                  "step": 177,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 491,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T178",
+                  "step": 178,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 231,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T179",
+                  "step": 179,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 528,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T180",
+                  "step": 180,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 641,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T181",
+                  "step": 181,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 661,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T182",
+                  "step": 182,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 775,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T183",
+                  "step": 183,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 731,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T184",
+                  "step": 184,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 832,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T185",
+                  "step": 185,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1529,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T186",
+                  "step": 186,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1641,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T187",
+                  "step": 187,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1742,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T188",
+                  "step": 188,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1858,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T189",
+                  "step": 189,
+                  "toolName": "Edit",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 1974,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T190",
+                  "step": 190,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 272,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T191",
+                  "step": 191,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 266,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T192",
+                  "step": 192,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 502,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T193",
+                  "step": 193,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 609,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T194",
+                  "step": 194,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1116,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T195",
+                  "step": 195,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1224,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T196",
+                  "step": 196,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1337,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T197",
+                  "step": 197,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1448,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T198",
+                  "step": 198,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 473,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T199",
+                  "step": 199,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 574,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T200",
+                  "step": 200,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 485,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T201",
+                  "step": 201,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 587,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T202",
+                  "step": 202,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 254,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T203",
+                  "step": 203,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 216,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T204",
+                  "step": 204,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1023,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T205",
+                  "step": 205,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1124,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T206",
+                  "step": 206,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1228,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T207",
+                  "step": 207,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 7756,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T208",
+                  "step": 208,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1599,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T209",
+                  "step": 209,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1706,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T210",
+                  "step": 210,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1810,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T211",
+                  "step": 211,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1913,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T212",
+                  "step": 212,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2019,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T213",
+                  "step": 213,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10773,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T214",
+                  "step": 214,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1083,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T215",
+                  "step": 215,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1188,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T216",
+                  "step": 216,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1301,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T217",
+                  "step": 217,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10427,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T218",
+                  "step": 218,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10539,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T219",
+                  "step": 219,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10648,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T220",
+                  "step": 220,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 5993,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T221",
+                  "step": 221,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5939,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T222",
+                  "step": 222,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 14632,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T223",
+                  "step": 223,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 891,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T224",
+                  "step": 224,
+                  "toolName": "Other tools",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 457,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T225",
+                  "step": 225,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 566,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T226",
+                  "step": 226,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 676,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T227",
+                  "step": 227,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T228",
+                  "step": 228,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 2449,
+                  "timingSource": "transcript-pair"
+                }
+              ]
+            },
+            "sessionId": "acc12cb2-78f3-4f7b-a087-9d71cedf348b",
+            "userRequest": "echo \"# sk-chart\" >> README.md git init git add README.md git commit -m \"first commit\" git branch -M main git remote add origin https://github.com/KTBOY/sk-char…"
+          },
+          {
+            "alias": "S2",
+            "role": "user-thread-candidate",
+            "activeMinutes": 63.7,
+            "failureCount": 14,
+            "toolTrace": {
+              "schemaVersion": 2,
+              "totalCalls": 150,
+              "shownCalls": 150,
+              "truncated": false,
+              "calls": [
+                {
+                  "id": "T1",
+                  "step": 1,
+                  "toolName": "Grep",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 315,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T2",
+                  "step": 2,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 423,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T3",
+                  "step": 3,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 209,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T4",
+                  "step": 4,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 246,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T5",
+                  "step": 5,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 359,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T6",
+                  "step": 6,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2067,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T7",
+                  "step": 7,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 104,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T8",
+                  "step": 8,
+                  "toolName": "Read",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 215,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T9",
+                  "step": 9,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 114,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T10",
+                  "step": 10,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 109,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T11",
+                  "step": 11,
+                  "toolName": "Other tools",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 47859,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T12",
+                  "step": 12,
+                  "toolName": "Other tools",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 47975,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T13",
+                  "step": 13,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 384,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T14",
+                  "step": 14,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 106,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T15",
+                  "step": 15,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 213,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T16",
+                  "step": 16,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 226,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T17",
+                  "step": 17,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 115,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T18",
+                  "step": 18,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 106,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T19",
+                  "step": 19,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 183,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T20",
+                  "step": 20,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 615,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T21",
+                  "step": 21,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 158,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T22",
+                  "step": 22,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 113,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T23",
+                  "step": 23,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 105,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T24",
+                  "step": 24,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 215,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T25",
+                  "step": 25,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 368,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T26",
+                  "step": 26,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 126,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T27",
+                  "step": 27,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T28",
+                  "step": 28,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 237,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T29",
+                  "step": 29,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 644,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T30",
+                  "step": 30,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 43929,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T31",
+                  "step": 31,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 138,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T32",
+                  "step": 32,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 103,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T33",
+                  "step": 33,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 991,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T34",
+                  "step": 34,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 177,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T35",
+                  "step": 35,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 580,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T36",
+                  "step": 36,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 42049,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T37",
+                  "step": 37,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 116,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T38",
+                  "step": 38,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 224,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T39",
+                  "step": 39,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 332,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T40",
+                  "step": 40,
+                  "toolName": "Grep",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T41",
+                  "step": 41,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 475,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T42",
+                  "step": 42,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T43",
+                  "step": 43,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 6367,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T44",
+                  "step": 44,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2430,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T45",
+                  "step": 45,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 989,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T46",
+                  "step": 46,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 999,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T47",
+                  "step": 47,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 102,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T48",
+                  "step": 48,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 137,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T49",
+                  "step": 49,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 1017,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T50",
+                  "step": 50,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 431,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T51",
+                  "step": 51,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2029,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T52",
+                  "step": 52,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 553,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T53",
+                  "step": 53,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 318,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T54",
+                  "step": 54,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 425,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T55",
+                  "step": 55,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 21572,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T56",
+                  "step": 56,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 400,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T57",
+                  "step": 57,
+                  "toolName": "Read",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 103,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T58",
+                  "step": 58,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 445,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T59",
+                  "step": 59,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 560,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T60",
+                  "step": 60,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 42108,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T61",
+                  "step": 61,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 42216,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T62",
+                  "step": 62,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 42322,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T63",
+                  "step": 63,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 125941,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T64",
+                  "step": 64,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 126042,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T65",
+                  "step": 65,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 126152,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T66",
+                  "step": 66,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 113,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T67",
+                  "step": 67,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 221,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T68",
+                  "step": 68,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 331,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T69",
+                  "step": 69,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 109,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T70",
+                  "step": 70,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 116,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T71",
+                  "step": 71,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 792,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T72",
+                  "step": 72,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 895,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T73",
+                  "step": 73,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1003,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T74",
+                  "step": 74,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1110,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T75",
+                  "step": 75,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 497,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T76",
+                  "step": 76,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 598,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T77",
+                  "step": 77,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 158,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T78",
+                  "step": 78,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 265,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T79",
+                  "step": 79,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 301,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T80",
+                  "step": 80,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 417,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T81",
+                  "step": 81,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 529,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T82",
+                  "step": 82,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T83",
+                  "step": 83,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 116,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T84",
+                  "step": 84,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 319,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T85",
+                  "step": 85,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 104,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T86",
+                  "step": 86,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 7275,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T87",
+                  "step": 87,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 393,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T88",
+                  "step": 88,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 560,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T89",
+                  "step": 89,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 476,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T90",
+                  "step": 90,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5514,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T91",
+                  "step": 91,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5628,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T92",
+                  "step": 92,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 614,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T93",
+                  "step": 93,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 335,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T94",
+                  "step": 94,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 102,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T95",
+                  "step": 95,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 695,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T96",
+                  "step": 96,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T97",
+                  "step": 97,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 117,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T98",
+                  "step": 98,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 231,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T99",
+                  "step": 99,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 296,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T100",
+                  "step": 100,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2743,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T101",
+                  "step": 101,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 271,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T102",
+                  "step": 102,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 387,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T103",
+                  "step": 103,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 110,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T104",
+                  "step": 104,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 219,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T105",
+                  "step": 105,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 111,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T106",
+                  "step": 106,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 115,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T107",
+                  "step": 107,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 115,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T108",
+                  "step": 108,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4616,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T109",
+                  "step": 109,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2544,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T110",
+                  "step": 110,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 433,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T111",
+                  "step": 111,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 803,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T112",
+                  "step": 112,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 704,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T113",
+                  "step": 113,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 113,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T114",
+                  "step": 114,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 986,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T115",
+                  "step": 115,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 385,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T116",
+                  "step": 116,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 482,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T117",
+                  "step": 117,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 123,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T118",
+                  "step": 118,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 114,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T119",
+                  "step": 119,
+                  "toolName": "Grep",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 103,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T120",
+                  "step": 120,
+                  "toolName": "Grep",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 209,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T121",
+                  "step": 121,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 375,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T122",
+                  "step": 122,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 691,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T123",
+                  "step": 123,
+                  "toolName": "Grep",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 117,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T124",
+                  "step": 124,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 613,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T125",
+                  "step": 125,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 720,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T126",
+                  "step": 126,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 822,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T127",
+                  "step": 127,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3184,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T128",
+                  "step": 128,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 546,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T129",
+                  "step": 129,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 471,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T130",
+                  "step": 130,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 7902,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T131",
+                  "step": 131,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 386,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T132",
+                  "step": 132,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 503,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T133",
+                  "step": 133,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 870,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T134",
+                  "step": 134,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 987,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T135",
+                  "step": 135,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1099,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T136",
+                  "step": 136,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 128,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T137",
+                  "step": 137,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 66624,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T138",
+                  "step": 138,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 596,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T139",
+                  "step": 139,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 365,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T140",
+                  "step": 140,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 102,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T141",
+                  "step": 141,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 507,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T142",
+                  "step": 142,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 617,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T143",
+                  "step": 143,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 410,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T144",
+                  "step": 144,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 513,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T145",
+                  "step": 145,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1445,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T146",
+                  "step": 146,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1558,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T147",
+                  "step": 147,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 656,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T148",
+                  "step": 148,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1398,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T149",
+                  "step": 149,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2067,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T150",
+                  "step": 150,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 24945,
+                  "timingSource": "transcript-pair"
+                }
+              ]
+            },
+            "sessionId": "733f1532-e939-4b4d-a0b7-d4c3f8bf85bb",
+            "userRequest": "目前skill 这个页面， 不好看，重新设计，先出图片给我看下"
+          },
+          {
+            "alias": "S3",
+            "role": "user-thread-candidate",
+            "activeMinutes": 53.3,
+            "failureCount": 12,
+            "toolTrace": {
+              "schemaVersion": 2,
+              "totalCalls": 147,
+              "shownCalls": 147,
+              "truncated": false,
+              "calls": [
+                {
+                  "id": "T1",
+                  "step": 1,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1421,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T2",
+                  "step": 2,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1526,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T3",
+                  "step": 3,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1912,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T4",
+                  "step": 4,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2357,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T5",
+                  "step": 5,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10929,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T6",
+                  "step": 6,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 11039,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T7",
+                  "step": 7,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1974,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T8",
+                  "step": 8,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T9",
+                  "step": 9,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 215,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T10",
+                  "step": 10,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 323,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T11",
+                  "step": 11,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2098,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T12",
+                  "step": 12,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2210,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T13",
+                  "step": 13,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2293,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T14",
+                  "step": 14,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2407,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T15",
+                  "step": 15,
+                  "toolName": "mcp_get",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 154,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T16",
+                  "step": 16,
+                  "toolName": "mcp_get",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 269,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T17",
+                  "step": 17,
+                  "toolName": "mcp_get",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 377,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T18",
+                  "step": 18,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 108,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T19",
+                  "step": 19,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 691,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T20",
+                  "step": 20,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 974,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T21",
+                  "step": 21,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1936,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T22",
+                  "step": 22,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 105,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T23",
+                  "step": 23,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3221,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T24",
+                  "step": 24,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 408,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T25",
+                  "step": 25,
+                  "toolName": "Read",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 101,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T26",
+                  "step": 26,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 174,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T27",
+                  "step": 27,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 437,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T28",
+                  "step": 28,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 107,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T29",
+                  "step": 29,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 223,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T30",
+                  "step": 30,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 325,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T31",
+                  "step": 31,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 405,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T32",
+                  "step": 32,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 110,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T33",
+                  "step": 33,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 103,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T34",
+                  "step": 34,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 210,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T35",
+                  "step": 35,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 111,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T36",
+                  "step": 36,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 266,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T37",
+                  "step": 37,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 380,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T38",
+                  "step": 38,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 489,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T39",
+                  "step": 39,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 144,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T40",
+                  "step": 40,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 162,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T41",
+                  "step": 41,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 595,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T42",
+                  "step": 42,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 696,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T43",
+                  "step": 43,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 402,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T44",
+                  "step": 44,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 515,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T45",
+                  "step": 45,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 617,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T46",
+                  "step": 46,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 111,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T47",
+                  "step": 47,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 217,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T48",
+                  "step": 48,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 326,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T49",
+                  "step": 49,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 6280,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T50",
+                  "step": 50,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1674,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T51",
+                  "step": 51,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 976,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T52",
+                  "step": 52,
+                  "toolName": "mcp_get",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 111,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T53",
+                  "step": 53,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 102,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T54",
+                  "step": 54,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 113,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T55",
+                  "step": 55,
+                  "toolName": "mcp_call",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 1003,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T56",
+                  "step": 56,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 930,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T57",
+                  "step": 57,
+                  "toolName": "mcp_call",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3330,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T58",
+                  "step": 58,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 302,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T59",
+                  "step": 59,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 633,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T60",
+                  "step": 60,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 320,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T61",
+                  "step": 61,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 726,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T62",
+                  "step": 62,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 128,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T63",
+                  "step": 63,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 131,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T64",
+                  "step": 64,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 472,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T65",
+                  "step": 65,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 354,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T66",
+                  "step": 66,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 434,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T67",
+                  "step": 67,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 115,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T68",
+                  "step": 68,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 275,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T69",
+                  "step": 69,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 105,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T70",
+                  "step": 70,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1981,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T71",
+                  "step": 71,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 4618,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T72",
+                  "step": 72,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 361,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T73",
+                  "step": 73,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 767,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T74",
+                  "step": 74,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 104,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T75",
+                  "step": 75,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 114,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T76",
+                  "step": 76,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 269,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T77",
+                  "step": 77,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 379,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T78",
+                  "step": 78,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 783,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T79",
+                  "step": 79,
+                  "toolName": "Bash",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 6271,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T80",
+                  "step": 80,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 516,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T81",
+                  "step": 81,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 243,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T82",
+                  "step": 82,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3362,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T83",
+                  "step": 83,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 25953,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T84",
+                  "step": 84,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 585,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T85",
+                  "step": 85,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 138,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T86",
+                  "step": 86,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 32906,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T87",
+                  "step": 87,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 741,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T88",
+                  "step": 88,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 282,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T89",
+                  "step": 89,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 570,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T90",
+                  "step": 90,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 845,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T91",
+                  "step": 91,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 147,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T92",
+                  "step": 92,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 116,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T93",
+                  "step": 93,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 113,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T94",
+                  "step": 94,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 19407,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T95",
+                  "step": 95,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 651,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T96",
+                  "step": 96,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 761,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T97",
+                  "step": 97,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3264,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T98",
+                  "step": 98,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3220,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T99",
+                  "step": 99,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4397,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T100",
+                  "step": 100,
+                  "toolName": "TaskUpdate",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4506,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T101",
+                  "step": 101,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 114,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T102",
+                  "step": 102,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 460,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T103",
+                  "step": 103,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 563,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T104",
+                  "step": 104,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 124,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T105",
+                  "step": 105,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 304,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T106",
+                  "step": 106,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3349,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T107",
+                  "step": 107,
+                  "toolName": "Write",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 234,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T108",
+                  "step": 108,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 6611,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T109",
+                  "step": 109,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 797,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T110",
+                  "step": 110,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 6976,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T111",
+                  "step": 111,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 733,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T112",
+                  "step": 112,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4610,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T113",
+                  "step": 113,
+                  "toolName": "Edit",
+                  "status": "failed",
+                  "durationStatus": "observed",
+                  "durationMs": 306,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T114",
+                  "step": 114,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 407,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T115",
+                  "step": 115,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 109,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T116",
+                  "step": 116,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 209,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T117",
+                  "step": 117,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 10900,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T118",
+                  "step": 118,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 982,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T119",
+                  "step": 119,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 820,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T120",
+                  "step": 120,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 5189,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T121",
+                  "step": 121,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4439,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T122",
+                  "step": 122,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 1105,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T123",
+                  "step": 123,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 458,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T124",
+                  "step": 124,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T125",
+                  "step": 125,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 262,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T126",
+                  "step": 126,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 9768,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T127",
+                  "step": 127,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 838,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T128",
+                  "step": 128,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 3827,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T129",
+                  "step": 129,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 2160,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T130",
+                  "step": 130,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 17815,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T131",
+                  "step": 131,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 922,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T132",
+                  "step": 132,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 789,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T133",
+                  "step": 133,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 889,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T134",
+                  "step": 134,
+                  "toolName": "Other tools",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 70880,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T135",
+                  "step": 135,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 114,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T136",
+                  "step": 136,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 204,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T137",
+                  "step": 137,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 15981,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T138",
+                  "step": 138,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 959,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T139",
+                  "step": 139,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4389,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T140",
+                  "step": 140,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 112,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T141",
+                  "step": 141,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 167,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T142",
+                  "step": 142,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 192,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T143",
+                  "step": 143,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 9857,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T144",
+                  "step": 144,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 875,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T145",
+                  "step": 145,
+                  "toolName": "Bash",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4156,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T146",
+                  "step": 146,
+                  "toolName": "Read",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 4257,
+                  "timingSource": "transcript-pair"
+                },
+                {
+                  "id": "T147",
+                  "step": 147,
+                  "toolName": "Edit",
+                  "status": "observed",
+                  "durationStatus": "observed",
+                  "durationMs": 142,
+                  "timingSource": "transcript-pair"
+                }
+              ]
+            },
+            "sessionId": "2d2ef1f4-e6a0-4982-9032-8e7b3b8d9f21",
+            "userRequest": "假如要增加一个图表，合适放在组件库？"
+          }
+        ]
+      },
+      "accounting": {
+        "mode": "effort-proxy",
+        "responseCount": 0,
+        "modelAttributedResponseCount": 0,
+        "unattributedResponseCount": 0,
+        "usageFieldObservedCount": 0,
+        "nonZeroUsageCount": 0,
+        "exactCreditsAvailable": false,
+        "pricingVersion": null
+      },
+      "modelUsage": [],
+      "outcomeReview": {
+        "status": "required",
+        "reviewedCandidateCount": 0,
+        "reviewedActiveLongCount": 0,
+        "comparableModelOutcomeEvidence": false,
+        "recommendation": "controlled-a-b-required"
+      },
+      "reviewLead": {
+        "id": "session-usage-outcome-review-gap",
+        "title": "3 个长会话候选仍待结果复核",
+        "reason": "9 个已分析会话中有 3 个（33.3%）超过估算活跃时长阈值，最长估算为 72.5 分钟，其中 0 个已有结果复核；另有 0 个长跨度可能来自空闲或恢复。这只是调查线索，尚未确认存在效率、任务拆分、工具链或模型问题。",
+        "expectedOutcome": "每个展示候选都完成任务族、结果和摩擦分类，让报告能够判断是否真的需要改进。",
+        "aiFixPrompt": "/better-harness 复核这些会话\n\n3 个长会话候选仍待结果复核\n\n## 先核对的会话\n\n- S1：用户会话候选，估算活跃约 72.5 分钟，失败事件 11 次\n- S2：用户会话候选，估算活跃约 63.7 分钟，失败事件 14 次\n- S3：用户会话候选，估算活跃约 53.3 分钟，失败事件 12 次\n\n## 先做什么\n\n在操作系统临时目录创建 <run>，从项目根运行：\n\n```bash\nnode scripts/session-analysis.mjs insights --workspace . --selection all-eligible --limit 1000 --format json --output <run>/insights.json\nnode scripts/session-analysis/usage-review-packet.mjs --source <run>/insights.json --workspace . --limit 8 --output <run>/.review-packet.json\n```\n\n私有 review packet 会在本地解析候选；只为 S1, S2, S3 写入 taskFamily、outcome、friction、confidence 和 evidenceReason。先完成复核，不改业务代码，也不创建 Memory、Skill 或 Hook。\n\n## 我们看到了什么\n\n9 个已分析会话中有 3 个（33.3%）超过估算活跃时长阈值，最长估算为 72.5 分钟，其中 0 个已有结果复核；另有 0 个长跨度可能来自空闲或恢复。这只是调查线索，尚未确认存在效率、任务拆分、工具链或模型问题。\n\n## 为什么值得复核\n\n未复核前无法区分复杂任务、工具链摩擦、暂停恢复噪音或正常的长任务。\n\n## 预期结果\n\n每个展示候选都完成任务族、结果和摩擦分类，让报告能够判断是否真的需要改进。\n\n## 范围\n\n只生成隐私安全的会话效率复核和 reader report，不改业务代码，不把墙钟跨度当作活跃成本。持久报告只保留匿名别名；私有 review packet 不得复制进报告。这是完整的 3/3 候选视图；结论仍需经过语义复核。\n\n## 怎样算完成\n\n<run>/.review.json 对 S1, S2, S3 各有一条有效复核；语义复核生成 <run>/insights.reviewed.json；<run>/report.md 以 reviewed source 校验通过。复核未确认问题时，不创建优化项。\n\n## 验证\n\n- 运行 `node scripts/session-analysis/usage-semantic-review.mjs --source <run>/insights.json --packet <run>/.review-packet.json --review <run>/.review.json --output <run>/insights.reviewed.json`\n- 运行 `node scripts/session-analysis/validate-usage-report.mjs --source <run>/insights.reviewed.json --report <run>/report.md`，必须返回 `ok: true`\n- 确认 reviewed source 的 `outcomeReview.reviewedActiveLongCount` 等于已复核的展示别名数；通过后删除两个私有临时 review 文件",
+        "sampleCoverage": {
+          "shown": 3,
+          "total": 3,
+          "complete": true
+        }
+      }
+    },
+    "projectName": "sk-chart",
+    "locale": "zh-CN",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 26,
+    "overview": "组件能力基线良好（78 个测试、四门禁全绿、导出 API 与白色下载图标已交付并在真实浏览器验证），缺口集中在交付闭环：导出等新成果未入库导致 HEAD 与 README 不一致、无 CI 使门禁仅本地有效、AGENTS.md 声明的无头 Edge 验证路线在仓库内无脚本；能力侧 M1 容器自适应在途、npm 发布元数据缺失。",
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "任务理解",
+        "score": 78,
+        "summary": "AGENTS.md 与 README 提供目录地图、常用命令与验证路线，导航层无保留发现。",
+        "findingRefs": []
+      },
+      {
+        "id": "controlled-execution",
+        "label": "可控执行",
+        "score": 70,
+        "summary": "typecheck/lint/test/build 全绿且事件总线已泛型化；容器自适应仍依赖手动 resize()（M1 在途）。",
+        "findingRefs": [
+          "resize-observer-manual-only"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "改动验证",
+        "score": 68,
+        "summary": "78 个单测/集成测试覆盖几何、生命周期与 jsdom 级 a11y；浏览器级探针路线在仓库外，协作者无法复现。",
+        "findingRefs": [
+          "runtime-probes-outside-repo"
+        ]
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "可靠交付",
+        "score": 45,
+        "summary": "导出 API 等新成果未提交、与 README 声明不一致；无 CI、发布元数据缺失，交付闭环依赖人工。",
+        "findingRefs": [
+          "head-docs-uncommitted",
+          "no-ci-gate",
+          "publish-metadata-thin"
+        ]
+      },
+      {
+        "id": "learning-capture",
+        "label": "经验沉淀",
+        "score": 35,
+        "summary": "本窗口 session lane 无合格 Episode，亦无 CHANGELOG/发布记录，可复用改进尚无后续可比结果验证。",
+        "findingRefs": []
+      }
+    ],
+    "assignmentSummaries": []
+  },
+  "findings": [
+    {
+      "id": "head-docs-uncommitted",
+      "title": "README 已声明导出 API，但 HEAD 仍是旧提交，拉取者拿不到文档所述功能",
+      "severity": "Medium",
+      "reason": "toSVGString/getDataURL/download 已实现（src/core/exporter.ts、src/core/chart-base.ts）并写入 README 方法节，但 git HEAD 停在 a183072，含 exporter.ts、exporter.test.ts、examples 导出按钮等 10 个修改 + 2 个未跟踪文件未入库；仓库层面文档与代码不一致，协作/CI 拉取 HEAD 得到无导出功能的库。",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ],
+      "aiFixPrompt": "/better-harness fix this issue\n\n在用户授权后，把已实现的导出 API、demo 导出按钮与测试/文档按语义提交（feat: chart export API；chore: demo export buttons & docs），提交前核对暂存内容不含 .qoder/better-harness-runs 运行产物。\n\n## Validation\n\n- git status 干净（run-dir 除外）\n- git log 显示 HEAD 包含 src/core/exporter.ts\n- npm run typecheck && npm test && npm run build 全绿",
+      "expectedArtifact": "Workflow",
+      "expectedOutput": [
+        "Update the existing Workflow owner identified by the reviewed evidence and retain a focused validation result."
+      ]
+    },
+    {
+      "id": "no-ci-gate",
+      "title": "质量门禁仅在本地执行，仓库无 CI，推送与协作层面没有机械防退化",
+      "severity": "Medium",
+      "reason": ".github/ 不存在、无任何 workflow；typecheck/lint/test/build 只在开发者本机运行；README/AGENTS.md 路线图 M3 的“视觉回归 CI”零起步，推送坏代码无拦截。",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ],
+      "aiFixPrompt": "/better-harness fix this issue\n\n添加最小 GitHub Actions workflow（ubuntu-latest + node 20）：install → typecheck → lint → test → build；视觉回归暂不接入自动流程。需用户授权（推送 GitHub）。\n\n## Validation\n\n- .github/workflows/ci.yml 存在且 yaml 可解析\n- 推送后 Actions 四门禁全绿（或用户授权前以本地 dry-run 记录）",
+      "expectedArtifact": "Workflow",
+      "expectedOutput": [
+        "Update the existing Workflow owner identified by the reviewed evidence and retain a focused validation result."
+      ]
+    },
+    {
+      "id": "runtime-probes-outside-repo",
+      "title": "浏览器级验证脚本在仓库外，AGENTS.md 声明的无头 Edge 验证路线无法被协作者复现",
+      "severity": "Low",
+      "reason": "截图/探针 CDP 脚本（hover、键盘、reduced-motion、aria、导出点击）只存在于仓库外临时目录；AGENTS.md 验证路线第 2 条声明“无头 Edge CDP 脚本截图/探针”，但仓库内无脚本、无基线截图、无命令入口，浏览器级回归依赖口传。jsdom 测试不能替代真实引擎行为。",
+      "dimensionRefs": [
+        "change-validation"
+      ],
+      "aiFixPrompt": "/better-harness fix this issue\n\n把 CDP 探针/截图脚本入库为 scripts/visual-probe.mjs（去除绝对路径、端口与输出目录参数化、Edge 路径可覆盖），AGENTS.md 常用命令补一行 node scripts/visual-probe.mjs；保留断言项：hover/键盘/reduced-motion/aria/导出点击/控制台零错误。\n\n## Validation\n\n- 干净工作区执行 node scripts/visual-probe.mjs 输出 NO PAGE ERRORS\n- AGENTS.md 命令段与脚本实际参数一致",
+      "expectedArtifact": "Code",
+      "expectedOutput": [
+        "Update the existing Code owner identified by the reviewed evidence and retain a focused validation result."
+      ]
+    },
+    {
+      "id": "resize-observer-manual-only",
+      "title": "容器尺寸变化仍需手动 resize()，M1 自适应在途，响应式页面嵌入会静止",
+      "severity": "Low",
+      "reason": "src 全量 grep 无 ResizeObserver；ChartBase 仅有命令式 resize(w,h)。README/AGENTS.md 诚实标注该项为 M1 在途。当前嵌入响应式容器的使用方需自行监听尺寸并调用 resize，否则图表不跟随容器。",
+      "dimensionRefs": [
+        "controlled-execution"
+      ],
+      "aiFixPrompt": "/better-harness fix this issue\n\nM1：ChartBase 增加可选 autoResize（默认 false），开启时 ResizeObserver 监听容器并防抖后重建；关闭时保持现状；destroy 时断开观察。\n\n## Validation\n\n- demo 拖动窗口宽度图表跟随（autoResize 开启实例）\n- 默认实例行为不变；npm test 全绿",
+      "expectedArtifact": "Code",
+      "expectedOutput": [
+        "Update the existing Code owner identified by the reviewed evidence and retain a focused validation result."
+      ]
+    },
+    {
+      "id": "publish-metadata-thin",
+      "title": "npm 发布元数据与变更记录缺失，M3 发布后包页面与可维护性不达标",
+      "severity": "Low",
+      "reason": "package.json 缺 author/bugs/homepage/engines/publishConfig；无 CHANGELOG 与版本演进约定。README 与 LICENSE 默认随 npm 包包含，不计入缺口；但 registry 页面将缺维护者与问题反馈入口，低于主流图表库最低可读标准。",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ],
+      "aiFixPrompt": "/better-harness fix this issue\n\npackage.json 补 author/bugs/homepage/engines/publishConfig(access public)；新建 CHANGELOG.md 基线（M0 组件化 + 导出 API）；不引入版本自动化工具。\n\n## Validation\n\n- npm pack --dry-run 输出含完整元数据且包内容含 README/LICENSE\n- package.json 可被 node 解析",
+      "expectedArtifact": "Config",
+      "expectedOutput": [
+        "Update the existing Config owner identified by the reviewed evidence and retain a focused validation result."
+      ]
+    }
+  ]
+}

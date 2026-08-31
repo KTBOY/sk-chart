@@ -1,6 +1,7 @@
 export const VERSION = '0.1.0';
 
 export { ChartBase } from './core/chart-base';
+export type { DownloadOptions, ExportOptions } from './core/exporter';
 export type { BaseConfig, ChartEventMap, ColumnEventPayload, ContainerLike } from './core/types';
 
 export { FoldBarChart } from './charts/fold-bar';
@@ -18,6 +19,7 @@ export type {
   FoldBarTooltipConfig,
   FoldBarXAxisConfig,
   FoldBarXAxisTitleConfig,
+  ThemeRef,
   TooltipFormatter,
   TooltipPart,
   TooltipTone,
@@ -33,7 +35,13 @@ export type {
   PlotRect,
   RectGeometry,
 } from './charts/fold-bar/geometry';
-export type { FoldBarThemeTokens, ResolvedFoldBarStyle } from './theme/default-theme';
+export { registerTheme, getTheme, isThemePack } from './theme/presets';
+export type { ThemePack, ThemeFormats } from './theme/presets';
+export type {
+  DeepPartialTokens,
+  FoldBarThemeTokens,
+  ResolvedFoldBarStyle,
+} from './theme/default-theme';
 
 export { createLinearScale } from './scale/linear-scale';
 export type { ScaleOptions } from './scale/linear-scale';

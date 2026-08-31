@@ -8,7 +8,7 @@ sk-chart：轻量 SVG 优先图表库。首版提供 **FoldBarChart**（折纸�
 
 - `src/core/` — ChartBase 生命周期（泛型事件总线）、SVG 工具（uid 隔离）、基础类型
 - `src/scale/` — 纯函数比例尺：linear / power / band
-- `src/theme/` — 默认主题 tokens、scoped CSS 生成（含 prefers-reduced-motion 降级）
+- `src/theme/` — 默认主题 tokens、主题包注册（`presets.ts`：registerTheme/getTheme，内置 light/dark）、scoped CSS 生成（含 prefers-reduced-motion 降级）
 - `src/charts/fold-bar/` — geometry（纯函数几何）/ defs-builder / render / interaction / defaults / types
 - `tests/` — vitest（jsdom）；`tests/probe-boundary.test.ts` 为边界回归
 - `examples/` — Vite demo（双实例 + 事件日志 + 控制按钮）
@@ -40,4 +40,4 @@ npm run build      # tsup → ESM/CJS/d.ts
 
 ## 路线图
 
-M1：ResizeObserver 自适应 / 更新动画 / 主题包（已交付：nice ticks 真刻度 Y 轴 + xAxis 配置）；M2：更多图表类型 + React/Vue 封装；M3：文档站 + 视觉回归 CI + npm 发布。
+M1：ResizeObserver 自适应 / 更新动画 / 主题包（已交付：nice ticks 真刻度 Y 轴 + xAxis 配置 + 装饰开关与中性默认文案 + 主题包注册 light/dark）；M2：更多图表类型 + React/Vue 封装；M3：文档站 + 视觉回归 CI + npm 发布。

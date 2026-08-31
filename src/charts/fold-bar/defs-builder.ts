@@ -22,29 +22,31 @@ export function buildDefs(ctx: DefsContext): SVGDefsElement {
   const defs = createSvgElement('defs');
 
   // Diagonal "lined paper" stripes laid over inactive bars.
-  const pattern = createSvgElement('pattern', {
-    id: scopedId(uid, 'stripes'),
-    width: style.stripePattern.size,
-    height: style.stripePattern.size,
-    patternUnits: 'userSpaceOnUse',
-    patternTransform: `rotate(${style.stripePattern.rotation})`,
-  });
-  pattern.appendChild(
-    createSvgElement('rect', {
+  if (style.stripePattern.enabled) {
+    const pattern = createSvgElement('pattern', {
+      id: scopedId(uid, 'stripes'),
       width: style.stripePattern.size,
       height: style.stripePattern.size,
-      fill: 'none',
-    }),
-  );
-  pattern.appendChild(
-    createSvgElement('rect', {
-      width: style.stripePattern.lineWidth,
-      height: style.stripePattern.size,
-      fill: style.stripePattern.lineColor,
-      'fill-opacity': style.stripePattern.lineOpacity,
-    }),
-  );
-  defs.appendChild(pattern);
+      patternUnits: 'userSpaceOnUse',
+      patternTransform: `rotate(${style.stripePattern.rotation})`,
+    });
+    pattern.appendChild(
+      createSvgElement('rect', {
+        width: style.stripePattern.size,
+        height: style.stripePattern.size,
+        fill: 'none',
+      }),
+    );
+    pattern.appendChild(
+      createSvgElement('rect', {
+        width: style.stripePattern.lineWidth,
+        height: style.stripePattern.size,
+        fill: style.stripePattern.lineColor,
+        'fill-opacity': style.stripePattern.lineOpacity,
+      }),
+    );
+    defs.appendChild(pattern);
+  }
 
   // Bar body gradients (per bar, vertical over its own bounding box).
   for (let i = 0; i < ctx.barCount; i++) {
@@ -85,20 +87,24 @@ export function buildDefs(ctx: DefsContext): SVGDefsElement {
   );
 
   // Active column wash backdrop.
-  defs.appendChild(
-    addStops(
-      createSvgElement('linearGradient', { id: scopedId(uid, 'wash'), x1: 0, y1: 0, x2: 0, y2: 1 }),
-      style.washGradient,
-    ),
-  );
+  if (style.washEnabled) {
+    defs.appendChild(
+      addStops(
+        createSvgElement('linearGradient', { id: scopedId(uid, 'wash'), x1: 0, y1: 0, x2: 0, y2: 1 }),
+        style.washGradient,
+      ),
+    );
+  }
 
   // Pill handle.
-  defs.appendChild(
-    addStops(
-      createSvgElement('linearGradient', { id: scopedId(uid, 'pill'), x1: 0, y1: 0, x2: 0, y2: 1 }),
-      style.pill.gradient,
-    ),
-  );
+  if (style.pill.enabled) {
+    defs.appendChild(
+      addStops(
+        createSvgElement('linearGradient', { id: scopedId(uid, 'pill'), x1: 0, y1: 0, x2: 0, y2: 1 }),
+        style.pill.gradient,
+      ),
+    );
+  }
 
   // Soft shadow under the tooltip paper.
   const filter = createSvgElement('filter', {
@@ -120,40 +126,42 @@ export function buildDefs(ctx: DefsContext): SVGDefsElement {
   defs.appendChild(filter);
 
   // The sheet dissolves instead of hitting a hard baseline.
-  defs.appendChild(
-    addStops(
-      createSvgElement('linearGradient', {
-        id: scopedId(uid, 'fadeGrad'),
-        gradientUnits: 'userSpaceOnUse',
-        x1: 0,
-        y1: ctx.fade.start,
-        x2: 0,
-        y2: ctx.fade.end,
-      }),
-      [
-        [0, '#fff'],
-        [1, '#000'],
-      ],
-    ),
-  );
-  const mask = createSvgElement('mask', {
-    id: scopedId(uid, 'fade'),
-    maskUnits: 'userSpaceOnUse',
-    x: 0,
-    y: 0,
-    width: ctx.width,
-    height: ctx.height,
-  });
-  mask.appendChild(
-    createSvgElement('rect', {
+  if (style.fadeEnabled) {
+    defs.appendChild(
+      addStops(
+        createSvgElement('linearGradient', {
+          id: scopedId(uid, 'fadeGrad'),
+          gradientUnits: 'userSpaceOnUse',
+          x1: 0,
+          y1: ctx.fade.start,
+          x2: 0,
+          y2: ctx.fade.end,
+        }),
+        [
+          [0, '#fff'],
+          [1, '#000'],
+        ],
+      ),
+    );
+    const mask = createSvgElement('mask', {
+      id: scopedId(uid, 'fade'),
+      maskUnits: 'userSpaceOnUse',
       x: 0,
       y: 0,
       width: ctx.width,
       height: ctx.height,
-      fill: urlRef(uid, 'fadeGrad'),
-    }),
-  );
-  defs.appendChild(mask);
+    });
+    mask.appendChild(
+      createSvgElement('rect', {
+        x: 0,
+        y: 0,
+        width: ctx.width,
+        height: ctx.height,
+        fill: urlRef(uid, 'fadeGrad'),
+      }),
+    );
+    defs.appendChild(mask);
+  }
 
   return defs;
 }

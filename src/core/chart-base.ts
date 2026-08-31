@@ -1,3 +1,11 @@
+import {
+  svgToDataUrl,
+  svgToMarkup,
+  svgToPngDataUrl,
+  triggerDownload,
+  type DownloadOptions,
+  type ExportOptions,
+} from './exporter';
 import type { BaseConfig, ChartEventMap, ContainerLike } from './types';
 
 // Handler erasure point: concrete payload types are enforced at the on/off/emit boundary.
@@ -61,6 +69,30 @@ export abstract class ChartBase<
   /** Changes the viewBox design space and rebuilds (userSpaceOnUse coordinates depend on it). */
   resize(width: number, height: number): void {
     this.update({ width, height } as Partial<C>);
+  }
+
+  /** Standalone SVG markup (embedded style + defs included), renderable as-is. */
+  toSVGString(): string {
+    return svgToMarkup(this.requireSvg());
+  }
+
+  /** Data URL of the current chart; PNG is rasterized through canvas at `scale` (default 2x). */
+  async getDataURL(options: ExportOptions = {}): Promise<string> {
+    const { type = 'png', scale = 2, background } = options;
+    const svg = this.requireSvg();
+    return type === 'svg' ? svgToDataUrl(svg) : svgToPngDataUrl(svg, scale, background);
+  }
+
+  /** Triggers a browser download of the chart, PNG at 2x by default. */
+  async download(options: DownloadOptions = {}): Promise<void> {
+    const { filename = 'sk-chart', type = 'png', scale, background } = options;
+    const url = await this.getDataURL({ type, scale, background });
+    triggerDownload(url, `${filename}.${type}`);
+  }
+
+  private requireSvg(): SVGSVGElement {
+    if (this.destroyed || !this.svg) throw new Error('sk-chart: chart is not rendered');
+    return this.svg;
   }
 
   destroy(): void {

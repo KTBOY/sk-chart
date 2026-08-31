@@ -1,0 +1,243 @@
+{
+  "summary": {
+    "projectName": "sk-chart",
+    "locale": "zh-CN",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 26,
+    "overview": "组件能力基线良好（78 个测试、四门禁全绿、导出 API 与白色下载图标已交付并在真实浏览器验证），缺口集中在交付闭环：导出等新成果未入库导致 HEAD 与 README 不一致、无 CI 使门禁仅本地有效、AGENTS.md 声明的无头 Edge 验证路线在仓库内无脚本；能力侧 M1 容器自适应在途、npm 发布元数据缺失。",
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Rules"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Rules",
+          "scopes": [
+            "Project"
+          ],
+          "count": 1,
+          "paths": [
+            "AGENTS.md"
+          ]
+        },
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Global",
+            "Plugin"
+          ],
+          "count": 53,
+          "paths": [
+            "~/.qoder/skills/create-skill/SKILL.md",
+            "~/.qoder/skills/docx/SKILL.md",
+            "~/.qoder/skills/find-skills/SKILL.md",
+            "~/.qoder/skills/install-skill-dependency/SKILL.md",
+            "~/.qoder/skills/pdf/SKILL.md",
+            "~/.qoder/skills/plugin-creator/SKILL.md",
+            "~/.qoder/skills/pptx/SKILL.md",
+            "~/.qoder/skills/qoderwork-guidance/SKILL.md",
+            "~/.agents/skills/tabbit/SKILL.md",
+            "~/.qoder/skills/vm-error-recovery/SKILL.md",
+            "~/.qoder/skills/xlsx/SKILL.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/skills/ai-gateway/SKILL.md"
+          ]
+        },
+        {
+          "surface": "Hooks",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 7,
+          "paths": [
+            "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/hooks/hooks.json",
+            "~/.qoder/plugins/cache/qoder-bundler/security-scan/.qoder-plugin/qoder-hooks.json"
+          ]
+        },
+        {
+          "surface": "Commands",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 5,
+          "paths": [
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/bootstrap.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/deploy.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/env.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/marketplace.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/commands/status.md"
+          ]
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 3,
+          "paths": [
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/ai-architect.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/deployment-expert.md",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/agents/performance-optimizer.md"
+          ]
+        },
+        {
+          "surface": "MCP",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 2,
+          "paths": [
+            "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/mcp.json",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/.mcp.json"
+          ]
+        },
+        {
+          "surface": "Plugins",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 5,
+          "paths": [
+            "~/.qoder/plugins/cache/qoder-bundler/better-harness/.qoder-plugin/plugin.json",
+            "~/.qoder/plugins/cache/qoderapp-bundler/qoder-context/.qoder-plugin/plugin.json",
+            "~/.qoder/plugins/cache/qoder-bundler/qoder-create-plugin",
+            "~/.qoder/plugins/cache/qoder-bundler/security-scan/.qoder-plugin/plugin.json",
+            "~/.qoder/plugins/cache/qoder-marketplace/vercel/0.44.0/.qoder-plugin/plugin.json"
+          ]
+        },
+        {
+          "surface": "Workflows",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Memories",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        }
+      ],
+      "repositorySourceRows": []
+    },
+    "assignmentSummaries": [],
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "任务理解",
+        "score": 78,
+        "summary": "AGENTS.md 与 README 提供目录地图、常用命令与验证路线，导航层无保留发现。",
+        "findingRefs": []
+      },
+      {
+        "id": "controlled-execution",
+        "label": "可控执行",
+        "score": 70,
+        "summary": "typecheck/lint/test/build 全绿且事件总线已泛型化；容器自适应仍依赖手动 resize()（M1 在途）。",
+        "findingRefs": [
+          "resize-observer-manual-only"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "改动验证",
+        "score": 68,
+        "summary": "78 个单测/集成测试覆盖几何、生命周期与 jsdom 级 a11y；浏览器级探针路线在仓库外，协作者无法复现。",
+        "findingRefs": [
+          "runtime-probes-outside-repo"
+        ]
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "可靠交付",
+        "score": 45,
+        "summary": "导出 API 等新成果未提交、与 README 声明不一致；无 CI、发布元数据缺失，交付闭环依赖人工。",
+        "findingRefs": [
+          "head-docs-uncommitted",
+          "no-ci-gate",
+          "publish-metadata-thin"
+        ]
+      },
+      {
+        "id": "learning-capture",
+        "label": "经验沉淀",
+        "score": 35,
+        "summary": "本窗口 session lane 无合格 Episode，亦无 CHANGELOG/发布记录，可复用改进尚无后续可比结果验证。",
+        "findingRefs": []
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "head-docs-uncommitted",
+      "title": "README 已声明导出 API，但 HEAD 仍是旧提交，拉取者拿不到文档所述功能",
+      "severity": "Medium",
+      "reason": "toSVGString/getDataURL/download 已实现（src/core/exporter.ts、src/core/chart-base.ts）并写入 README 方法节，但 git HEAD 停在 a183072，含 exporter.ts、exporter.test.ts、examples 导出按钮等 10 个修改 + 2 个未跟踪文件未入库；仓库层面文档与代码不一致，协作/CI 拉取 HEAD 得到无导出功能的库。",
+      "expectedOutput": [
+        "Update the existing Workflow owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Workflow",
+      "aiFixPrompt": "/better-harness fix this issue\n\n在用户授权后，把已实现的导出 API、demo 导出按钮与测试/文档按语义提交（feat: chart export API；chore: demo export buttons & docs），提交前核对暂存内容不含 .qoder/better-harness-runs 运行产物。\n\n## Validation\n\n- git status 干净（run-dir 除外）\n- git log 显示 HEAD 包含 src/core/exporter.ts\n- npm run typecheck && npm test && npm run build 全绿",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "no-ci-gate",
+      "title": "质量门禁仅在本地执行，仓库无 CI，推送与协作层面没有机械防退化",
+      "severity": "Medium",
+      "reason": ".github/ 不存在、无任何 workflow；typecheck/lint/test/build 只在开发者本机运行；README/AGENTS.md 路线图 M3 的“视觉回归 CI”零起步，推送坏代码无拦截。",
+      "expectedOutput": [
+        "Update the existing Workflow owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Workflow",
+      "aiFixPrompt": "/better-harness fix this issue\n\n添加最小 GitHub Actions workflow（ubuntu-latest + node 20）：install → typecheck → lint → test → build；视觉回归暂不接入自动流程。需用户授权（推送 GitHub）。\n\n## Validation\n\n- .github/workflows/ci.yml 存在且 yaml 可解析\n- 推送后 Actions 四门禁全绿（或用户授权前以本地 dry-run 记录）",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    },
+    {
+      "id": "runtime-probes-outside-repo",
+      "title": "浏览器级验证脚本在仓库外，AGENTS.md 声明的无头 Edge 验证路线无法被协作者复现",
+      "severity": "Low",
+      "reason": "截图/探针 CDP 脚本（hover、键盘、reduced-motion、aria、导出点击）只存在于仓库外临时目录；AGENTS.md 验证路线第 2 条声明“无头 Edge CDP 脚本截图/探针”，但仓库内无脚本、无基线截图、无命令入口，浏览器级回归依赖口传。jsdom 测试不能替代真实引擎行为。",
+      "expectedOutput": [
+        "Update the existing Code owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Code",
+      "aiFixPrompt": "/better-harness fix this issue\n\n把 CDP 探针/截图脚本入库为 scripts/visual-probe.mjs（去除绝对路径、端口与输出目录参数化、Edge 路径可覆盖），AGENTS.md 常用命令补一行 node scripts/visual-probe.mjs；保留断言项：hover/键盘/reduced-motion/aria/导出点击/控制台零错误。\n\n## Validation\n\n- 干净工作区执行 node scripts/visual-probe.mjs 输出 NO PAGE ERRORS\n- AGENTS.md 命令段与脚本实际参数一致",
+      "dimensionRefs": [
+        "change-validation"
+      ]
+    },
+    {
+      "id": "resize-observer-manual-only",
+      "title": "容器尺寸变化仍需手动 resize()，M1 自适应在途，响应式页面嵌入会静止",
+      "severity": "Low",
+      "reason": "src 全量 grep 无 ResizeObserver；ChartBase 仅有命令式 resize(w,h)。README/AGENTS.md 诚实标注该项为 M1 在途。当前嵌入响应式容器的使用方需自行监听尺寸并调用 resize，否则图表不跟随容器。",
+      "expectedOutput": [
+        "Update the existing Code owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Code",
+      "aiFixPrompt": "/better-harness fix this issue\n\nM1：ChartBase 增加可选 autoResize（默认 false），开启时 ResizeObserver 监听容器并防抖后重建；关闭时保持现状；destroy 时断开观察。\n\n## Validation\n\n- demo 拖动窗口宽度图表跟随（autoResize 开启实例）\n- 默认实例行为不变；npm test 全绿",
+      "dimensionRefs": [
+        "controlled-execution"
+      ]
+    },
+    {
+      "id": "publish-metadata-thin",
+      "title": "npm 发布元数据与变更记录缺失，M3 发布后包页面与可维护性不达标",
+      "severity": "Low",
+      "reason": "package.json 缺 author/bugs/homepage/engines/publishConfig；无 CHANGELOG 与版本演进约定。README 与 LICENSE 默认随 npm 包包含，不计入缺口；但 registry 页面将缺维护者与问题反馈入口，低于主流图表库最低可读标准。",
+      "expectedOutput": [
+        "Update the existing Config owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Config",
+      "aiFixPrompt": "/better-harness fix this issue\n\npackage.json 补 author/bugs/homepage/engines/publishConfig(access public)；新建 CHANGELOG.md 基线（M0 组件化 + 导出 API）；不引入版本自动化工具。\n\n## Validation\n\n- npm pack --dry-run 输出含完整元数据且包内容含 README/LICENSE\n- package.json 可被 node 解析",
+      "dimensionRefs": [
+        "reliable-delivery"
+      ]
+    }
+  ]
+}

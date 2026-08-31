@@ -1,14 +1,18 @@
 import type { Padding } from './geometry';
 import { barGeometry, computeLayout, flapGeometry, type BarGeometry, type FlapGeometry, type FoldBarLayout } from './geometry';
 import {
+  mergeTokens,
   resolveStyle,
   resolveTokens,
+  type DeepPartialTokens,
   type FoldBarThemeTokens,
   type ResolvedFoldBarStyle,
 } from '../../theme/default-theme';
+import { getTheme, isThemePack, type ThemePack } from '../../theme/presets';
 import type {
   FoldBarChartConfig,
   FoldBarDatum,
+  ThemeRef,
   TooltipFormatter,
   TooltipPart,
   XAxisBottomFormatter,
@@ -60,28 +64,11 @@ export interface FoldBarOptions {
 /** Default header value formatter, matching the prototype's `65.2k` labels. */
 export const defaultValueFormat = (value: number): string => `${value.toFixed(1)}k`;
 
-/**
- * Default tooltip: value + conversion vs. the previous stage + loss,
- * reproducing the prototype's payments wording.
- */
-export function defaultTooltipFormatter(
-  datum: FoldBarDatum,
-  index: number,
-  data: FoldBarDatum[],
-): TooltipPart[] {
-  const value = datum.value;
-  const prev = index > 0 ? data[index - 1].value : null;
-  const conversion = prev ? Math.round((value / prev) * 100) : 100;
-  const loss = prev ? `${conversion - 100}%` : '0%';
+/** Neutral default tooltip: category label plus formatted value. */
+export function defaultTooltipFormatter(datum: FoldBarDatum): TooltipPart[] {
   return [
-    { text: defaultValueFormat(value), tone: 'b' },
-    { text: ' 笔交易 ', tone: 'n' },
-    { text: '|', tone: 's' },
-    { text: ' 转化率: ', tone: 'n' },
-    { text: `${conversion}%`, tone: 'b' },
-    { text: ' |', tone: 's' },
-    { text: ' 流失: ', tone: 'n' },
-    { text: loss, tone: 'b' },
+    { text: `${datum.label}  `, tone: 'n' },
+    { text: defaultValueFormat(datum.value), tone: 'b' },
   ];
 }
 
@@ -113,6 +100,18 @@ export function niceScale(maxValue: number, targetCount = 5): NiceScale {
   return { axisMax, step, ticks: ascending.slice(-targetCount).reverse() };
 }
 
+/** Maps config.theme (preset name | inline pack | legacy tokens partial) to merge layers. */
+function resolveThemeRef(theme?: ThemeRef): { pack?: ThemePack; userTokens?: DeepPartialTokens } {
+  if (!theme) return {};
+  if (typeof theme === 'string') {
+    const pack = getTheme(theme);
+    if (!pack) console.warn(`sk-chart: unknown theme "${theme}"; falling back to defaults`);
+    return { pack: pack ?? {} };
+  }
+  if (isThemePack(theme)) return { pack: theme };
+  return { userTokens: theme };
+}
+
 export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
   const width = config.width ?? 860;
   const height = config.height ?? 386;
@@ -129,7 +128,8 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
     Math.max(requestedActive, -1),
     Math.max(0, config.data.length - 1),
   );
-  const tokens = resolveTokens(config.theme);
+  const { pack, userTokens } = resolveThemeRef(config.theme);
+  const tokens = resolveTokens(mergeTokens(pack?.tokens, userTokens));
   const nice = niceScale(maxValue);
   const ticks = config.axis?.ticks ?? nice.ticks;
   const domainMax = Math.max(nice.axisMax, maxValue, ...ticks);
@@ -151,7 +151,7 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
     height,
     xField,
     yField,
-    valueFormat: config.valueFormat ?? defaultValueFormat,
+    valueFormat: config.valueFormat ?? pack?.formats?.valueFormat ?? defaultValueFormat,
     ariaLabel: config.ariaLabel ?? 'fold bar chart',
     padding: { top: 64, right: 29, bottom: defaultBottom, left: 73, ...config.padding },
     stair: { bottomOffset: 30, topOffset: 74, ...config.stair },
@@ -163,7 +163,7 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
     },
     axis: {
       ticks,
-      tickFormat: config.axis?.tickFormat ?? ((v) => `${v}k`),
+      tickFormat: config.axis?.tickFormat ?? pack?.formats?.tickFormat ?? ((v) => `${v}k`),
       domainMax,
     },
     xAxis: {
@@ -195,7 +195,7 @@ export function resolveOptions(config: FoldBarChartConfig): FoldBarOptions {
       x: config.title?.x ?? 36,
       y: config.title?.y ?? 52,
     },
-    style: resolveStyle(config.style),
+    style: resolveStyle(config.style, pack?.style),
     tokens,
   };
 }

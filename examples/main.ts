@@ -29,6 +29,22 @@ function log(message: string): void {
   }
 }
 
+// Prototype's payments wording — the library default is now neutral (label + value).
+const paymentsFormatter = (d: FoldBarDatum, i: number, data: FoldBarDatum[]) => {
+  const prev = i > 0 ? data[i - 1].value : null;
+  const conv = prev ? Math.round((d.value / prev) * 100) : 100;
+  return [
+    { text: `${d.value.toFixed(1)}k`, tone: 'b' as const },
+    { text: ' 笔交易 ', tone: 'n' as const },
+    { text: '|', tone: 's' as const },
+    { text: ' 转化率: ', tone: 'n' as const },
+    { text: `${conv}%`, tone: 'b' as const },
+    { text: ' |', tone: 's' as const },
+    { text: ' 流失: ', tone: 'n' as const },
+    { text: i === 0 ? '0%' : `${conv - 100}%`, tone: 'b' as const },
+  ];
+};
+
 // Instance 1 — pixel-parity target against the prototype effect 3.
 const chart1 = new FoldBarChart('#chart-1', {
   data: PAYMENTS,
@@ -36,6 +52,7 @@ const chart1 = new FoldBarChart('#chart-1', {
   state: { defaultActive: 2 },
   title: { text: '支付' },
   ariaLabel: '支付漏斗图',
+  tooltip: { formatter: paymentsFormatter },
 });
 
 // Instance 2 — parameterized: more columns, linear scale, custom palette.
@@ -104,6 +121,7 @@ const chart3 = new FoldBarChart('#chart-3', {
   scale: { exponent: 2 },
   title: { text: '支付（含坐标轴）' },
   ariaLabel: '支付漏斗图（含坐标轴）',
+  tooltip: { formatter: paymentsFormatter },
   xAxis: {
     showLine: true,
     showTick: true,
@@ -165,3 +183,23 @@ document.getElementById('btn-toggle')!.addEventListener('click', () => {
     log('实例2 重建完成');
   }
 });
+
+function bindExport(buttonId: string, name: string, getChart: () => FoldBarChart | null): void {
+  document.getElementById(buttonId)!.addEventListener('click', async () => {
+    const chart = getChart();
+    if (!chart) {
+      log(`${name} 已销毁，跳过导出`);
+      return;
+    }
+    try {
+      await chart.download({ filename: `sk-chart-${name}` });
+      log(`${name} 导出 PNG（2x）`);
+    } catch (err) {
+      log(`${name} 导出失败：${(err as Error).message}`);
+    }
+  });
+}
+
+bindExport('btn-export-1', '实例1', () => chart1);
+bindExport('btn-export-2', '实例2', () => chart2);
+bindExport('btn-export-3', '实例3', () => chart3);

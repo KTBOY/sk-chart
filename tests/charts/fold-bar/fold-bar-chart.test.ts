@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest';
-import { FoldBarChart, type FoldBarDatum } from '../../../src/index';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { FoldBarChart, registerTheme, type FoldBarDatum } from '../../../src/index';
 
 const DATA: FoldBarDatum[] = [
   { label: '发起支付', value: 65.2 },
@@ -391,5 +391,128 @@ describe('FoldBarChart integration', () => {
     const gridLine = [...el.querySelectorAll('line')].find((l) => l.getAttribute('y1') === '64');
     expect(gridLine?.getAttribute('y2')).toBe('339');
     chart.destroy();
+  });
+
+  it('default tooltip is neutral: category label plus formatted value', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA, state: { defaultActive: 1 } });
+    const text = el.querySelector('svg g[filter] text')!;
+    expect(text.textContent).toBe('授权支付  54.8k');
+    chart.destroy();
+  });
+
+  it('renders all paper decorations by default', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, { data: DATA });
+    const svg = el.querySelector('svg')!;
+    expect(svg.querySelector('pattern')).toBeTruthy();
+    expect(svg.querySelectorAll('rect[class*="stripes"]').length).toBe(5);
+    expect(svg.querySelectorAll('rect[class*="wash"]').length).toBe(5);
+    expect(svg.querySelectorAll('rect[fill*="pill"]').length).toBe(5);
+    expect(el.querySelector('g[role="list"]')!.getAttribute('mask')).toContain('fade');
+    chart.destroy();
+  });
+
+  it('decorations can be disabled for a clean bar look', () => {
+    const el = host();
+    const chart = new FoldBarChart(el, {
+      data: DATA,
+      style: {
+        stripePattern: { enabled: false },
+        pill: { enabled: false },
+        washEnabled: false,
+        fadeMask: { enabled: false },
+      },
+    });
+    const svg = el.querySelector('svg')!;
+    expect(svg.querySelector('pattern')).toBeNull();
+    expect(svg.querySelectorAll('rect[class*="stripes"]').length).toBe(0);
+    expect(svg.querySelectorAll('rect[class*="wash"]').length).toBe(0);
+    expect(svg.querySelectorAll('rect[fill*="pill"]').length).toBe(0);
+    expect(el.querySelector('g[role="list"]')!.getAttribute('mask')).toBeNull();
+    chart.setActive(2);
+    expect(chart.activeIndex).toBe(2);
+    chart.destroy();
+  });
+
+  describe('theme presets', () => {
+    it('applies the built-in dark preset by name', () => {
+      const el = host();
+      const chart = new FoldBarChart(el, { data: DATA, theme: 'dark' });
+      const svg = el.querySelector('svg')!;
+      expect(svg.querySelector('style')!.textContent).toContain('fill:#F1F5FC');
+      const stops = [...svg.querySelectorAll('linearGradient stop')];
+      expect(stops.some((s) => s.getAttribute('stop-color') === '#111B3A')).toBe(true);
+      expect(svg.querySelector('g[filter] rect')!.getAttribute('fill')).toBe('#1A2236');
+      chart.destroy();
+    });
+
+    it('user style wins over the pack style', () => {
+      const el = host();
+      const chart = new FoldBarChart(el, {
+        data: DATA,
+        theme: 'dark',
+        style: {
+          barGradient: {
+            normal: [
+              [0, '#123456'],
+              [1, '#654321'],
+            ],
+          },
+        },
+      });
+      const stops = [...el.querySelectorAll('linearGradient stop')];
+      expect(stops.some((s) => s.getAttribute('stop-color') === '#123456')).toBe(true);
+      // Untouched pack layers survive the partial override.
+      expect(stops.some((s) => s.getAttribute('stop-color') === '#7BA2FF')).toBe(true);
+      chart.destroy();
+    });
+
+    it('accepts an inline theme pack', () => {
+      const el = host();
+      const chart = new FoldBarChart(el, {
+        data: DATA,
+        theme: {
+          tokens: { title: { fill: '#FF0000' } },
+          style: { washEnabled: false },
+        },
+      });
+      const svg = el.querySelector('svg')!;
+      expect(svg.querySelector('style')!.textContent).toContain('fill:#FF0000');
+      expect(svg.querySelectorAll('rect[class*="wash"]').length).toBe(0);
+      chart.destroy();
+    });
+
+    it('registered packs supply default formats', () => {
+      registerTheme('usd', {
+        formats: {
+          valueFormat: (v) => `$${v.toFixed(1)}`,
+          tickFormat: (v) => `$${v}`,
+        },
+      });
+      const el = host();
+      const chart = new FoldBarChart(el, { data: DATA, theme: 'usd' });
+      const texts = [...el.querySelectorAll('text')].map((t) => t.textContent);
+      expect(texts).toContain('$65.2');
+      expect(texts).toContain('$70');
+      chart.destroy();
+    });
+
+    it('legacy token objects keep working', () => {
+      const el = host();
+      const chart = new FoldBarChart(el, { data: DATA, theme: { number: { fontSize: 19 } } });
+      expect(el.querySelector('svg style')!.textContent).toContain('font-size:19px');
+      chart.destroy();
+    });
+
+    it('unknown theme names warn and fall back to defaults', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const el = host();
+      const chart = new FoldBarChart(el, { data: DATA, theme: 'nope' });
+      expect(el.querySelector('svg g[filter] rect')!.getAttribute('fill')).toBe('#fff');
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('unknown theme "nope"'));
+      warn.mockRestore();
+      chart.destroy();
+    });
   });
 });

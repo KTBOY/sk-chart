@@ -85,8 +85,11 @@ export function renderFoldBar(uid: string, model: FoldBarModel): FoldBarRenderRe
   }
   svg.appendChild(grid);
 
-  // Columns layer: the fade mask dissolves the baseline.
-  const columnsLayer = createSvgElement('g', { mask: urlRef(uid, 'fade'), role: 'list' });
+  // Columns layer: the fade mask dissolves the baseline unless opted out.
+  const columnsLayer = createSvgElement(
+    'g',
+    style.fadeEnabled ? { mask: urlRef(uid, 'fade'), role: 'list' } : { role: 'list' },
+  );
   svg.appendChild(columnsLayer);
 
   const columns: SVGGElement[] = [];
@@ -100,13 +103,15 @@ export function renderFoldBar(uid: string, model: FoldBarModel): FoldBarRenderRe
       'aria-label': `${labels[i]} ${options.valueFormat(value)}`,
     });
 
-    col.appendChild(
-      createSvgElement('rect', {
-        class: scopedId(uid, 'wash'),
-        ...washRect(bar, style.washTop),
-        fill: urlRef(uid, 'wash'),
-      }),
-    );
+    if (style.washEnabled) {
+      col.appendChild(
+        createSvgElement('rect', {
+          class: scopedId(uid, 'wash'),
+          ...washRect(bar, style.washTop),
+          fill: urlRef(uid, 'wash'),
+        }),
+      );
+    }
 
     col.appendChild(
       createSvgElement('rect', {
@@ -118,16 +123,18 @@ export function renderFoldBar(uid: string, model: FoldBarModel): FoldBarRenderRe
       }),
     );
 
-    col.appendChild(
-      createSvgElement('rect', {
-        class: scopedId(uid, 'stripes'),
-        x: bar.x,
-        y: bar.y,
-        width: bar.width,
-        height: bar.height,
-        fill: urlRef(uid, 'stripes'),
-      }),
-    );
+    if (style.stripePattern.enabled) {
+      col.appendChild(
+        createSvgElement('rect', {
+          class: scopedId(uid, 'stripes'),
+          x: bar.x,
+          y: bar.y,
+          width: bar.width,
+          height: bar.height,
+          fill: urlRef(uid, 'stripes'),
+        }),
+      );
+    }
 
     const flap = flaps[i];
     if (flap) {
@@ -149,28 +156,30 @@ export function renderFoldBar(uid: string, model: FoldBarModel): FoldBarRenderRe
       );
     }
 
-    const pill = pillGeometry(bar.centerX, bar.y, style.pill);
-    col.appendChild(
-      createSvgElement('rect', {
-        x: pill.x,
-        y: pill.y,
-        width: pill.width,
-        height: pill.height,
-        rx: pill.rx,
-        fill: urlRef(uid, 'pill'),
-      }),
-    );
-    col.appendChild(
-      createSvgElement('rect', {
-        x: pill.shadowX,
-        y: pill.shadowY,
-        width: pill.shadowWidth,
-        height: pill.shadowHeight,
-        rx: pill.shadowRx,
-        fill: style.pill.shadow.color,
-        'fill-opacity': style.pill.shadow.opacity,
-      }),
-    );
+    if (style.pill.enabled) {
+      const pill = pillGeometry(bar.centerX, bar.y, style.pill);
+      col.appendChild(
+        createSvgElement('rect', {
+          x: pill.x,
+          y: pill.y,
+          width: pill.width,
+          height: pill.height,
+          rx: pill.rx,
+          fill: urlRef(uid, 'pill'),
+        }),
+      );
+      col.appendChild(
+        createSvgElement('rect', {
+          x: pill.shadowX,
+          y: pill.shadowY,
+          width: pill.shadowWidth,
+          height: pill.shadowHeight,
+          rx: pill.shadowRx,
+          fill: style.pill.shadow.color,
+          'fill-opacity': style.pill.shadow.opacity,
+        }),
+      );
+    }
 
     const labelX = bar.centerX + style.labelXOffset;
     const label = createSvgElement('text', {

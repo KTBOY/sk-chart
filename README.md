@@ -72,12 +72,35 @@ npm run dev      # Vite，打开 examples/
 | `xAxis.showLine/showTick` | `boolean` | `false` | 柱底基线 / 列中心刻度线（均在渐隐带下方） |
 | `xAxis.showGrid` | `boolean` | `true` | 竖直分列线 |
 | `tooltip.enabled` | `boolean` | `true` | |
-| `tooltip.formatter` | `(datum, i, data) => TooltipPart[]` | 转化率/流失文案 | 自定义 tooltip 内容 |
+| `tooltip.formatter` | `(datum, i, data) => TooltipPart[]` | 类目 + 数值 | 自定义 tooltip 内容 |
 | `tooltip.fixedWidth` | `number` | — | 跳过文字测量（SSR/测试逃生口） |
 | `state.defaultActive` | `number` | 最后一列 | 闲置高亮列 |
 | `title` | `{ text?, x?, y? }` | 无标题 | 左上标题 |
-| `style` | `FoldBarStyleConfig` | 原稿配色 | 条纹/渐变/pill/阴影/渐隐等全部可换肤 |
-| `theme` | `DeepPartialTokens` | 原稿字号/字色/过渡 | 文本/轴/tooltip/过渡 token 深合并覆盖 |
+| `style` | `FoldBarStyleConfig` | 原稿配色 | 条纹/渐变/pill/阴影/渐隐等全部可换肤；`stripePattern.enabled`、`pill.enabled`、`washEnabled`、`fadeMask.enabled` 可逐项关闭装饰，得到干净的普通柱状图观感 |
+| `theme` | `'light' \| 'dark' \| ThemePack \| DeepPartialTokens` | 原稿外观（等价 `'light'`） | 预设名 / 内联主题包 / 旧版字体 token 局部，三种形态均可 |
+
+SVG 本身透明、不画背景，底色由宿主页面控制（白底卡片或深色背景均可）。
+
+### 主题预设
+
+```ts
+import { registerTheme, FoldBarChart } from 'sk-chart';
+
+registerTheme('brand', {
+  style: { barGradient: { normal: myStops } }, // 视觉皮肤
+  tokens: { title: { fill: '#0A0A0A' } },      // 字体/颜色/过渡 token
+  formats: { valueFormat: (v) => `${v}k` },    // 默认数值/刻度格式化
+});
+
+new FoldBarChart(el, { data, theme: 'dark' });            // 内置预设
+new FoldBarChart(el, { data, theme: 'brand' });           // 自定义预设
+new FoldBarChart(el, { data, theme: { tokens: { ... } } }); // 内联主题包
+```
+
+- 内置 `light`（原稿折纸皮肤）与 `dark` 两个预设
+- 解析顺序：内置默认 → 主题包 → config 显式字段（`style`、对象形态 `theme`、`valueFormat`、`axis.tickFormat`），后者优先
+- 旧写法 `theme: { number: { fontSize: 22 } }`（直接传 token 局部）完全兼容
+- 未知预设名回退默认并 `console.warn`
 
 ### 事件
 
@@ -86,6 +109,12 @@ npm run dev      # Vite，打开 examples/
 ### 方法
 
 `update(partial)`、`resize(w, h)`、`destroy()`、`on/off`、`setActive(i)`、`activeIndex`。
+
+导出：
+
+- `toSVGString(): string` — 独立 SVG 文本（内嵌样式与 defs，含 xmlns/宽高），可直接存 `.svg` 或内联
+- `getDataURL({ type?: 'png' | 'svg', scale?: number, background?: string }): Promise<string>` — 默认 PNG 2x；`background` 缺省透明
+- `download({ filename?, type?, scale?, background? }): Promise<void>` — 触发浏览器下载，默认 `sk-chart.png`
 
 ### 交互与无障碍
 
@@ -102,7 +131,7 @@ npm run build     # tsup → ESM/CJS/d.ts
 
 ## 路线图
 
-- **M1**（进行中）：ResizeObserver 真实像素自适应、数据更新过渡动画、主题包；已交付：nice ticks 真刻度 Y 轴、xAxis 配置（顶部类目行 + 底部语义行）
+- **M1**（进行中）：ResizeObserver 真实像素自适应、数据更新过渡动画、主题包；已交付：nice ticks 真刻度 Y 轴、xAxis 配置（顶部类目行 + 底部语义行）、装饰开关 + 中性默认文案、主题包注册（`registerTheme` + 内置 light/dark）
 - **M2**：更多图表类型、框架封装（React/Vue）
 - **M3**：文档站、视觉回归 CI、npm 发布
 

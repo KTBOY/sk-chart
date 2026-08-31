@@ -1,6 +1,7 @@
 import type { GradientStop } from '../../core/svg-renderer';
 import type { BaseConfig } from '../../core/types';
 import type { DeepPartialTokens } from '../../theme/default-theme';
+import type { ThemePack } from '../../theme/presets';
 import type { Padding } from './geometry';
 
 export interface FoldBarDatum {
@@ -104,6 +105,7 @@ export interface FoldBarTitleConfig {
 }
 
 export interface StripePatternStyle {
+  enabled: boolean;
   size: number;
   lineWidth: number;
   lineColor: string;
@@ -121,6 +123,7 @@ export interface PillShadowStyle {
 }
 
 export interface PillStyle {
+  enabled: boolean;
   width: number;
   height: number;
   rx: number;
@@ -145,14 +148,20 @@ export interface FoldBarStyleConfig {
   creaseGradient?: GradientStop[];
   washTop?: number;
   washGradient?: GradientStop[];
+  /** Renders the active-column wash backdrop. Default true. */
+  washEnabled?: boolean;
   pill?: Partial<Omit<PillStyle, 'shadow'>> & { shadow?: Partial<PillShadowStyle> };
   shadow?: Partial<DropShadowStyle>;
-  fadeMask?: Partial<{ start: number; end: number }>;
+  /** `enabled: false` removes the dissolving baseline mask. Default true. */
+  fadeMask?: Partial<{ start: number; end: number; enabled: boolean }>;
   labelY?: number;
   numberY?: number;
   /** Nudge of the label and value away from the bar's horizontal center. */
   labelXOffset?: number;
 }
+
+/** Preset name ('light' | 'dark' | registered), an inline pack, or a legacy tokens partial. */
+export type ThemeRef = string | ThemePack | DeepPartialTokens;
 
 export interface FoldBarChartConfig extends BaseConfig {
   data: FoldBarDatum[];
@@ -171,6 +180,6 @@ export interface FoldBarChartConfig extends BaseConfig {
   state?: FoldBarStateConfig;
   title?: FoldBarTitleConfig;
   style?: FoldBarStyleConfig;
-  /** Typography / color / transition tokens; deep-merged over the defaults. */
-  theme?: DeepPartialTokens;
+  /** Preset name, inline theme pack, or legacy typography tokens; deep-merged over the defaults. */
+  theme?: ThemeRef;
 }

@@ -14,9 +14,11 @@ export interface ResolvedFoldBarStyle {
   creaseGradient: GradientStop[];
   washTop: number;
   washGradient: GradientStop[];
+  washEnabled: boolean;
   pill: PillStyle;
   shadow: DropShadowStyle;
   fadeMask: { start: number; end: number };
+  fadeEnabled: boolean;
   labelY: number;
   numberY: number;
   labelXOffset: number;
@@ -67,7 +69,14 @@ const BAR_GRADIENT_NORMAL: GradientStop[] = [
 ];
 
 const DEFAULT_STYLE: ResolvedFoldBarStyle = {
-  stripePattern: { size: 7.1, lineWidth: 2.1, lineColor: '#fff', lineOpacity: 0.93, rotation: 45 },
+  stripePattern: {
+    enabled: true,
+    size: 7.1,
+    lineWidth: 2.1,
+    lineColor: '#fff',
+    lineOpacity: 0.93,
+    rotation: 45,
+  },
   barGradientActive: BAR_GRADIENT_ACTIVE,
   barGradientNormal: BAR_GRADIENT_NORMAL,
   foldGradient: [
@@ -89,7 +98,9 @@ const DEFAULT_STYLE: ResolvedFoldBarStyle = {
     [0.55, 'rgba(222,240,254,.55)'],
     [1, 'rgba(214,238,254,1)'],
   ],
+  washEnabled: true,
   pill: {
+    enabled: true,
     width: 26,
     height: 7,
     rx: 3.5,
@@ -103,6 +114,7 @@ const DEFAULT_STYLE: ResolvedFoldBarStyle = {
   },
   shadow: { dx: 0, dy: 3, blur: 5, color: '#1B3560', opacity: 0.14 },
   fadeMask: { start: 344, end: 360 },
+  fadeEnabled: true,
   labelY: 85,
   numberY: 117,
   labelXOffset: 0,
@@ -133,28 +145,56 @@ export const DEFAULT_THEME_TOKENS: FoldBarThemeTokens = {
   transition: { state: '.32s ease', tip: 'transform .34s cubic-bezier(.22,.61,.36,1)' },
 };
 
-/** Merges partial user style over the prototype-derived defaults. */
-export function resolveStyle(style?: FoldBarStyleConfig): ResolvedFoldBarStyle {
-  if (!style) return DEFAULT_STYLE;
+/** Group-wise merge of two partial style configs; `top` wins over `base`. */
+export function mergeStyleConfigs(
+  base?: FoldBarStyleConfig,
+  top?: FoldBarStyleConfig,
+): FoldBarStyleConfig | undefined {
+  if (!base) return top;
+  if (!top) return base;
   return {
-    stripePattern: { ...DEFAULT_STYLE.stripePattern, ...style.stripePattern },
-    barGradientActive: style.barGradient?.active ?? DEFAULT_STYLE.barGradientActive,
-    barGradientNormal: style.barGradient?.normal ?? DEFAULT_STYLE.barGradientNormal,
-    foldGradient: style.foldGradient ?? DEFAULT_STYLE.foldGradient,
-    creaseGradient: style.creaseGradient ?? DEFAULT_STYLE.creaseGradient,
-    washTop: style.washTop ?? DEFAULT_STYLE.washTop,
-    washGradient: style.washGradient ?? DEFAULT_STYLE.washGradient,
+    ...base,
+    ...top,
+    stripePattern: { ...base.stripePattern, ...top.stripePattern },
+    barGradient: { ...base.barGradient, ...top.barGradient },
+    pill: {
+      ...base.pill,
+      ...top.pill,
+      shadow: { ...base.pill?.shadow, ...top.pill?.shadow },
+    },
+    shadow: { ...base.shadow, ...top.shadow },
+    fadeMask: { ...base.fadeMask, ...top.fadeMask },
+  };
+}
+
+/** Merges user style (over an optional pack base), then over the prototype-derived defaults. */
+export function resolveStyle(
+  style?: FoldBarStyleConfig,
+  base?: FoldBarStyleConfig,
+): ResolvedFoldBarStyle {
+  const merged = mergeStyleConfigs(base, style);
+  if (!merged) return DEFAULT_STYLE;
+  return {
+    stripePattern: { ...DEFAULT_STYLE.stripePattern, ...merged.stripePattern },
+    barGradientActive: merged.barGradient?.active ?? DEFAULT_STYLE.barGradientActive,
+    barGradientNormal: merged.barGradient?.normal ?? DEFAULT_STYLE.barGradientNormal,
+    foldGradient: merged.foldGradient ?? DEFAULT_STYLE.foldGradient,
+    creaseGradient: merged.creaseGradient ?? DEFAULT_STYLE.creaseGradient,
+    washTop: merged.washTop ?? DEFAULT_STYLE.washTop,
+    washGradient: merged.washGradient ?? DEFAULT_STYLE.washGradient,
+    washEnabled: merged.washEnabled ?? true,
     pill: {
       ...DEFAULT_STYLE.pill,
-      ...style.pill,
-      gradient: style.pill?.gradient ?? DEFAULT_STYLE.pill.gradient,
-      shadow: { ...DEFAULT_STYLE.pill.shadow, ...style.pill?.shadow },
+      ...merged.pill,
+      gradient: merged.pill?.gradient ?? DEFAULT_STYLE.pill.gradient,
+      shadow: { ...DEFAULT_STYLE.pill.shadow, ...merged.pill?.shadow },
     },
-    shadow: { ...DEFAULT_STYLE.shadow, ...style.shadow },
-    fadeMask: { ...DEFAULT_STYLE.fadeMask, ...style.fadeMask },
-    labelY: style.labelY ?? DEFAULT_STYLE.labelY,
-    numberY: style.numberY ?? DEFAULT_STYLE.numberY,
-    labelXOffset: style.labelXOffset ?? DEFAULT_STYLE.labelXOffset,
+    shadow: { ...DEFAULT_STYLE.shadow, ...merged.shadow },
+    fadeMask: { ...DEFAULT_STYLE.fadeMask, ...merged.fadeMask },
+    fadeEnabled: merged.fadeMask?.enabled ?? true,
+    labelY: merged.labelY ?? DEFAULT_STYLE.labelY,
+    numberY: merged.numberY ?? DEFAULT_STYLE.numberY,
+    labelXOffset: merged.labelXOffset ?? DEFAULT_STYLE.labelXOffset,
   };
 }
 
@@ -165,7 +205,26 @@ export type DeepPartialTokens = {
     : FoldBarThemeTokens[K];
 };
 
-/** Merges partial user theme tokens over the defaults, group by group. */
+/** Group-wise merge of two partial token configs; `top` wins over `base`. */
+export function mergeTokens(
+  base?: DeepPartialTokens,
+  top?: DeepPartialTokens,
+): DeepPartialTokens | undefined {
+  if (!base) return top;
+  if (!top) return base;
+  return {
+    fontFamily: top.fontFamily ?? base.fontFamily,
+    title: { ...base.title, ...top.title },
+    axis: { ...base.axis, ...top.axis },
+    label: { ...base.label, ...top.label },
+    number: { ...base.number, ...top.number },
+    grid: { ...base.grid, ...top.grid },
+    tooltip: { ...base.tooltip, ...top.tooltip },
+    transition: { ...base.transition, ...top.transition },
+  };
+}
+
+/** Merges partial theme tokens over the defaults, group by group. */
 export function resolveTokens(theme?: DeepPartialTokens): FoldBarThemeTokens {
   if (!theme) return DEFAULT_THEME_TOKENS;
   return {
