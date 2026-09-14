@@ -1,7 +1,7 @@
 name: Publish to npm
 
-# 通过 npm Trusted Publishing（OIDC）发布 sk-chart —— 无需任何 NPM_TOKEN，自动附带 provenance。
-# 前置条件（一次性）：在 npmjs.com 的 sk-chart 包 Settings → Trusted Publisher 选择 GitHub Actions，填写：
+# 通过 npm Trusted Publishing（OIDC）发布 sk-chart-duo —— 无需任何 NPM_TOKEN，自动附带 provenance。
+# 前置条件（一次性）：在 npmjs.com 的 sk-chart-duo 包 Settings → Trusted Publisher 选择 GitHub Actions，填写：
 #   Organization or user: KTBOY
 #   Repository:          sk-chart
 #   Workflow filename:   publish-npm.yml
@@ -57,16 +57,16 @@ jobs:
         id: check
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          if npm view "sk-chart@$VERSION" version >/dev/null 2>&1; then
+          if npm view "sk-chart-duo@$VERSION" version >/dev/null 2>&1; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "sk-chart@$VERSION 已存在于 npm，跳过发布步骤。"
+            echo "sk-chart-duo@$VERSION 已存在于 npm，跳过发布步骤。"
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       # 无需 NPM_TOKEN：npm 通过 OIDC 使用已配置的 Trusted Publisher 完成鉴权。
       # prepublishOnly 钩子会自动执行 typecheck + test + build，保证发布产物是最新且验证过的。
-      - name: Publish sk-chart (OIDC Trusted Publishing)
+      - name: Publish sk-chart-duo (OIDC Trusted Publishing)
         if: steps.check.outputs.skip != 'true'
         run: npm publish --access public
 

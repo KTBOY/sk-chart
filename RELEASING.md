@@ -1,13 +1,19 @@
 # 发布指南（Releasing）
 
-本文档说明如何把 **sk-chart** 发布到 npm，包含**首次发布**、**手动发布**与**自动发布（GitHub Actions + OIDC）**三种方式，以及本项目特有的注意事项。
+本文档说明如何把 **sk-chart-duo** 发布到 npm，包含**首次发布**、**手动发布**与**自动发布（GitHub Actions + OIDC）**三种方式，以及本项目特有的注意事项。
 
 > 维护者文档。使用者请看 [README](./README.md)。
+
+## 包名说明（重要）
+
+- **npm 包名：`sk-chart-duo`**；**仓库名：`sk-chart`**（`https://github.com/KTBOY/sk-chart`）。
+- 为什么不用 `sk-chart`：npm 有防仿冒的**相似度校验**，会把包名归一化（转小写、去掉 `-_.`）后与既有包比对。`sk-chart` 归一化后正是 `skchart`，与已存在的 npm 包 `skchart` 完全同名，因此发布时被 `403 Package name too similar to existing package skchart` 拦截。`sk-chart-duo` 归一化为 `skchartduo`，与 `skchart` 有实质差异。
+- 改名的连锁影响：`package.json > name`、README 的安装/导入/徽标、工作流里的版本检查（`npm view "sk-chart-duo@$VERSION"`）。仓库名与 GitHub URL 不变。
 
 ## 前置条件
 
 - Node.js >= 18（本项目开发环境为 v22）
-- 拥有 npm 包 `sk-chart` 的发布权限
+- 拥有 npm 包 `sk-chart-duo` 的发布权限
 - 本地校验全绿：`npm run ci`（typecheck + lint + test + build）
 
 ## registry 与登录（重要）
@@ -46,15 +52,17 @@ npm publish --access public --otp=<6 位验证码或恢复码>
 git push --follow-tags
 ```
 
-发布成功后再去 npmjs.com 为 `sk-chart` 配置 Trusted Publisher（见第二节），之后所有版本都可以走全自动路径。
+发布成功后再去 npmjs.com 为 `sk-chart-duo` 配置 Trusted Publisher（见第二节），之后所有版本都可以走全自动路径。
 
 ### ⚠️ 关于 2FA / OTP
 
 若 npm 账户开启了双因素认证（尤其使用安全密钥 / passkey）：
 
 - `--otp=` 需要传入**验证器 App 的 6 位验证码**，或一个**恢复码**（一次性使用）。
+- 尖括号里的内容是**占位符**，必须替换成真实数字，照抄会报 `is not a legal HTTP header value`。
+- 在自己终端里不加 `--otp` 直接 `npm publish`，npm 会**交互式提示**输入验证码，比手写更不易出错。
+- 验证码约 30 秒过期，无法通过他人/CI 中转，必须在自己的终端完成。
 - 恢复码属于敏感凭据，**不要提交到仓库或粘贴到公开场合**；如已暴露，去 npmjs.com 重新生成一组。
-- 发布环节统一用原生 `npm publish`，本项目不使用 pnpm，无 `ERR_PNPM_OTP_NON_INTERACTIVE` 问题。
 
 ---
 
@@ -64,18 +72,23 @@ GitHub Actions 通过 OIDC 短期身份直接发布，**无需保存任何 NPM_T
 
 ### 1. 在 npm 配置可信发布者（一次性）
 
-登录 npmjs.com → 打开 `sk-chart` 包的 **Settings** → **Trusted Publisher / 可信发布者** → 选择 **GitHub Actions**，填写：
+登录 npmjs.com → 打开 `sk-chart-duo` 包的 **Settings** → **Trusted Publisher / 可信发布者** → 选择 **GitHub Actions**，填写：
 
 - Organization or user：`KTBOY`
 - Repository：`sk-chart`
 - Workflow filename：`publish-npm.yml`
 - Environment：留空
 
-保存即可。
+保存即可（注意 Repository 填的是 GitHub 仓库名 `sk-chart`，不是包名）。
 
 ### 2. 工作流已就绪
 
 [`.github/workflows/publish-npm.yml`](./.github/workflows/publish-npm.yml) 已配置为 OIDC 发布：`id-token: write` 权限 + 升级 npm 到最新（OIDC 需 npm >= 11.5.1）+ `npm publish`，**无需任何密钥，也无需改动**。
+
+工作流内置两重守卫：
+
+- **tag 与 `package.json` 版本一致性校验**：不一致直接失败，避免打错 tag 发错版本；
+- **版本已存在则跳过发布**：例如首次手动发布过、或工作流重跑，跳过 `npm publish` 只创建 Release，不会报 `EPUBLISHCONFLICT`。
 
 ### 3. 发版
 
@@ -132,13 +145,13 @@ git push --follow-tags
 
 ```powershell
 # 查看线上信息
-npm view sk-chart --registry=https://registry.npmjs.org
+npm view sk-chart-duo --registry=https://registry.npmjs.org
 
 # 在临时目录试装
-npm install sk-chart --registry=https://registry.npmjs.org
+npm install sk-chart-duo --registry=https://registry.npmjs.org
 ```
 
-同时确认 npm 包页面正常：https://www.npmjs.com/package/sk-chart
+同时确认 npm 包页面正常：https://www.npmjs.com/package/sk-chart-duo
 
 ---
 
@@ -149,7 +162,7 @@ npm install sk-chart --registry=https://registry.npmjs.org
 - [ ] 按 SemVer 正确升级了版本号
 - [ ] `npm publish` 成功（或 tag 触发的 OIDC 工作流成功）
 - [ ] `git push --follow-tags` 已推送版本提交与 tag
-- [ ] `npm view sk-chart` 显示新版本
+- [ ] `npm view sk-chart-duo` 显示新版本
 
 ---
 
@@ -157,9 +170,11 @@ npm install sk-chart --registry=https://registry.npmjs.org
 
 | 现象 | 原因 | 解法 |
 | --- | --- | --- |
-| `EOTP` / 发布要求验证码 | 账户开启 2FA | `npm publish --otp=<验证码或恢复码>` |
+| `403 Package name too similar to existing package` | npm 相似度校验（归一化后与既有包同名） | 改名（参考本文开头的「包名说明」），或改用 `@scope/name` |
+| `EOTP` / 发布要求验证码 | 账户开启 2FA | `npm publish --otp=<验证码>`，或在自己终端直接跑让 npm 提示输入 |
+| `is not a legal HTTP header value` | `--otp=` 后面照抄了占位符 | 换成真实的 6 位数字 |
 | `E403` 无权限 / 404 源只读 | registry 指向了镜像源 | 用 `--registry=https://registry.npmjs.org`，或依赖 `publishConfig` |
-| `EPUBLISHCONFLICT` 版本已存在 | 版本号没升 | `npm version patch` 后重发 |
+| `EPUBLISHCONFLICT` 版本已存在 | 版本号没升 | `npm version patch` 后重发；工作流里已有守卫会自动跳过 |
 | CI 发布报 OIDC 相关错误 | npm 版本过低 / Trusted Publisher 未配置 | 工作流已升级 npm；核对 Settings 里的仓库名与工作流文件名 |
 | tag 已存在 | 版本号没升就重复发版 | 升 `package.json` 版本后重来 |
-| 装到旧版本 | 本地走镜像源有缓存 | `npm install sk-chart@latest --registry=https://registry.npmjs.org` |
+| 装到旧版本 | 本地走镜像源有缓存 | `npm install sk-chart-duo@latest --registry=https://registry.npmjs.org` |

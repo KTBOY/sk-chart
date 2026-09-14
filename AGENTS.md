@@ -4,6 +4,8 @@
 
 sk-chart：轻量 SVG 优先图表库。首版提供 **FoldBarChart**（折纸漏斗柱状图），G2Plot 风格 API，零依赖。
 
+> npm 包名为 **`sk-chart-duo`**（`sk-chart` 归一化后与既有包 `skchart` 同名，被 npm 相似度校验拦截），仓库名仍为 `sk-chart`。
+
 ## 目录地图
 
 - `src/core/` — ChartBase 生命周期（泛型事件总线）、SVG 工具（uid 隔离）、基础类型

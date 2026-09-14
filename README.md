@@ -1,7 +1,7 @@
 # sk-chart
 
-[![npm version](https://img.shields.io/npm/v/sk-chart.svg)](https://www.npmjs.com/package/sk-chart)
-[![license](https://img.shields.io/npm/l/sk-chart.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/sk-chart-duo.svg)](https://www.npmjs.com/package/sk-chart-duo)
+[![license](https://img.shields.io/npm/l/sk-chart-duo.svg)](./LICENSE)
 
 A lightweight, SVG-first chart library with handcrafted visual styles.
 
@@ -16,15 +16,17 @@ A lightweight, SVG-first chart library with handcrafted visual styles.
 ## 安装
 
 ```bash
-npm install sk-chart
+npm install sk-chart-duo
 ```
+
+> npm 包名为 `sk-chart-duo`（`sk-chart` 已被 npm 相似度校验判定与既有包 `skchart` 冲突，无法使用），仓库名仍是 `sk-chart`。
 
 或直接引入构建产物（`dist/index.js` ESM / `dist/index.cjs` CJS）。
 
 ## 快速上手
 
 ```ts
-import { FoldBarChart } from 'sk-chart';
+import { FoldBarChart } from 'sk-chart-duo';
 
 const chart = new FoldBarChart('#container', {
   data: [
@@ -87,7 +89,7 @@ SVG 本身透明、不画背景，底色由宿主页面控制（白底卡片或�
 ### 主题预设
 
 ```ts
-import { registerTheme, FoldBarChart } from 'sk-chart';
+import { registerTheme, FoldBarChart } from 'sk-chart-duo';
 
 registerTheme('brand', {
   style: { barGradient: { normal: myStops } }, // 视觉皮肤
