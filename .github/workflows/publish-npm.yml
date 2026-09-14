@@ -1,0 +1,81 @@
+name: Publish to npm
+
+# 通过 npm Trusted Publishing（OIDC）发布 sk-chart —— 无需任何 NPM_TOKEN，自动附带 provenance。
+# 前置条件（一次性）：在 npmjs.com 的 sk-chart 包 Settings → Trusted Publisher 选择 GitHub Actions，填写：
+#   Organization or user: KTBOY
+#   Repository:          sk-chart
+#   Workflow filename:   publish-npm.yml
+#   Environment:         留空
+#
+# 触发：推送 v* tag（如 v0.1.0），发布成功后自动创建 GitHub Release —— 全自动、零手动点击。
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 创建 GitHub Release
+      id-token: write # npm OIDC 可信发布
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+
+      # Trusted Publishing（OIDC）要求 npm >= 11.5.1，runner 自带的是 10.x。
+      - name: Upgrade npm
+        run: npm install --global npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # tag 必须与 package.json 版本一致，避免打错 tag 发出错误版本。
+      - name: Verify tag matches package.json version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(node -p "require('./package.json').version")
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "::error::tag $GITHUB_REF_NAME 与 package.json 版本 ($VERSION) 不一致"
+            exit 1
+          fi
+
+      # 版本已存在于 npm（例如首次手动发布过、或工作流重跑）则跳过发布，避免 EPUBLISHCONFLICT。
+      - name: Check whether version is already published
+        id: check
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "sk-chart@$VERSION" version >/dev/null 2>&1; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "sk-chart@$VERSION 已存在于 npm，跳过发布步骤。"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 无需 NPM_TOKEN：npm 通过 OIDC 使用已配置的 Trusted Publisher 完成鉴权。
+      # prepublishOnly 钩子会自动执行 typecheck + test + build，保证发布产物是最新且验证过的。
+      - name: Publish sk-chart (OIDC Trusted Publishing)
+        if: steps.check.outputs.skip != 'true'
+        run: npm publish --access public
+
+      # npm 发布成功后才创建 GitHub Release；已存在则跳过（支持工作流重跑）。
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+          gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" --generate-notes --verify-tag

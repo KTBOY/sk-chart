@@ -1,5 +1,8 @@
 # sk-chart
 
+[![npm version](https://img.shields.io/npm/v/sk-chart.svg)](https://www.npmjs.com/package/sk-chart)
+[![license](https://img.shields.io/npm/l/sk-chart.svg)](./LICENSE)
+
 A lightweight, SVG-first chart library with handcrafted visual styles.
 
 首版提供 **FoldBarChart**：折纸漏斗柱状图 —— 渐变柱体由"折面"相连，闲置列呈条纹纸感，高亮列浮起 wash 与 tooltip。源自 `payments-fold-chart.html` 效果 3 的组件化实现。
@@ -134,6 +137,17 @@ npm run build     # tsup → ESM/CJS/d.ts
 - **M1**（进行中）：ResizeObserver 真实像素自适应、数据更新过渡动画、主题包；已交付：nice ticks 真刻度 Y 轴、xAxis 配置（顶部类目行 + 底部语义行）、装饰开关 + 中性默认文案、主题包注册（`registerTheme` + 内置 light/dark）
 - **M2**：更多图表类型、框架封装（React/Vue）
 - **M3**：文档站、视觉回归 CI、npm 发布
+
+## 发布（维护者）
+
+本仓库已接入 npm Trusted Publishing（GitHub Actions + OIDC，免 token），完整流程见 [RELEASING.md](./RELEASING.md)。日常发版：
+
+```bash
+npm version patch        # 或 minor / major
+git push --follow-tags   # 推 v* tag → CI 自动发布 npm + 创建 GitHub Release
+```
+
+或直接双击根目录 `release.bat`（本地校验 → 提交推送 → 打 tag 发版一条龙）。
 
 ## License
 

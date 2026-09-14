@@ -21,9 +21,27 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "sideEffects": false,
+  "author": "KTBOY",
+  "homepage": "https://github.com/KTBOY/sk-chart#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KTBOY/sk-chart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KTBOY/sk-chart/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "dev": "vite examples",
     "build": "tsup",
@@ -32,6 +50,7 @@
     "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
     "format": "prettier --write \"src/**/*\" \"tests/**/*\" \"examples/**/*\"",
     "typecheck": "tsc --noEmit",
+    "ci": "npm run typecheck && npm run lint && npm run test && npm run build",
     "prepublishOnly": "npm run typecheck && npm run test && npm run build"
   },
   "keywords": [
@@ -43,10 +62,6 @@
     "funnel"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KTBOY/sk-chart.git"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",

@@ -13,6 +13,8 @@ sk-chart：轻量 SVG 优先图表库。首版提供 **FoldBarChart**（折纸�
 - `tests/` — vitest（jsdom）；`tests/probe-boundary.test.ts` 为边界回归
 - `examples/` — Vite demo（双实例 + 事件日志 + 控制按钮）
 - `payments-fold-chart.html` — 原稿，视觉基准（效果 3 为对照目标）
+- `.github/workflows/` — `ci.yml`（门禁）+ `publish-npm.yml`（OIDC 可信发布 + 自动 Release）
+- `release.bat` / `RELEASING.md` — 一键提交发布助手 / 维护者发布指南
 
 ## 常用命令
 
@@ -22,6 +24,7 @@ npm test           # vitest run
 npm run typecheck  # tsc --noEmit
 npm run lint       # eslint
 npm run build      # tsup → ESM/CJS/d.ts
+npm run ci         # 门禁四连：typecheck + lint + test + build
 ```
 
 ## 验证路线
