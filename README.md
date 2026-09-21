@@ -1,7 +1,7 @@
 # sk-chart
 
 [![npm version](https://img.shields.io/npm/v/sk-chart-duo.svg)](https://www.npmjs.com/package/sk-chart-duo)
-[![license](https://img.shields.io/npm/l/sk-chart-duo.svg)](./LICENSE)
+[![license: GPL-3.0-only](https://img.shields.io/badge/license-GPL--3.0--only-blue.svg)](./LICENSE)
 
 A lightweight, SVG-first chart library with handcrafted visual styles.
 
@@ -153,4 +153,24 @@ git push --follow-tags   # 推 v* tag → CI 自动发布 npm + 创建 GitHub Re
 
 ## License
 
-MIT
+GPL-3.0-only
+
+```
+Copyright (C) 2026 KTBOY
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+```
+
+中文摘要（以 [LICENSE](./LICENSE) 与 [FSF 官方全文](https://www.gnu.org/licenses/gpl-3.0.html) 为准）：
+
+- **可以**：免费使用、研究、修改、再分发，也可以收费交付商用项目。
+- **条件**：只要你分发包含本库的作品（含打包进前端产物后对外发布、交付客户、开源），整体必须以 GPL-3.0-only 授权，提供完整对应源码，保留版权声明，并标注你做过的修改。
+- **不分发就没有义务**：仅自己内部使用、或只在自己的服务器上运行对外提供服务，GPL-3.0 不要求开源（那是 AGPL 才管的场景）。
+- **无担保**：作者不对适用性、无侵权等作任何承诺。
